@@ -68,8 +68,8 @@ ListView {
                     title: "菜 单"
                     style: "ICON_RECT"
                     image: "qrc:/images/note.png"
-                    rectColor: "#4eb3b9"
-                    hotColor: "#d54d34"
+                    backColor: "#4eb3b9"
+                    foreColor: "#d54d34"
                     slotQml: "start.qml"
                 }
             ]

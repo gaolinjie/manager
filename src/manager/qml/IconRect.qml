@@ -5,7 +5,7 @@ Rectangle {
     id: rect
     width: parent.width
     height: parent.height
-    color: rectColor
+    color: backColor
     smooth: true
 
     property string iconSource: ""
@@ -25,8 +25,8 @@ Rectangle {
             rotation.angle = -15;
         }
         onClicked: {
-            Global.rectColor = rectColor
-            Global.hotColor = hotColor
+            Global.backColor = backColor
+            Global.foreColor = foreColor
             Global.title = title
             loadRect(slotQml)
         }

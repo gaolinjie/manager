@@ -7,10 +7,6 @@ Item {
     height: parent.height
     clip: true
 
-    Component.onCompleted: {
-        timer2.running = true
-    }
-
     property string iconSource: ""
     property string iconTitle: ""
 
@@ -18,11 +14,20 @@ Item {
         anchors.fill: parent
         onClicked: {
             Global.cid = cid
-            Global.rectColor = rectColor
-            Global.hotColor = hotColor
+            Global.backColor = backColor
+            Global.foreColor = foreColor
             Global.title = title
             loadRect(slotQml)
         }
+    }
+
+    Rectangle {
+        id: backRect
+        width: parent.width; height: parent.height
+        color: backColor
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        opacity: 0.8
     }
 
     Image {
@@ -35,62 +40,10 @@ Item {
         }
     }
 
-    Image {
-        id: imageNext
-        y: imageNow.height
-        source: image
-        sourceSize.width: parent.width
-        sourceSize.height: parent.height
-        Behavior on y {
-            NumberAnimation { duration: 1000; easing.type: Easing.OutQuint}
-        }
-    }
-
-    Timer {
-        id: timer2
-        interval: refreshManager.getRandom()
-        repeat: true
-        onTriggered: {
-            if (imageNow.y == 0) {
-                imageNext.visible = true
-                imageNow.y = -imageNow.height;
-                imageNext.y = 0
-                timer.running = true
-            }
-            else {
-                imageNow.visible = true
-                imageNext.y = -imageNow.height
-                imageNow.y = 0
-                timer.running = true
-            }
-            timer2.interval = refreshManager.getRandom();
-        }
-    }
-
-    Timer {
-        id: timer
-        interval: 1000
-        onTriggered: {
-            var img = refreshManager.getImageNext(cid);
-            if (img != "") {
-                if (imageNext.y == 0) {
-                    imageNow.visible = false
-                    imageNow.y = imageNow.height
-                    imageNow.source = img
-                }
-                else {
-                    imageNext.visible = false
-                    imageNext.y = imageNow.height
-                    imageNext.source = img
-                }
-            }
-        }
-    }
-
     Rectangle {
         id: titleRect
         width: parent.width; height: 40
-        color: rectColor
+        color: foreColor
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         opacity: 0.8

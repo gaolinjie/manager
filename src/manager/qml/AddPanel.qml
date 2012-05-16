@@ -12,6 +12,21 @@ Item {
         color: "#de9317"
         z: 2
 
+        Image {
+            id: nextButton
+            anchors.left: title.right; anchors.leftMargin: 205
+            anchors.bottom: title.bottom; anchors.bottomMargin: 5
+            sourceSize.width: 36; sourceSize.height: 36
+            source: "qrc:/images/next.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    addPanel.x = 1280
+                }
+            }
+        }
+
         Text {
             id: title
             x: 40; y: 40
@@ -24,8 +39,10 @@ Item {
             id: addList
             anchors.top: title.bottom
             anchors.topMargin: 30
-            visible: false
-            x: 400
+
+            Behavior on x {
+                NumberAnimation { duration: 600; easing.type: Easing.OutQuint}
+            }
         }
 
         Item {
@@ -33,39 +50,57 @@ Item {
             width: 400
             height:700
             anchors.top: addList.top
+            visible: false
+            x: 100
 
-            Rectangle {
-                id: rect
-                width: 44
-                height: 44
-                //anchors.left: parent.left
-                x: 42
-                color: "#96b232"
-                //anchors.verticalCenter: parent.verticalCenter
-                radius: 1
-                Image {
-                    id: itemImage
-                    source: "qrc:/images/search.png"
-                    sourceSize.width: 42
-                    sourceSize.height: 42
-                    anchors.centerIn: parent
-                }
+            property string backColor: ""
+            property string name: ""
+            property string image: ""
+
+            Behavior on x {
+                NumberAnimation { duration: 600; easing.type: Easing.OutQuint}
             }
 
-            Text {
-                id: nameText
-                text: "搜 索"
-                anchors.left: rect.right; anchors.leftMargin: 20
-                anchors.top: rect.top
-                font.pixelSize: 20
-                color: "white"
+            Rectangle {
+                id: wraper
+                width: 324; height: 60
+                color: "#d54d34"
+                x: 40
+                opacity: 0.8
+                smooth: true
+
+                Rectangle {
+                    id: rect
+                    width: 44
+                    height: 44
+                    x: 12
+                    color: editRect.backColor
+                    anchors.verticalCenter: parent.verticalCenter
+                    radius: 1
+                    Image {
+                        id: itemImage
+                        source: editRect.image
+                        sourceSize.width: 42
+                        sourceSize.height: 42
+                        anchors.centerIn: parent
+                    }
+                }
+
+                Text {
+                    id: nameText
+                    text: editRect.name
+                    anchors.left: rect.right; anchors.leftMargin: 20
+                    anchors.top: rect.top
+                    font.pixelSize: 30
+                    color: "white"
+                }
             }
 
             Text {
                 id: nameTitle
                 text: "菜单名称:"
-                anchors.left: rect.left
-                anchors.top: rect.bottom; anchors.topMargin: 40
+                anchors.left: wraper.left
+                anchors.top: wraper.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
                 color: "white"
             }
@@ -76,12 +111,13 @@ Item {
                 color: "#de9317"
                 border.color: "white"//"#d54d34"
                 border.width: 2
-                anchors.left: rect.left
+                anchors.left: wraper.left
                 anchors.top: nameTitle.bottom; anchors.topMargin: 15
                 clip: true
 
 
                 TextEdit {
+                    id: nameTextEdit
                     width: 300
                     text: ""
                     font.pixelSize: 20
@@ -95,52 +131,124 @@ Item {
             Text {
                 id: backTitle
                 text: "背景颜色:"
-                anchors.left: rect.left
+                anchors.left: wraper.left
                 anchors.top: nameEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
                 color: "white"
             }
 
-            Rectangle {
+            ColorPicker {
                 id: backEdit
                 width: 320; height: 36
                 color: "#de9317"
-                border.color: "white"//"#d54d34"
-                border.width: 2
-                anchors.left: rect.left
+                anchors.left: wraper.left
                 anchors.top: backTitle.bottom; anchors.topMargin: 15
-                clip: true
+                z: 2
             }
 
             Text {
                 id: foreTitle
                 text: "前景颜色:"
-                anchors.left: rect.left
+                anchors.left: wraper.left
                 anchors.top: backEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
                 color: "white"
             }
 
-            Rectangle {
+            ColorPicker {
                 id: foreEdit
                 width: 320; height: 36
                 color: "#de9317"
-                border.color: "white"//"#d54d34"
-                border.width: 2
-                anchors.left: rect.left
+                anchors.left: wraper.left
                 anchors.top: foreTitle.bottom; anchors.topMargin: 15
-                clip: true
+                z: 1
             }
 
-            ColorPicker {
-                id: colorPicker
-                anchors.top: foreEdit.bottom; anchors.topMargin: 9
-                anchors.left: rect.left
+            Rectangle {
+                id: okButton
+                anchors.left: wraper.left; anchors.leftMargin: 10
+                anchors.bottom: parent.bottom; anchors.bottomMargin: 70
+                width: 140; height: 27
+                color: "#de9317"
+                border.color: "white"
+                border.width: 2
+
+                Text {
+                    text: "确 定"
+                    anchors.centerIn: parent
+                    color: "white"
+                    font.pixelSize: 16
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: {
+                        okButton.color = "#d54d34"
+                    }
+                    onClicked: {
+                        if (nameTextEdit.text == "" || backEdit.color == foreEdit.color) {
+
+                        }
+                        else {
+                            var index = startView.model.count + 1;
+                            startView.model.insert(startView.model.count - 1,{"cid": index, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            addPanel.x = 1280;
+                            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+                            db.transaction(
+                                function(tx) {
+                                    tx.executeSql('CREATE TABLE IF NOT EXISTS startModel(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
+                                            tx.executeSql('INSERT INTO startModel VALUES(?,?,?,?,?,?,?)', [index, nameTextEdit.text, "", "IMAGE_RECT", "", backEdit.color, foreEdit.color]);
+                                }
+                            )
+                            clearEdit();
+                        }
+                    }
+                    onReleased: {
+                        okButton.color = "#de9317"
+                    }
+                }
             }
 
+            Rectangle {
+                id: cancelButton
+                anchors.left: okButton.right; anchors.leftMargin: 20
+                anchors.bottom: okButton.bottom
+                width: 140; height: 27
+                color: "#de9317"
+                border.color: "white"
+                border.width: 2
 
+                Text {
+                    text: "取 消"
+                    anchors.centerIn: parent
+                    color: "white"
+                    font.pixelSize: 16
+                }
 
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: {
+                        cancelButton.color = "#d54d34"
+                    }
+                    onClicked: {
+                        editRect.visible = false;
+                        editRect.x = 100;
+                        addList.visible = true;
+                        addList.x = 0;
+                        clearEdit();
+                    }
+                    onReleased: {
+                        cancelButton.color = "#de9317"
+                    }
+                }
+            }
         }
+    }
+
+    function clearEdit() {
+        nameTextEdit.text = '';
+        backEdit.color = "#de9317";
+        foreEdit.color = "#de9317";
     }
 
     BorderImage {

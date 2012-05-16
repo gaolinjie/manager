@@ -31,7 +31,7 @@ ListView {
                 width: 44
                 height: 44
                 anchors.left: parent.left
-                color: rectColor
+                color: backColor
                 anchors.verticalCenter: parent.verticalCenter
                 radius: 1
                 Image {
@@ -75,8 +75,15 @@ ListView {
                 onReleased: {
                     addList.hightOpacity = 0.4;
                 }
-
-
+                onClicked: {
+                    addList.visible = false;
+                    addList.x = 100;
+                    editRect.visible = true;
+                    editRect.x = 0;
+                    editRect.name = name;
+                    editRect.backColor = backColor;
+                    editRect.image = image;
+                }
             }
         }
     }
@@ -87,21 +94,21 @@ ListView {
         ListElement {
             name: "菜 单"
             image: "qrc:/images/POI.png"
-            rectColor: "#d54d34"
+            backColor: "#d54d34"
             detail: "将同类菜品置于该组件中方便用户浏览"
         }
 
         ListElement {
             name: "搜 索"
             image: "qrc:/images/search.png"
-            rectColor: "#96b232"
+            backColor: "#96b232"
             detail: "该组建为用户提供全局搜素功能"
         }
 
         ListElement {
             name: "喜 欢"
             image: "qrc:/images/favs.png"
-            rectColor: "#FF0097"
+            backColor: "#FF0097"
             detail: "用户可以添加自己喜欢的菜式到该组件"
         }
     }

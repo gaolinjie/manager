@@ -21,7 +21,7 @@ Item {
             rotation.angle = -15;
         }
         onClicked: {
-            loadRect(slotQml)
+            addPanel.x = 880
         }
         onReleased: {
             rotation.angle = 0;

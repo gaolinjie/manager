@@ -13,6 +13,20 @@ Item {
         source: "qrc:/images/background.png"
     }
 
+    Image {
+        id: backButton
+        anchors.right: startText.left; anchors.rightMargin: 20
+        anchors.bottom: startText.bottom; anchors.bottomMargin: 7
+        source: "qrc:/images/back.png"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                loadRect("qrc:/qml/manager.qml")
+            }
+        }
+    }
+
     Text {
         id: startText
         x: 130; y: 70
@@ -34,7 +48,7 @@ Item {
         id: timer
         interval: 1000; running: false; repeat: true
         onTriggered: {
-            startText.x = 90
+            startText.x = 100
             startText.opacity = 1
         }
     }
@@ -52,13 +66,15 @@ Item {
 
         Component.onCompleted: {
             timer.running = true
-            startView.x = 30
+            startView.x = 100
         }
     }
 
     AddPanel {
         id: addPanel
-        x: parent.width - addPanel.width
-        y: 0
+        x: parent.width//parent.width - addPanel.width
+        Behavior on x {
+            NumberAnimation { duration: 600; easing.type: Easing.OutQuint}
+        }
     }
 }

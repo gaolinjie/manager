@@ -9,8 +9,6 @@
         <file>images/note.png</file>
         <file>images/background.png</file>
         <file>qml/start.qml</file>
-        <file>qml/StartDelegate.qml</file>
-        <file>qml/StartModel.qml</file>
         <file>images/add.png</file>
         <file>qml/AddRect.qml</file>
         <file>images/pattern.png</file>
@@ -25,5 +23,8 @@
         <file>images/sett-big.png</file>
         <file>qml/ColorPicker.qml</file>
         <file>images/triangle.png</file>
+        <file>images/menu_image.png</file>
+        <file>images/back.png</file>
+        <file>images/next.png</file>
     </qresource>
 </RCC>

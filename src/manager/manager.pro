@@ -15,8 +15,6 @@ OTHER_FILES += \
     js/global.js \
     images/note.png \
     images/background.png \
-    qml/StartModel.qml \
-    qml/StartDelegate.qml \
     qml/start.qml \
     images/add.png \
     qml/AddRect.qml \
@@ -31,7 +29,10 @@ OTHER_FILES += \
     images/POI.png \
     images/favs.png \
     qml/ColorPicker.qml \
-    images/triangle.png
+    images/triangle.png \
+    images/menu_image.png \
+    images/next.png \
+    images/back.png
 
 RESOURCES += \
     resource.qrc
