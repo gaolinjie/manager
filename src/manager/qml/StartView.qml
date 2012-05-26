@@ -2,63 +2,79 @@
 import QtQuick 1.1
 
 GridView {
-    id: startView
-    width: 1000; height: 480
+    id: grid
+    width: (grid.count/3+1)*grid.cellWidth; height: 480
     cellWidth: 310
     cellHeight: 160
-    model: startModel
-    delegate: startDelegate
-    cacheBuffer: 1000
+    model: StartModel{ id: rects }
+    delegate: StartDelegate{}
     smooth: true
     flow: GridView.TopToBottom
+    interactive: false
+    signal clickedRect(int rectId)
+    signal pressAndHoldRect(int rectId)
+    property int checkedIndex: -1
 
-
-
-    Component {
-        id: startDelegate
-        Item {
-            id: wraper
-            width: 300; height: 150
-
-            Component.onCompleted: {
-                var component;
-                if (style == "IMAGE_RECT") {
-                    component = Qt.createComponent("ImageRect.qml");
-                    component.createObject(wraper, {"iconSource": image, "iconTitle": title});
-
+    MouseArea {
+        property int currentId: -1                       // Original position in model
+        property int newIndex                            // Current Position in model
+        property int index: grid.indexAt(mouseX, mouseY) // Item underneath cursor
+        property int offset: -1
+        id: loc
+        anchors.fill: parent
+        onClicked: {
+            clickedRect(index)
+        }
+        onPressAndHold: {
+            if (flick.interactive == true) {
+                flick.interactive = false;
+            }
+            currentId = rects.get(newIndex = index).cid;
+            grid.checkedIndex = currentId;
+            pressAndHoldRect(currentId);
+            bottomBar.y = 700;
+        }
+        onReleased: {
+            currentId = -1
+            flick.interactive = true
+        }
+        onMousePositionChanged: {
+            if (loc.currentId != -1 && index != -1 && index != newIndex)
+                rects.move(newIndex, newIndex = index, 1)
+            if (offset < 0) {
+                var n = 0;
+                while (n*grid.cellWidth < flick.width) {
+                    n++;
                 }
-                else if (style == "ICON_RECT") {
-                    component = Qt.createComponent("IconRect.qml");
-                    component.createObject(wraper, {"iconSource": image, "iconTitle": title});
+                offset = n*grid.cellWidth - flick.width;
+            }
+
+            var cols;
+            if (grid.count%3 == 0) {
+                cols = grid.count/3;
+            }
+            else {
+                cols = grid.count/3 + 1;
+            }
+            if (mouseX < flick.contentX) {
+                if (flick.contentX > grid.cellWidth + offset) {
+                    flick.contentX = ((flick.contentX - offset)/grid.cellWidth - 1) * grid.cellWidth
                 }
                 else {
-                    component = Qt.createComponent("AddRect.qml");
-                    component.createObject(wraper);
+                    flick.contentX = 0
                 }
             }
-        }
-    }
-
-    ListModel {
-        id: startModel
-        Component.onCompleted: loadItemsData()
-        function loadItemsData() {
-            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
-            db.transaction(
-                function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS startModel(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
-                    var rs = tx.executeSql('SELECT * FROM startModel');
-                    var index = 0;
-                    if (rs.rows.length > 0) {
-                        while (index < rs.rows.length) {
-                            var item = rs.rows.item(index);
-                            startModel.append({"cid": item.cid, "title": item.title, "image": item.image, "style": item.style, "slotQml": item.slotQml, "backColor": item.backColor, "foreColor": item.foreColor});
-                            index++;
-                        }
-                    }
-                    startModel.append({"cid": 1, "title": "", "image": "qrc:/images/add.png", "style": "ADD_RECT", "slotQml": "manager.qml", "backColor": "", "foreColor": ""});
+            else if (mouseX > flick.contentX + flick.width) {
+                if (flick.contentX <= 0) {
+                    flick.contentX = offset
                 }
-            )
+                else if (flick.contentX > cols*grid.cellWidth-flick.width - grid.cellWidth) {
+                    flick.contentX = cols*grid.cellWidth-flick.width + grid.cellWidth
+                }
+                else {
+                    flick.contentX = ((flick.contentX - offset)/grid.cellWidth + 1) * grid.cellWidth + offset
+                }
+            }
         }
     }
 }

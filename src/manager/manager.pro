@@ -32,7 +32,15 @@ OTHER_FILES += \
     images/triangle.png \
     images/menu_image.png \
     images/next.png \
-    images/back.png
+    images/back.png \
+    qml/StartDelegate.qml \
+    qml/StartModel.qml \
+    images/cancel.png \
+    images/edit.png \
+    images/down.png \
+    images/delete.png \
+    images/check.png \
+    images/checkrect.png
 
 RESOURCES += \
     resource.qrc

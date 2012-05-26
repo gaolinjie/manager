@@ -26,5 +26,13 @@
         <file>images/menu_image.png</file>
         <file>images/back.png</file>
         <file>images/next.png</file>
+        <file>qml/StartDelegate.qml</file>
+        <file>qml/StartModel.qml</file>
+        <file>images/cancel.png</file>
+        <file>images/delete.png</file>
+        <file>images/down.png</file>
+        <file>images/edit.png</file>
+        <file>images/check.png</file>
+        <file>images/checkrect.png</file>
     </qresource>
 </RCC>

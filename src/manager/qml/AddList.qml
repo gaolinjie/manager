@@ -76,13 +76,10 @@ ListView {
                     addList.hightOpacity = 0.4;
                 }
                 onClicked: {
-                    addList.visible = false;
-                    addList.x = 100;
-                    editRect.visible = true;
-                    editRect.x = 0;
                     editRect.name = name;
                     editRect.backColor = backColor;
                     editRect.image = image;
+                    addPanel.state = "edit";
                 }
             }
         }
@@ -94,7 +91,7 @@ ListView {
         ListElement {
             name: "菜 单"
             image: "qrc:/images/POI.png"
-            backColor: "#d54d34"
+            backColor: "#4eb3b9"
             detail: "将同类菜品置于该组件中方便用户浏览"
         }
 

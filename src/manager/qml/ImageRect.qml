@@ -1,33 +1,33 @@
 import QtQuick 1.0
 import "../js/global.js" as Global
 
-Item {
+Rectangle {
     id: rect
-    width: parent.width
-    height: parent.height
+    x: wraper.x + 5; y: wraper.y + 5
+    width: wraper.width - 10; height: wraper.height - 10;
+    parent: loc
     clip: true
+    color: backColor
+    smooth: true
 
-    property string iconSource: ""
-    property string iconTitle: ""
-
-    MouseArea{
-        anchors.fill: parent
-        onClicked: {
-            Global.cid = cid
-            Global.backColor = backColor
-            Global.foreColor = foreColor
-            Global.title = title
-            loadRect(slotQml)
+    Connections{
+        target: grid
+        onClickedRect: {
+            if (rectId == cid) {
+            }
         }
-    }
-
-    Rectangle {
-        id: backRect
-        width: parent.width; height: parent.height
-        color: backColor
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        opacity: 0.8
+        onPressAndHoldRect: {
+            if (rectId == cid) {
+                addPanel.x = 1280;
+                checkRect.visible = true;
+                Global.checkedBackColor = backColor;
+                Global.checkedForeColor = foreColor;
+                Global.checkedTitle = title;
+            }
+            else {
+                checkRect.visible = false;
+            }
+        }
     }
 
     Image {
@@ -35,10 +35,12 @@ Item {
         source: image
         sourceSize.width: parent.width
         sourceSize.height: parent.height
+        smooth: true
         Behavior on y {
             NumberAnimation { duration: 1000; easing.type: Easing.OutQuint}
         }
     }
+
 
     Rectangle {
         id: titleRect
@@ -46,15 +48,44 @@ Item {
         color: foreColor
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        opacity: 0.8
+        smooth: true
     }
 
     Text {
         id: text
         x: 40
         anchors.verticalCenter: titleRect.verticalCenter
-        text: parent.iconTitle
+        text: title
         font.pixelSize: 20
         color: "white"
+        smooth: true
     }
+
+    Image {
+        id: checkRect
+        source: "qrc:/images/checkrect.png"
+        sourceSize.width: parent.width
+        sourceSize.height: parent.height
+        visible: false
+        smooth: true
+
+        Image {
+            id: checkIcon
+            source: "qrc:/images/check.png"
+            sourceSize.width: 32
+            sourceSize.height: 32
+            anchors.top: parent.top
+            anchors.right: parent.right
+            smooth: true
+        }
+    }
+
+    Behavior on x { enabled: rect.state != "active"; NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
+    Behavior on y { enabled: rect.state != "active"; NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
+
+    states: State {
+        name: "active"; when: loc.currentId == cid
+        PropertyChanges { target: rect; x: loc.mouseX - width/2; y: loc.mouseY - height/2; scale: 0.7; z: 10 }
+    }
+    transitions: Transition { NumberAnimation { property: "scale"; duration: 200} }
 }

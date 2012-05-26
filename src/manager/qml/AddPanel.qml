@@ -1,9 +1,28 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import "../js/global.js" as Global
 
 Item {
+    id: addPanel
     width: 400
     height: 800
+    property string rectTitle: ""
+    property string rectBackColor: editRect.backColor
+    property string rectFroeColor: editRect.backColor
+
+    states: [
+        State {
+            name: "view"
+            PropertyChanges { target: addList; visible: true; x: 0 }
+            PropertyChanges { target: editRect; visible: false; x: 100 }
+        },
+
+        State {
+            name: "edit"
+            PropertyChanges { target: addList; visible: false; x: 100 }
+            PropertyChanges { target: editRect; visible: true; x: 0}
+        }
+    ]
 
     Rectangle {
         id: panel
@@ -119,7 +138,7 @@ Item {
                 TextEdit {
                     id: nameTextEdit
                     width: 300
-                    text: ""
+                    text: addPanel.rectTitle
                     font.pixelSize: 20
                     color: "white"
                     focus: true
@@ -140,7 +159,7 @@ Item {
             ColorPicker {
                 id: backEdit
                 width: 320; height: 36
-                color: "#de9317"
+                color: addPanel.rectBackColor//"#de9317"
                 anchors.left: wraper.left
                 anchors.top: backTitle.bottom; anchors.topMargin: 15
                 z: 2
@@ -158,7 +177,7 @@ Item {
             ColorPicker {
                 id: foreEdit
                 width: 320; height: 36
-                color: "#de9317"
+                color: addPanel.rectFroeColor//"#de9317"
                 anchors.left: wraper.left
                 anchors.top: foreTitle.bottom; anchors.topMargin: 15
                 z: 1
@@ -190,16 +209,9 @@ Item {
 
                         }
                         else {
-                            var index = startView.model.count + 1;
-                            startView.model.insert(startView.model.count - 1,{"cid": index, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            var index = grid.model.count - 1;
+                            grid.model.insert(index, {"cid": index, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
                             addPanel.x = 1280;
-                            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
-                            db.transaction(
-                                function(tx) {
-                                    tx.executeSql('CREATE TABLE IF NOT EXISTS startModel(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
-                                            tx.executeSql('INSERT INTO startModel VALUES(?,?,?,?,?,?,?)', [index, nameTextEdit.text, "", "IMAGE_RECT", "", backEdit.color, foreEdit.color]);
-                                }
-                            )
                             clearEdit();
                         }
                     }
@@ -230,12 +242,13 @@ Item {
                     onPressed: {
                         cancelButton.color = "#d54d34"
                     }
-                    onClicked: {
+                    onClicked: {/*
                         editRect.visible = false;
                         editRect.x = 100;
                         addList.visible = true;
-                        addList.x = 0;
+                        addList.x = 0;*/
                         clearEdit();
+                        addPanel.state = "view"
                     }
                     onReleased: {
                         cancelButton.color = "#de9317"
