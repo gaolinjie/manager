@@ -6,15 +6,29 @@ Item {
     id: addPanel
     width: 400
     height: 800
-    property string rectTitle: ""
-    property string rectBackColor: editRect.backColor
-    property string rectFroeColor: editRect.backColor
+    property int rectCid: -1
+
+    Connections{
+        target: start
+        onClearEdit: {
+            clearEdit();
+        }
+        onRefreshEdit: {
+            refreshEdit();
+        }
+    }
 
     states: [
         State {
             name: "view"
             PropertyChanges { target: addList; visible: true; x: 0 }
             PropertyChanges { target: editRect; visible: false; x: 100 }
+        },
+
+        State {
+            name: "new"
+            PropertyChanges { target: addList; visible: false; x: 100 }
+            PropertyChanges { target: editRect; visible: true; x: 0}
         },
 
         State {
@@ -159,7 +173,7 @@ Item {
             ColorPicker {
                 id: backEdit
                 width: 320; height: 36
-                color: addPanel.rectBackColor//"#de9317"
+                color: "#de9317"
                 anchors.left: wraper.left
                 anchors.top: backTitle.bottom; anchors.topMargin: 15
                 z: 2
@@ -177,7 +191,7 @@ Item {
             ColorPicker {
                 id: foreEdit
                 width: 320; height: 36
-                color: addPanel.rectFroeColor//"#de9317"
+                color: "#de9317"
                 anchors.left: wraper.left
                 anchors.top: foreTitle.bottom; anchors.topMargin: 15
                 z: 1
@@ -209,8 +223,29 @@ Item {
 
                         }
                         else {
-                            var index = grid.model.count - 1;
-                            grid.model.insert(index, {"cid": index, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            if (addPanel.state == "new") {
+                                var index = grid.model.count - 1;
+                                var maxcid = -1;
+                                if (grid.model.count > 1) {
+                                    maxcid = grid.model.get(index-1).cid + 1;
+                                }
+                                else {
+                                    maxcid = 0;
+                                }
+                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/manager.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            }
+                            else if (addPanel.state == "edit") {
+                                var index = 0;
+                                while (index < grid.model.count) {
+                                    if (grid.model.get(index).cid == addPanel.rectCid) {
+                                        grid.model.get(index).title = nameTextEdit.text;
+                                        grid.model.get(index).backColor = backEdit.color;
+                                        grid.model.get(index).foreColor = foreEdit.color;
+                                        break;
+                                    }
+                                    index++;
+                                }
+                            }
                             addPanel.x = 1280;
                             clearEdit();
                         }
@@ -242,11 +277,7 @@ Item {
                     onPressed: {
                         cancelButton.color = "#d54d34"
                     }
-                    onClicked: {/*
-                        editRect.visible = false;
-                        editRect.x = 100;
-                        addList.visible = true;
-                        addList.x = 0;*/
+                    onClicked: {
                         clearEdit();
                         addPanel.state = "view"
                     }
@@ -262,6 +293,12 @@ Item {
         nameTextEdit.text = '';
         backEdit.color = "#de9317";
         foreEdit.color = "#de9317";
+    }
+
+    function refreshEdit() {
+        nameTextEdit.text = Global.checkedTitle;
+        backEdit.color = Global.checkedBackColor;
+        foreEdit.color = Global.checkedForeColor;
     }
 
     BorderImage {

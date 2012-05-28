@@ -14,6 +14,7 @@ Rectangle {
         target: grid
         onClickedRect: {
             if (rectId == cid) {
+                loadRect(slotQml);
             }
         }
         onPressAndHoldRect: {
@@ -23,6 +24,7 @@ Rectangle {
                 Global.checkedBackColor = backColor;
                 Global.checkedForeColor = foreColor;
                 Global.checkedTitle = title;
+                Global.checkedCid = cid;
             }
             else {
                 checkRect.visible = false;

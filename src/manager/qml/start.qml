@@ -7,6 +7,8 @@ Item {
     clip: true
 
     signal loadRect(string qmlFile)
+    signal clearEdit()
+    signal refreshEdit()
 
     Image {
         id: background
@@ -54,8 +56,6 @@ Item {
         }
     }
 
-
-
     Flickable {
          id: flick
          width: 1180; height: 480
@@ -87,6 +87,7 @@ Item {
         color: "#086db8"
         y: 800
 
+
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint }
         }
@@ -110,9 +111,8 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    addPanel.rectTitle = Global.checkedTitle;
-                    addPanel.rectBackColor = Global.checkedBackColor;
-                    addPanel.rectFroeColor = Global.checkedForeColor;
+                    addPanel.rectCid = Global.checkedCid;
+                    refreshEdit();
                     addPanel.state = "edit";
                     addPanel.x = 880;
                 }
@@ -139,7 +139,6 @@ Item {
                 onClicked: {
                     var index = 0;
                     while (index < grid.model.count) {
-                        grid.model.get(index).cid = index;
                         if (grid.checkedIndex == grid.model.get(index).cid) {
                             grid.model.remove(index);
                             break;
@@ -149,6 +148,7 @@ Item {
 
                     bottomBar.y = 800;
                     addPanel.x = 1280;
+                    clearEdit();
                 }
             }
         }
@@ -157,7 +157,7 @@ Item {
             id: downButton
             source: "qrc:/images/down.png"
             anchors.top: deleteButton.top
-            anchors.left: deleteButton.right; anchors.leftMargin: 80
+            anchors.left: deleteButton.right; anchors.leftMargin: 80          
 
             Text {
                 id: downTitle
@@ -171,9 +171,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    grid.pressAndHoldRect(-1);
+                    grid.pressAndHoldRect(-1);                   
                     bottomBar.y = 800;
                     addPanel.x = 1280;
+                    clearEdit();
                 }
             }
         }

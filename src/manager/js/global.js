@@ -9,3 +9,4 @@ var seatType = 3
 var checkedBackColor = ""
 var checkedForeColor = ""
 var checkedTitle = ""
+var checkedCid = -1
