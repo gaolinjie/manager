@@ -6,6 +6,7 @@ Item {
     id: addPanel
     width: 400
     height: 800
+    property int rectCid: -1
     property string rectTitle: ""
     property string rectBackColor: editRect.backColor
     property string rectFroeColor: editRect.backColor
@@ -15,6 +16,12 @@ Item {
             name: "view"
             PropertyChanges { target: addList; visible: true; x: 0 }
             PropertyChanges { target: editRect; visible: false; x: 100 }
+        },
+
+        State {
+            name: "new"
+            PropertyChanges { target: addList; visible: false; x: 100 }
+            PropertyChanges { target: editRect; visible: true; x: 0}
         },
 
         State {
@@ -209,8 +216,23 @@ Item {
 
                         }
                         else {
-                            var index = grid.model.count - 1;
-                            grid.model.insert(index, {"cid": index, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            if (addPanel.state == "new") {
+                                var index = grid.model.count - 1;
+                                var maxcid = grid.model.get(index-1).cid + 1;
+                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                            }
+                            else if (addPanel.state == "edit") {
+                                var index = 0;
+                                while (index < grid.model.count) {
+                                    if (grid.model.get(index).cid == addPanel.rectCid) {
+                                        grid.model.get(index).title = nameTextEdit.text;
+                                        grid.model.get(index).backColor = backEdit.color;
+                                        grid.model.get(index).foreColor = foreEdit.color;
+                                        break;
+                                    }
+                                    index++;
+                                }
+                            }
                             addPanel.x = 1280;
                             clearEdit();
                         }

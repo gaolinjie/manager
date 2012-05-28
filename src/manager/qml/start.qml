@@ -110,6 +110,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    addPanel.rectCid = Global.checkedCid;
                     addPanel.rectTitle = Global.checkedTitle;
                     addPanel.rectBackColor = Global.checkedBackColor;
                     addPanel.rectFroeColor = Global.checkedForeColor;
@@ -139,7 +140,6 @@ Item {
                 onClicked: {
                     var index = 0;
                     while (index < grid.model.count) {
-                        grid.model.get(index).cid = index;
                         if (grid.checkedIndex == grid.model.get(index).cid) {
                             grid.model.remove(index);
                             break;

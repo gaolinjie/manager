@@ -79,7 +79,7 @@ ListView {
                     editRect.name = name;
                     editRect.backColor = backColor;
                     editRect.image = image;
-                    addPanel.state = "edit";
+                    addPanel.state = "new";
                 }
             }
         }
