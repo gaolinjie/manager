@@ -7,6 +7,7 @@ Item {
     width: 400
     height: 800
     property int rectCid: -1
+<<<<<<< HEAD
 
     Connections{
         target: start
@@ -17,6 +18,11 @@ Item {
             refreshEdit();
         }
     }
+=======
+    property string rectTitle: ""
+    property string rectBackColor: editRect.backColor
+    property string rectFroeColor: editRect.backColor
+>>>>>>> 056703b5dc6f6de5032c3610280c1ab111f24e9e
 
     states: [
         State {
@@ -225,6 +231,7 @@ Item {
                         else {
                             if (addPanel.state == "new") {
                                 var index = grid.model.count - 1;
+<<<<<<< HEAD
                                 var maxcid = -1;
                                 if (grid.model.count > 1) {
                                     maxcid = grid.model.get(index-1).cid + 1;
@@ -233,6 +240,10 @@ Item {
                                     maxcid = 0;
                                 }
                                 grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/manager.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+=======
+                                var maxcid = grid.model.get(index-1).cid + 1;
+                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "", "backColor": backEdit.color, "foreColor": foreEdit.color});
+>>>>>>> 056703b5dc6f6de5032c3610280c1ab111f24e9e
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;
