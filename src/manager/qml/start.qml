@@ -112,13 +112,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     addPanel.rectCid = Global.checkedCid;
-<<<<<<< HEAD
                     refreshEdit();
-=======
-                    addPanel.rectTitle = Global.checkedTitle;
-                    addPanel.rectBackColor = Global.checkedBackColor;
-                    addPanel.rectFroeColor = Global.checkedForeColor;
->>>>>>> 056703b5dc6f6de5032c3610280c1ab111f24e9e
                     addPanel.state = "edit";
                     addPanel.x = 880;
                 }
