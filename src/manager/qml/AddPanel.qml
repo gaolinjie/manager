@@ -23,18 +23,21 @@ Item {
             name: "view"
             PropertyChanges { target: addList; visible: true; x: 0 }
             PropertyChanges { target: editRect; visible: false; x: 100 }
+            PropertyChanges { target: title; text: "新 建" }
         },
 
         State {
             name: "new"
             PropertyChanges { target: addList; visible: false; x: 100 }
             PropertyChanges { target: editRect; visible: true; x: 0}
+            PropertyChanges { target: title; text: "新 建" }
         },
 
         State {
             name: "edit"
             PropertyChanges { target: addList; visible: false; x: 100 }
             PropertyChanges { target: editRect; visible: true; x: 0}
+            PropertyChanges { target: title; text: "编 辑" }
         }
     ]
 
@@ -152,7 +155,7 @@ Item {
                 TextEdit {
                     id: nameTextEdit
                     width: 300
-                    text: addPanel.rectTitle
+                    text: ""
                     font.pixelSize: 20
                     color: "white"
                     focus: true
@@ -232,7 +235,7 @@ Item {
                                 else {
                                     maxcid = 0;
                                 }
-                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/manager.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;

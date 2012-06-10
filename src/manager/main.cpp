@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QtSql>
 #include <QDebug>
+#include "imagemanager.h"
 
 int main(int argc, char *argv[])
 { 
@@ -23,6 +24,9 @@ int main(int argc, char *argv[])
 
     view.setSource(QUrl("qrc:/qml/main.qml"));
     view.show();
+
+    ImageManager imageManager;
+    view.rootContext()->setContextProperty("imageManager", &imageManager);
 
     QString md5;
     QString dbname="DemoDB";

@@ -10,3 +10,11 @@ var checkedBackColor = ""
 var checkedForeColor = ""
 var checkedTitle = ""
 var checkedCid = -1
+var checkedIid = -1
+
+var mouseHolding = 0
+
+var checkedName = "";
+var checkedPrice = "";
+var checkedDetail = "";
+var checkedImage = "";

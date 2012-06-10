@@ -82,35 +82,35 @@ Rectangle {
                 id: colorModel
                 ListElement {
                     name: "yellow"
-                    backColor: "#FABE28"
+                    backColor: "#de9317"
                 }
                 ListElement {
                     name: "bright-yellow"
-                    backColor: "#FFFF33"
+                    backColor: "#d54d34"
                 }
                 ListElement {
                     name: "blue"
-                    backColor: "#63D3FF"
+                    backColor: "#5859b9"
                 }
                 ListElement {
                     name: "cyan"
-                    backColor: "#00FFFF"
+                    backColor: "#96b232"
                 }
                 ListElement {
                     name: "red"
-                    backColor: "#FF4E50"
+                    backColor: "#4eb3b9"
                 }
                 ListElement {
                     name: "green"
-                    backColor: "#00C176"
+                    backColor: "#034888"
                 }
                 ListElement {
                     name: "pink"
-                    backColor: "#FF0066"
+                    backColor: "#6e155f"
                 }
                 ListElement {
                     name: "light-pink"
-                    backColor: "#FF3D7F"
+                    backColor: "#ff0097"
                 }
                 ListElement {
                     name: "orange"

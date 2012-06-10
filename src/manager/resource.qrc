@@ -34,5 +34,18 @@
         <file>images/edit.png</file>
         <file>images/check.png</file>
         <file>images/checkrect.png</file>
+        <file>qml/ItemsView.qml</file>
+        <file>qml/ItemDelegate.qml</file>
+        <file>qml/ItemRect.qml</file>
+        <file>qml/ItemGrid.qml</file>
+        <file>qml/ItemModel.qml</file>
+        <file>images/BerryPie.png</file>
+        <file>qml/AddItemPanel.qml</file>
+        <file>qml/ImageManager.qml</file>
+        <file>qml/ImageManagerDelegate.qml</file>
+        <file>qml/ImageManagerModel.qml</file>
+        <file>images/checkrect2.png</file>
+        <file>images/camera.png</file>
+        <file>qml/ImageGrid.qml</file>
     </qresource>
 </RCC>

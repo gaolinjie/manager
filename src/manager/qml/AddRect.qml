@@ -15,17 +15,6 @@ Item {
         axis { x: 1; y: 0; z: 0 }
         angle: 0
     }
-/*
-    Connections{
-        target: grid
-        onClickedRect: {
-            if (rectId == cid) {
-                addPanel.state = "view"
-                addPanel.x = 880
-
-            }
-        }
-    }*/
 
     MouseArea{
         anchors.fill: parent
@@ -34,6 +23,7 @@ Item {
         }
         onClicked: {
             addPanel.state = "view"
+            addPanel.visible = true;
             addPanel.x = 880
             grid.pressAndHoldRect(-1);
             bottomBar.y = 800

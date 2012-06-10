@@ -4,7 +4,8 @@ QT += network
 QT += sql
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    imagemanager.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -40,7 +41,23 @@ OTHER_FILES += \
     images/down.png \
     images/delete.png \
     images/check.png \
-    images/checkrect.png
+    images/checkrect.png \
+    qml/ItemsView.qml \
+    qml/ItemDelegate.qml \
+    qml/ItemRect.qml \
+    images/BerryPie.png \
+    qml/ItemGrid.qml \
+    qml/ItemModel.qml \
+    qml/AddItemPanel.qml \
+    qml/ImageManager.qml \
+    qml/ImageManagerModel.qml \
+    qml/ImageManagerDelegate.qml \
+    images/checkrect2.png \
+    images/camera.png \
+    qml/ImageGrid.qml
 
 RESOURCES += \
     resource.qrc
+
+HEADERS += \
+    imagemanager.h

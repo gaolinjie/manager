@@ -4,11 +4,11 @@ import "../js/global.js" as Global
 
 GridView {
     id: grid
-    width: (grid.count/3+1)*grid.cellWidth; height: 480
+    width: (grid.count/3+1)*grid.cellWidth; height: 384
     cellWidth: 310
-    cellHeight: 160
-    model: StartModel{ id: rects }
-    delegate: StartDelegate{}
+    cellHeight: 192
+    model: ItemModel{ id: rects }
+    delegate: ItemDelegate{}
     smooth: true
     flow: GridView.TopToBottom
     interactive: false
@@ -28,13 +28,15 @@ GridView {
             clickedRect(index)
         }
         onPressAndHold: {
+            console.log("dddd")
             Global.mouseHolding = 1;
             if (flick.interactive == true) {
                 flick.interactive = false;
             }
-            currentId = rects.get(newIndex = index).cid;
+            currentId = rects.get(newIndex = index).iid;
             grid.checkedIndex = currentId;
             pressAndHoldRect(currentId);
+            bottomBar.visible = true;
             bottomBar.y = 700;
         }
         onReleased: {
