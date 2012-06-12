@@ -34,6 +34,16 @@ ListModel {
                 tx.executeSql('DELETE FROM itemModel WHERE cid = ? ', [Global.cid]);
                 var rs = tx.executeSql('SELECT * FROM itemModel');
                 var index = 0;
+                if (rs.rows.length > 0) {
+                    while (index < rs.rows.length) {
+                        var item = rs.rows.item(index);
+                        tx.executeSql('UPDATE itemModel SET iid = ? WHERE iid = ?', [index, item.iid]);
+                        index++;
+                    }
+                }
+
+                rs = tx.executeSql('SELECT * FROM itemModel');
+                index = 0;
                 while (index < itemModel.count && itemModel.get(index).style != "ADD_RECT") {
                     itemModel.get(index).iid = index + rs.rows.length;
                     var item = itemModel.get(index);

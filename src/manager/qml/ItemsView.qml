@@ -173,7 +173,7 @@ Item {
                     onClicked: {
                         var index = 0;
                         while (index < grid.model.count) {
-                            if (grid.checkedIndex == grid.model.get(index).cid) {
+                            if (grid.checkedIndex == grid.model.get(index).iid) {
                                 grid.model.remove(index);
                                 break;
                             }
