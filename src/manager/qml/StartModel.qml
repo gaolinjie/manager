@@ -10,11 +10,16 @@ ListModel {
         db.transaction(
             function(tx) {
                 tx.executeSql('CREATE TABLE IF NOT EXISTS startModel(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS itemModel(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL)');
                 var rs = tx.executeSql('SELECT * FROM startModel');
                 var index = 0;
                 if (rs.rows.length > 0) {
                     while (index < rs.rows.length) {
                         var item = rs.rows.item(index);
+                        var rss = tx.executeSql('SELECT * FROM itemModel where cid = ?', [item.cid]);
+                        if (rss.rows.length > 0) {
+                            item.image = rss.rows.item(0).image;
+                        }
                         startModel.append({"cid": item.cid, "title": item.title, "image": item.image, "style": item.style, "slotQml": item.slotQml, "backColor": item.backColor, "foreColor": item.foreColor});
                         index++;
                     }

@@ -47,5 +47,17 @@
         <file>images/checkrect2.png</file>
         <file>images/camera.png</file>
         <file>qml/ImageGrid.qml</file>
+        <file>images/address_book.png</file>
+        <file>images/chart.png</file>
+        <file>images/dollar_currency_sign.png</file>
+        <file>images/map_pin.png</file>
+        <file>images/print.png</file>
+        <file>images/process.png</file>
+        <file>images/users.png</file>
+        <file>images/yen_currency_sign.png</file>
+        <file>qml/SeatView.qml</file>
+        <file>qml/SeatCategory.qml</file>
+        <file>qml/SeatGrid.qml</file>
+        <file>images/label.png</file>
     </qresource>
 </RCC>

@@ -65,10 +65,68 @@ ListView {
             segment: 0
             column: [
                 ListElement {
+                    title: "收 银"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/dollar_currency_sign.png"
+                    backColor: "#4eb3b9"
+                    foreColor: "#d54d34"
+                    slotQml: "start.qml"
+                },
+                ListElement {
                     title: "菜 单"
                     style: "ICON_RECT"
-                    image: "qrc:/images/note.png"
-                    backColor: "#4eb3b9"
+                    image: "qrc:/images/address_book.png"
+                    backColor: "#de9317"
+                    foreColor: "#d54d34"
+                    slotQml: "start.qml"
+                },
+                ListElement {
+                    title: "座 位"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/map_pin.png"
+                    backColor: "#d54d34"
+                    foreColor: "#d54d34"
+                    slotQml: "SeatView.qml"
+                }
+            ]
+        }
+        ListElement {
+            segment: 0
+            column: [
+                ListElement {
+                    title: "打 印"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/print.png"
+                    backColor: "#5859b9"
+                    foreColor: "#d54d34"
+                    slotQml: "start.qml"
+                },
+                ListElement {
+                    title: "会 员"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/users.png"
+                    backColor: "#96b232"
+                    foreColor: "#d54d34"
+                    slotQml: "start.qml"
+                },
+                ListElement {
+                    title: "统 计"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/chart.png"
+                    backColor: "#6e155f"
+                    foreColor: "#d54d34"
+                    slotQml: "start.qml"
+                }
+            ]
+        }
+        ListElement {
+            segment: 0
+            column: [
+                ListElement {
+                    title: "设 置"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/process.png"
+                    backColor: "#034888"
                     foreColor: "#d54d34"
                     slotQml: "start.qml"
                 }

@@ -54,7 +54,19 @@ OTHER_FILES += \
     qml/ImageManagerDelegate.qml \
     images/checkrect2.png \
     images/camera.png \
-    qml/ImageGrid.qml
+    qml/ImageGrid.qml \
+    images/yen_currency_sign.png \
+    images/users.png \
+    images/process.png \
+    images/print.png \
+    images/map_pin.png \
+    images/dollar_currency_sign.png \
+    images/chart.png \
+    images/address_book.png \
+    qml/SeatView.qml \
+    qml/SeatCategory.qml \
+    qml/SeatGrid.qml \
+    images/label.png
 
 RESOURCES += \
     resource.qrc
