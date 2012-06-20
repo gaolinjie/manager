@@ -20,7 +20,7 @@ ListModel {
                         index++;
                     }
                 }
-                itemModel.append({"iid": index, "cid": 0, "tag": "", "name": "", "image": "qrc:/images/add.png", "detail": "", "price": 0, "style": "ADD_RECT"});
+                itemModel.append({"iid": index, "cid": 0, "tag": "", "name": "", "image": "qrc:/images/add_rect.png", "detail": "", "price": 0, "style": "ADD_RECT"});
             }
         )
     }

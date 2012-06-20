@@ -59,5 +59,20 @@
         <file>qml/SeatCategory.qml</file>
         <file>qml/SeatGrid.qml</file>
         <file>images/label.png</file>
+        <file>qml/PrinterView.qml</file>
+        <file>images/store.png</file>
+        <file>qml/comingsoon.qml</file>
+        <file>qml/PrinterGrid.qml</file>
+        <file>images/minus.png</file>
+        <file>qml/PrinterDetail.qml</file>
+        <file>qml/Tag.qml</file>
+        <file>images/tag_back.png</file>
+        <file>images/tag_front.png</file>
+        <file>images/tag_mid.png</file>
+        <file>images/background1.png</file>
+        <file>images/tag.png</file>
+        <file>images/tag_add.png</file>
+        <file>images/add_rect.png</file>
+        <file>qml/AddPrinterDialog.qml</file>
     </qresource>
 </RCC>

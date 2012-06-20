@@ -24,7 +24,7 @@ ListModel {
                         index++;
                     }
                 }
-                startModel.append({"cid": index, "title": "", "image": "qrc:/images/add.png", "style": "ADD_RECT", "slotQml": "manager.qml", "backColor": "", "foreColor": ""});
+                startModel.append({"cid": index, "title": "", "image": "qrc:/images/add_rect.png", "style": "ADD_RECT", "slotQml": "manager.qml", "backColor": "", "foreColor": ""});
             }
         )
     }

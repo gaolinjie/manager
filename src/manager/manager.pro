@@ -17,7 +17,6 @@ OTHER_FILES += \
     images/note.png \
     images/background.png \
     qml/start.qml \
-    images/add.png \
     qml/AddRect.qml \
     images/pattern.png \
     images/wood.png \
@@ -66,7 +65,23 @@ OTHER_FILES += \
     qml/SeatView.qml \
     qml/SeatCategory.qml \
     qml/SeatGrid.qml \
-    images/label.png
+    images/label.png \
+    qml/PrinterView.qml \
+    qml/comingsoon.qml \
+    images/store.png \
+    qml/PrinterGrid.qml \
+    images/minus.png \
+    qml/PrinterDetail.qml \
+    qml/Tag.qml \
+    images/tag_mid.png \
+    images/tag_front.png \
+    images/tag_back.png \
+    images/background1.png \
+    images/tag.png \
+    images/tag_add.png \
+    images/add_rect.png \
+    images/add.png \
+    qml/AddPrinterDialog.qml
 
 RESOURCES += \
     resource.qrc

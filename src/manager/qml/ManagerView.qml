@@ -70,7 +70,7 @@ ListView {
                     image: "qrc:/images/dollar_currency_sign.png"
                     backColor: "#4eb3b9"
                     foreColor: "#d54d34"
-                    slotQml: "start.qml"
+                    slotQml: "comingsoon.qml"
                 },
                 ListElement {
                     title: "菜 单"
@@ -99,7 +99,7 @@ ListView {
                     image: "qrc:/images/print.png"
                     backColor: "#5859b9"
                     foreColor: "#d54d34"
-                    slotQml: "start.qml"
+                    slotQml: "PrinterView.qml"
                 },
                 ListElement {
                     title: "会 员"
@@ -107,7 +107,7 @@ ListView {
                     image: "qrc:/images/users.png"
                     backColor: "#96b232"
                     foreColor: "#d54d34"
-                    slotQml: "start.qml"
+                    slotQml: "comingsoon.qml"
                 },
                 ListElement {
                     title: "统 计"
@@ -115,7 +115,7 @@ ListView {
                     image: "qrc:/images/chart.png"
                     backColor: "#6e155f"
                     foreColor: "#d54d34"
-                    slotQml: "start.qml"
+                    slotQml: "comingsoon.qml"
                 }
             ]
         }
@@ -128,7 +128,7 @@ ListView {
                     image: "qrc:/images/process.png"
                     backColor: "#034888"
                     foreColor: "#d54d34"
-                    slotQml: "start.qml"
+                    slotQml: "comingsoon.qml"
                 }
             ]
         }
