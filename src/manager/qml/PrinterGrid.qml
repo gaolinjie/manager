@@ -11,21 +11,55 @@ GridView {
     width: 1000
     height: 470
     flow: GridView.TopToBottom
+    interactive: false
 
     Component {
         id: printerDelegate
 
-        Rectangle {
+        Item {
              width: 320; height: 60
-             color: active == 1 ? "#7B3349" : "#A3A5A0"
 
-             Text {
-                 id: nameText
-                 text: name
-                 anchors.left: parent.left; anchors.leftMargin: 30
-                 anchors.top: parent.top; anchors.topMargin: 10
-                 color: active == 1 ? "white" : "black"
-                 font.pixelSize: 18
+             Rectangle {
+                 id: nameRect
+                 width: 320 - parent.height; height: 60
+                 color: active == 1 ? "#7B3349" : "#A3A5A0"
+
+                 Text {
+                     id: nameText
+                     text: name
+                     anchors.left: parent.left; anchors.leftMargin: 30
+                     anchors.top: parent.top; anchors.topMargin: 10
+                     color: active == 1 ? "white" : "black"
+                     font.pixelSize: 18
+                 }
+
+                 Text {
+                     id: addText
+                     text: "点击右边按钮添加打印机"
+                     anchors.left: parent.left; anchors.leftMargin: 30
+                     anchors.verticalCenter: parent.verticalCenter
+                     color: active == 1 ? "white" : "black"
+                     font.pixelSize: 18
+                     visible: addButton.visible
+                 }
+
+                 MouseArea {
+                     anchors.fill: parent
+                     onClicked: {
+                         if (addText.visible) {
+                         }
+                         else {
+                             for (var i = 0; i < printerGrid.model.count; i++) {
+                                 if (printerGrid.model.get(i).pid == pid) {
+                                     printerGrid.model.setProperty(i, "active", 1);
+                                 }
+                                 else {
+                                     printerGrid.model.setProperty(i, "active", 0);
+                                 }
+                             }
+                         }
+                     }
+                 }
              }
 
              Rectangle {
@@ -47,7 +81,15 @@ GridView {
                              var index = 0;
                              while (index < printerGrid.model.count) {
                                  if (pid == printerGrid.model.get(index).pid) {
-                                     printerGrid.model.remove(index);
+                                     if (printerGrid.model.get(index).active == 1) {
+                                         printerGrid.model.remove(index);
+                                         printerGrid.model.get(0).active = 1;
+                                         printerDetailLoader.source = "";
+                                         printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
+                                     }
+                                     else {
+                                         printerGrid.model.remove(index);
+                                     }
                                      break;
                                  }
                                  index++;
@@ -73,38 +115,13 @@ GridView {
                      }
                  }
              }
-
-             Text {
-                 id: addText
-                 text: "点击右边按钮添加打印机"
-                 anchors.left: parent.left; anchors.leftMargin: 30
-                 anchors.verticalCenter: parent.verticalCenter
-                 color: active == 1 ? "white" : "black"
-                 font.pixelSize: 18
-                 visible: addButton.visible
-             }
-/*
-             MouseArea {
-                 anchors.fill: parent
-
-                 onClicked: {
-                     for (var i = 0; i < printerGrid.model.count; i++) {
-                         if (printerGrid.model.get(i).pid == pid) {
-                             printerGrid.model.setProperty(i, "active", 1);
-                         }
-                         else {
-                             printerGrid.model.setProperty(i, "active", 0);
-                         }
-                     }
-                 }
-             }*/
         }
     }
 
     ListModel {
         id: printerModel
         Component.onCompleted: loadItemsData()
-        //Component.onDestruction: saveItemsData()
+        Component.onDestruction: saveItemsData()
         function loadItemsData() {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
@@ -123,34 +140,6 @@ GridView {
                         }
                     }
                     else {
-                        printerModel.append({"pid": 0,
-                                          "name": "前台打印机",
-                                          "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 1,
-                                          "name": "厨房打印机 002 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 2,
-                                          "name": "厨房打印机 003 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 3,
-                                          "name": "厨房打印机 004 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 4,
-                                          "name": "厨房打印机 005 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 5,
-                                          "name": "厨房打印机 006 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
-                        printerModel.append({"pid": 6,
-                                          "name": "厨房打印机 007 号",
-                                             "active": 0,
-                                                "style": "PRINTER_RECT"});
                     }
                     printerModel.append({"pid": index, "name": "", "active": 0, "style": "ADD_RECT"});
                 }

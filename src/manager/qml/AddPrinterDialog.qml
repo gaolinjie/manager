@@ -89,15 +89,21 @@ Rectangle {
                 }
                 else {
                     var index = printerGrid.model.count - 1;
-                    var maxcid = -1;
+                    var maxpid = -1;
                     if (printerGrid.model.count > 1) {
-                        maxcid = printerGrid.model.get(index-1).cid + 1;
+                        maxpid = printerGrid.model.get(index-1).pid + 1;
                     }
                     else {
-                        maxcid = 0;
+                        maxpid = 0;
                     }
-                    printerGrid.model.insert(index, {"pid": maxcid, "name": nameTextEdit.text, "active": 0, "style": "PRINTER_RECT"});
+                    for (var i = 0; i < printerGrid.model.count; i++) {
+                        printerGrid.model.setProperty(i, "active", 0);
+                    }
+                    printerGrid.model.insert(index, {"pid": maxpid, "name": nameTextEdit.text, "active": 1, "style": "PRINTER_RECT"});
+                    printerDetailLoader.source = "";
+                    printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
                 }
+                nameTextEdit.text = "";
 
             }
             onReleased: {
@@ -130,6 +136,7 @@ Rectangle {
             onClicked: {
                 dialog.y = 800;
                 foreground.visible = false;
+                nameTextEdit.text = "";
             }
             onReleased: {
                 cancelButton.color = "#7B3349"

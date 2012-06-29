@@ -74,5 +74,7 @@
         <file>images/tag_add.png</file>
         <file>images/add_rect.png</file>
         <file>qml/AddPrinterDialog.qml</file>
+        <file>qml/CategoryTagGrid.qml</file>
+        <file>qml/CategoryListView.qml</file>
     </qresource>
 </RCC>

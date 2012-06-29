@@ -18,3 +18,5 @@ var checkedName = "";
 var checkedPrice = "";
 var checkedDetail = "";
 var checkedImage = "";
+
+var selectedPrinter = 0;

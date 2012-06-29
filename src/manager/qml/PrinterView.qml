@@ -86,20 +86,11 @@ Item {
             anchors.top: printerDesciption.bottom; anchors.topMargin: 40
         }
 
-        Text {
-            id: printerDetailTitle
-            anchors.left: printerTitle.left; anchors.leftMargin: 727
-            anchors.top: printerTitle.top
-            text: "打印机配置详情"
-            font.pixelSize: 30
-            color: "black"
-        }
-
         Loader{
             id: printerDetailLoader
-            source: "qrc:/qml/PrinterDetail.qml"
-            anchors.left: printerDetailTitle.left;
-            anchors.top: printerDetailTitle.bottom; anchors.topMargin: 30
+            source: printerGrid.model.count > 1 ? "qrc:/qml/PrinterDetail.qml" : ""
+            anchors.left: printerTitle.left; anchors.leftMargin: 727
+            anchors.top: printerTitle.top
         }
 
         Rectangle {

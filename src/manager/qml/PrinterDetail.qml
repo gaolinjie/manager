@@ -2,13 +2,32 @@
 import QtQuick 1.1
 
 Item {
+    id: pinterDetail
     width: 300
     height: 600
+    x: 100
+
+    Component.onCompleted: {
+        pinterDetail.x = 0;
+    }
+
+    Behavior on x {
+        NumberAnimation { duration: 500; easing.type: Easing.OutQuint}
+    }
+
+    Text {
+        id: printerDetailTitle
+        anchors.left: parent.left
+        anchors.top: parent.top
+        text: "打印机配置详情"
+        font.pixelSize: 30
+        color: "black"
+    }
 
     Text {
         id: choosePrinterTitle
-        anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.left: printerDetailTitle.left
+        anchors.top: printerDetailTitle.bottom; anchors.topMargin: 30
         text: "选择网络中的打印机"
         font.pixelSize: 20
         color: "black"
@@ -33,27 +52,6 @@ Item {
         color: "black"
     }
 
-    Tag {
-        id: tag
-        name: "特色"
-        anchors.left: chooseCategoryTitle.left
-        anchors.top: chooseCategoryTitle.bottom; anchors.topMargin: 20
-    }
-
-    Tag {
-        id: tag2
-        name: "炒菜"
-        anchors.left: tag.right; anchors.leftMargin: 4
-        anchors.top: tag.top
-    }
-
-    Image {
-        id: addTag
-        source: "qrc:/images/tag_add.png"
-        anchors.left: tag2.right; anchors.leftMargin: 4
-        anchors.top: tag.top
-    }
-
     Text {
         id: chooseItemTitle
         anchors.left: chooseCategoryTitle.left
@@ -62,4 +60,10 @@ Item {
         font.pixelSize: 20
         color: "black"
     }
+
+    CategoryTagGrid {
+        id: categoryTagGrid
+        anchors.left: chooseCategoryTitle.left
+        anchors.top: chooseCategoryTitle.bottom; anchors.topMargin: 20
+    }  
 }
