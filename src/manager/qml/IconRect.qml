@@ -50,6 +50,8 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text: parent.iconTitle
         font.pixelSize: 30
+        font.family: "微软雅黑"
         color: "white"
+        smooth: true
     }
 }

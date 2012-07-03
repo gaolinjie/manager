@@ -76,5 +76,6 @@
         <file>qml/AddPrinterDialog.qml</file>
         <file>qml/CategoryTagGrid.qml</file>
         <file>qml/CategoryListView.qml</file>
+        <file>images/refresh.png</file>
     </qresource>
 </RCC>

@@ -129,6 +129,14 @@ ListView {
                     backColor: "#034888"
                     foreColor: "#d54d34"
                     slotQml: "comingsoon.qml"
+                },
+                ListElement {
+                    title: "同 步"
+                    style: "ICON_RECT"
+                    image: "qrc:/images/refresh.png"
+                    backColor: "#9061C2"
+                    foreColor: "#CCFF00"
+                    slotQml: "comingsoon.qml"
                 }
             ]
         }

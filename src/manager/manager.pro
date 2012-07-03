@@ -83,7 +83,8 @@ OTHER_FILES += \
     images/add.png \
     qml/AddPrinterDialog.qml \
     qml/CategoryTagGrid.qml \
-    qml/CategoryListView.qml
+    qml/CategoryListView.qml \
+    images/refresh.png
 
 RESOURCES += \
     resource.qrc
