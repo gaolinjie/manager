@@ -80,5 +80,6 @@
         <file>qml/SyncView.qml</file>
         <file>images/animated_loader.gif</file>
         <file>qml/BusyIndicator.qml</file>
+        <file>images/refresh-warning.png</file>
     </qresource>
 </RCC>

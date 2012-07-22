@@ -133,7 +133,7 @@ ListView {
                 ListElement {
                     title: "同 步"
                     style: "ICON_RECT"
-                    image: "qrc:/images/refresh.png"
+                    image: "qrc:/images/refresh-warning.png"
                     backColor: "#9061C2"
                     foreColor: "#CCFF00"
                     slotQml: "SyncView.qml"

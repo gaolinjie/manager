@@ -56,88 +56,31 @@ Item {
         }
 
         Rectangle {
-            id: syncMenuRect
+            id: syncAllRect
             width: 400; height: 100
             color: "#de9317"
             anchors.left: viewTitle.left; anchors.leftMargin: 5
             anchors.top: viewTitle.bottom; anchors.topMargin: 100
 
-            Text {
-                id: syncMenuText
-                anchors.centerIn: parent
-                font.pixelSize: 30
-                color: "white"
-                text: "同步菜单数据"
-                font.family: "微软雅黑"
-                smooth: true
+            Image {
+                id: syncAllImage
+                source: "qrc:/images/refresh.png"
+                sourceSize.width: 64
+                sourceSize.height: 64
+                anchors.verticalCenter: parent.verticalCenter
+                x: 50
             }
-
-            MouseArea {
-                anchors.fill: parent
-                onPressed: {
-                    syncMenuRect.color = "#d54d34"
-                }
-                onClicked: {
-                    foreground.visible = true;
-                    dialog.visible = true;
-                    dialog.y = 275;
-                    dialogContent.text = "同 步 菜 单 数 据";
-                }
-                onReleased: {
-                    syncMenuRect.color = "#de9317"
-                }
-            }
-        }
-
-
-        Rectangle {
-            id: syncSeatRect
-            width: 400; height: 100
-            color: "#de9317"
-            anchors.left: syncMenuRect.left
-            anchors.top: syncMenuRect.bottom; anchors.topMargin: 40
-
-            Text {
-                id: syncSeatText
-                anchors.centerIn: parent
-                font.pixelSize: 30
-                color: "white"
-                text: "同步座位数据"
-                font.family: "微软雅黑"
-                smooth: true
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onPressed: {
-                    syncSeatRect.color = "#d54d34"
-                }
-                onClicked: {
-                    foreground.visible = true;
-                    dialog.visible = true;
-                    dialog.y = 275;
-                    dialogContent.text = "同步座位数据";
-                }
-                onReleased: {
-                    syncSeatRect.color = "#de9317"
-                }
-            }
-        }
-
-        Rectangle {
-            id: syncAllRect
-            width: 400; height: 100
-            color: "#de9317"
-            anchors.left: syncSeatRect.left
-            anchors.top: syncSeatRect.bottom; anchors.topMargin: 40
 
             Text {
                 id: syncAllText
-                anchors.centerIn: parent
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: syncAllImage.right
+                anchors.leftMargin: 20
                 font.pixelSize: 30
                 color: "white"
                 text: "同步所有数据"
                 font.family: "微软雅黑"
+                font.letterSpacing: 2
                 smooth: true
             }
 

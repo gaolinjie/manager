@@ -91,7 +91,8 @@ OTHER_FILES += \
     images/refresh.png \
     qml/SyncView.qml \
     images/animated_loader.gif \
-    qml/BusyIndicator.qml
+    qml/BusyIndicator.qml \
+    images/refresh-warning.png
 
 RESOURCES += \
     resource.qrc
