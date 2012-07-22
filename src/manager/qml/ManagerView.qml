@@ -136,7 +136,7 @@ ListView {
                     image: "qrc:/images/refresh.png"
                     backColor: "#9061C2"
                     foreColor: "#CCFF00"
-                    slotQml: "comingsoon.qml"
+                    slotQml: "SyncView.qml"
                 }
             ]
         }

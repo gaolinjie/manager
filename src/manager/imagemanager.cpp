@@ -1,4 +1,5 @@
 #include "imagemanager.h"
+#include <QDebug>
 
 ImageManager::ImageManager(QObject *parent) :
     QObject(parent)
@@ -9,7 +10,8 @@ void ImageManager::construct()
 {
     QStringList filters;
     filters << "*.png";
-    mImageDir.setPath(QDir::homePath()+"/Pictures/manager");
+    //mImageDir.setPath(QDir::homePath()+"/Pictures/manager"); // Linux
+    mImageDir.setPath("C:/Users/gao/pics"); // Windows
     mImageDir.setNameFilters(filters);
     mImageList = mImageDir.entryList ();
 }
@@ -34,7 +36,7 @@ QString ImageManager::getImage(quint16 index)
         return "";
     }
     else {
-        return "file://" + mImageDir.path() + "/" + mImageList.at(index);
+        return "file:///" + mImageDir.path() + "/" + mImageList.at(index);
     }
 }
 

@@ -5,7 +5,11 @@ QT += sql
 
 SOURCES += \
     main.cpp \
-    imagemanager.cpp
+    imagemanager.cpp \
+    client.cpp \
+    server.cpp \
+    clientsocket.cpp \
+    syncmanager.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -84,10 +88,17 @@ OTHER_FILES += \
     qml/AddPrinterDialog.qml \
     qml/CategoryTagGrid.qml \
     qml/CategoryListView.qml \
-    images/refresh.png
+    images/refresh.png \
+    qml/SyncView.qml \
+    images/animated_loader.gif \
+    qml/BusyIndicator.qml
 
 RESOURCES += \
     resource.qrc
 
 HEADERS += \
-    imagemanager.h
+    imagemanager.h \
+    client.h \
+    server.h \
+    clientsocket.h \
+    syncmanager.h

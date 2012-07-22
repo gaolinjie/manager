@@ -6,6 +6,7 @@
 #include <QtSql>
 #include <QDebug>
 #include "imagemanager.h"
+#include "client.h"
 
 int main(int argc, char *argv[])
 { 
@@ -43,6 +44,9 @@ int main(int argc, char *argv[])
         std::cerr << "Cannot open database" << std::endl;
         return 1;
     }
+
+    Client client;
+    view.rootContext()->setContextProperty("client", &client);
 
     return a.exec();
 }

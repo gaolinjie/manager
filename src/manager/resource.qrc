@@ -77,5 +77,8 @@
         <file>qml/CategoryTagGrid.qml</file>
         <file>qml/CategoryListView.qml</file>
         <file>images/refresh.png</file>
+        <file>qml/SyncView.qml</file>
+        <file>images/animated_loader.gif</file>
+        <file>qml/BusyIndicator.qml</file>
     </qresource>
 </RCC>
