@@ -70,7 +70,7 @@ ListView {
                     image: "qrc:/images/dollar_currency_sign.png"
                     backColor: "#4eb3b9"
                     foreColor: "#d54d34"
-                    slotQml: "comingsoon.qml"
+                    slotQml: "cashier.qml"
                 },
                 ListElement {
                     title: "菜 单"

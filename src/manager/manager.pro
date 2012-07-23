@@ -9,7 +9,12 @@ SOURCES += \
     client.cpp \
     server.cpp \
     clientsocket.cpp \
-    syncmanager.cpp
+    syncmanager.cpp \
+    devicemanager.cpp \
+    digitalclock.cpp \
+    ordermanager.cpp \
+    ordersave.cpp \
+    printer.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -92,7 +97,35 @@ OTHER_FILES += \
     qml/SyncView.qml \
     images/animated_loader.gif \
     qml/BusyIndicator.qml \
-    images/refresh-warning.png
+    images/refresh-warning.png \
+    qml/AddMenuGrid.qml \
+    qml/Button.qml \
+    qml/Button1.qml \
+    qml/Digitalclk.qml \
+    qml/Display.qml \
+    qml/Display2.qml \
+    qml/ItemsList.qml \
+    qml/KeyBoard.qml \
+    qml/login.qml \
+    qml/OrderDialog.qml \
+    qml/OrderDialogRect.qml \
+    qml/OrdersList.qml \
+    qml/SumCategoryList.qml \
+    qml/cashier.qml \
+    js/calculator.js \
+    images/stripes.png \
+    images/next2.png \
+    images/minus2.png \
+    images/logo.png \
+    images/left-Yellow.png \
+    images/left-Green.png \
+    images/display.png \
+    images/button-red.png \
+    images/button-purple.png \
+    images/button-green.png \
+    images/button-blue.png \
+    images/button-.png \
+    images/background2.png
 
 RESOURCES += \
     resource.qrc
@@ -102,4 +135,9 @@ HEADERS += \
     client.h \
     server.h \
     clientsocket.h \
-    syncmanager.h
+    syncmanager.h \
+    devicemanager.h \
+    digitalclock.h \
+    ordermanager.h \
+    ordersave.h \
+    printer.h

@@ -15,6 +15,8 @@ public:
     
 public slots:
     void syncMenu(const QString &ip);
+    void sendPaiedOrder(quint32 orderNO);
+    void sendDeviceNO(quint32 deviceNO);
 
 private slots:
     void sendData();
@@ -32,6 +34,7 @@ private:
     quint16 mImageIndex;
     QStringList mImageList;
     QDir mImageDir;
+    bool mIsSyncing;
 };
 
 #endif // CLIENT_H
