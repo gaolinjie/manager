@@ -10,15 +10,15 @@ Item {
 
     Loader {
         id: mainLoader
-        source: "qrc:/qml/manager.qml"
+        source: "qrc:/qml/ManagerView.qml"
         anchors.centerIn: parent
     }
 
     Connections{
         target: mainLoader.item
-        onLoadStart: {mainLoader.source = "qrc:/qml/manager.qml"}
+        onLoadStart: {mainLoader.source = "qrc:/qml/ManagerView.qml"}
         onLoadRect: {mainLoader.source = qmlFile}
-        onLoadLogin: {mainLoader.source = "qrc:/qml/login.qml"}
-        onLoadCashier: {mainLoader.source = "qrc:/qml/cashier.qml"}
+        onLoadLogin: {mainLoader.source = "qrc:/qml/LoginView.qml"}
+        onLoadCashier: {mainLoader.source = "qrc:/qml/CashierView.qml"}
     }
 }

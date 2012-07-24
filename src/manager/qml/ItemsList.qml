@@ -161,9 +161,9 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE orderItems');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItems(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT,printname TEXT,printbool INTEGER,cookbool INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ?', [Global.orderNO]);
+                    //tx.executeSql('DROP TABLE orderItemDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT,printname TEXT,printbool INTEGER,cookbool INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ?', [Global.orderNO]);
                     var index = 0;
                    // if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
@@ -188,12 +188,12 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('DROP TABLE orderItems');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItems(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT, printname TEXT, printbool INTEGER, cookbool INTEGER)');
+                    tx.executeSql('DROP TABLE orderItemDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT, printname TEXT, printbool INTEGER, cookbool INTEGER)');
                     var index = 0;
                     while (index < itemsModel.count) {
                         var item = itemsModel.get(index);
-                        tx.executeSql('INSERT INTO orderItems VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.name, item.price, item.num,item.type,item.printname,item.printbool,item.cookbool]);
+                        tx.executeSql('INSERT INTO orderItemDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.name, item.price, item.num,item.type,item.printname,item.printbool,item.cookbool]);
                         index++;
                     }
                 }
@@ -221,7 +221,7 @@ ListView {
 
                 db.transaction(
                     function(tx) {
-                            tx.executeSql('INSERT INTO orderItems VALUES(?,?,?,?,?,?,?,?)', [Global.orderNO,fname, fprice, 1,ftype,fprintname,fprintbool,fcookbool]);
+                            tx.executeSql('INSERT INTO orderItemDB VALUES(?,?,?,?,?,?,?,?)', [Global.orderNO,fname, fprice, 1,ftype,fprintname,fprintbool,fcookbool]);
                         }
                   )
             }
@@ -231,7 +231,7 @@ ListView {
                 itemsModel.setProperty(index,"num",itemnum);
                 db.transaction(
                     function(tx) {
-                            tx.executeSql('UPDATE orderItems SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,item.cookbool]);
+                            tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,item.cookbool]);
                         }
                   )
             }
@@ -251,7 +251,7 @@ ListView {
                 //saveItemsData();
                 db.transaction(
                     function(tx) {
-                            tx.executeSql('DELETE FROM orderItems WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,itemname,itemcookbool]);////删除语句似乎不能直接用item.name,不知道为什么，需要用中间变量过渡
+                            tx.executeSql('DELETE FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,itemname,itemcookbool]);////删除语句似乎不能直接用item.name,不知道为什么，需要用中间变量过渡
                             }
                   )
                 if (Global.gitemIndex == itemsModel.count) Global.gitemIndex--;
@@ -263,7 +263,7 @@ ListView {
                     function(tx) {
                              //console.log(Global.orderNO);
                              //console.log(itemnum);
-                            tx.executeSql('UPDATE orderItems SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,itemname,itemcookbool]);
+                            tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,itemname,itemcookbool]);
                             //console.log(Global.orderNO);
                             //console.log(itemnum);
                         }
@@ -283,7 +283,7 @@ ListView {
             //console.log(itemnum)
             db.transaction(
                 function(tx) {
-                        tx.executeSql('UPDATE orderItems SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,item.cookbool]);
+                        tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,item.cookbool]);
                          //    console.log(Global.orderNO)
                          //   console.log(item.name)
                     }
@@ -294,17 +294,17 @@ ListView {
              var  item = itemsModel.get(Global.gitemIndex);
             db.transaction(
                 function(tx) {
-                var rs = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
+                var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
                 if (rs.rows.length > 0){
                      var item1=rs.rows.item(0);
                      var itemnum = item1.num;
                      itemnum++;
-                     tx.executeSql('UPDATE orderItems SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,0]);
+                     tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,0]);
               }
              else {
-                  tx.executeSql('INSERT INTO orderItems VALUES(?,?,?,?,?,?,?,?)', [Global.orderNO,item.name, item.price, 1,item.type,item.printname,item.printbool,0]);
+                  tx.executeSql('INSERT INTO orderItemDB VALUES(?,?,?,?,?,?,?,?)', [Global.orderNO,item.name, item.price, 1,item.type,item.printname,item.printbool,0]);
               }
-              var rs2 = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ?', [Global.orderNO]);
+              var rs2 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ?', [Global.orderNO]);
               var index = 0;
               while (index < rs2.rows.length){
                        var item1=rs2.rows.item(index);
@@ -331,26 +331,26 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
            db.transaction(
                function(tx) {
-               var rs = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,1]);
+               var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,1]);
                var index = 0;
                while  (index< rs.rows.length){
                     var item=rs.rows.item(index);
                     var  itemnum1 = parseInt(item.num);
-                    var rs1 = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
+                    var rs1 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
                     if (rs1.rows.length >0){
                         var item1 = rs1.rows.item(0);
                         var  itemnum2 = parseInt(item1.num);
                         var itemnum = itemnum1 + itemnum2;
-                        tx.executeSql('UPDATE orderItems SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,1]);
-                        tx.executeSql('DELETE FROM orderItems WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
+                        tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,1]);
+                        tx.executeSql('DELETE FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
                     }
                     index++;
              }
-             var rs2 = tx.executeSql('SELECT * FROM orderItems WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,0]);
+             var rs2 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,0]);
              index = 0;
               while (index< rs2.rows.length){
                   var item = rs2.rows.item(index);
-                  tx.executeSql('UPDATE orderItems SET cookbool = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [1,Global.orderNO,item.name,0]);
+                  tx.executeSql('UPDATE orderItemDB SET cookbool = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [1,Global.orderNO,item.name,0]);
                   index++;
               }
            } )

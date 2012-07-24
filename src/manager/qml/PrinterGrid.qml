@@ -126,8 +126,8 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerModel(pid INTEGER primary key, name TEXT, active INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM printerModel');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid INTEGER primary key, name TEXT, active INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM printerDB');
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
@@ -150,13 +150,13 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('DROP TABLE printerModel');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerModel(pid INTEGER primary key, name TEXT, active INTEGER, style TEXT)');
+                    tx.executeSql('DROP TABLE printerDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid INTEGER primary key, name TEXT, active INTEGER, style TEXT)');
                     var index = 0;
                     while (index < printerModel.count && printerModel.get(index).style != "ADD_RECT") {
                         printerModel.get(index).pid = index;
                         var item = printerModel.get(index);
-                        tx.executeSql('INSERT INTO printerModel VALUES(?,?,?,?)', [item.pid, item.name, item.active, item.style]);
+                        tx.executeSql('INSERT INTO printerDB VALUES(?,?,?,?)', [item.pid, item.name, item.active, item.style]);
                         index++;
                     }
                 }

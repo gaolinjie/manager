@@ -57,29 +57,29 @@ void Server::readRegistration(QDataStream &in)
     qDebug() << mac << ip;
 
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS devices(mac TEXT key, ip TEXT, deviceNO INTEGER)");
-    query.prepare("SELECT * FROM devices WHERE mac = ?");
+    query.exec("CREATE TABLE IF NOT EXISTS deviceDB(mac TEXT key, ip TEXT, deviceNO INTEGER)");
+    query.prepare("SELECT * FROM deviceDB WHERE mac = ?");
     query.addBindValue(mac);
     query.exec();
 
     if (query.next())
     {
         deviceNO = query.value(2).toUInt();
-        query.prepare("UPDATE devices SET ip = ? WHERE mac = ?");
+        query.prepare("UPDATE deviceDB SET ip = ? WHERE mac = ?");
         query.addBindValue(ip);
         query.addBindValue(mac);
         query.exec();
     }
     else
     {
-        query.exec("select max(deviceNO) from devices");
+        query.exec("select max(deviceNO) from deviceDB");
         if (query.next())
         {
             deviceNO = query.value(0).toUInt();
         }
         deviceNO++;
 
-        query.prepare("INSERT INTO devices(mac, ip, deviceNO) VALUES (?, ?, ?)");
+        query.prepare("INSERT INTO deviceDB(mac, ip, deviceNO) VALUES (?, ?, ?)");
         query.addBindValue(mac);
         query.addBindValue(ip);
         query.addBindValue(deviceNO);

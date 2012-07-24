@@ -115,9 +115,9 @@ void Printer::printMenutoKitchen(quint32 orderNum){
     int m_seatNo = 0;
   //  float discount = 0;
 
-    //通过orderNum来查询OrderList表中的座位号
-    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderList(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    queryOrderList.prepare("SELECT * FROM orderList WHERE orderNO = ?");
+    //通过orderNum来查询orderDB表中的座位号
+    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    queryOrderList.prepare("SELECT * FROM orderDB WHERE orderNO = ?");
     queryOrderList.addBindValue(mOrderNum);
     queryOrderList.exec();
     // 为厨房创建菜单，只包括订单号、座位号、菜名和对应的数量
@@ -148,16 +148,16 @@ void Printer::printMenutoKitchen(quint32 orderNum){
     foreach(QPrinterInfo item, printerInfo.availablePrinters()){
         m_htmlbody = "";
         m_html = "";
-        queryOrderItem.exec("CREATE TABLE IF NOT EXISTS orderItems(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type INTEGER,printname TEXT,printbool INTEGER,cookbool INTEGER)");
-        queryOrderItem.prepare("SELECT * FROM orderItems WHERE orderNO = ? AND printname = ? AND cookbool = ?");
+        queryOrderItem.exec("CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type INTEGER,printname TEXT,printbool INTEGER,cookbool INTEGER)");
+        queryOrderItem.prepare("SELECT * FROM orderItemDB WHERE orderNO = ? AND printname = ? AND cookbool = ?");
         queryOrderItem.addBindValue(mOrderNum);
         queryOrderItem.addBindValue(item.printerName());
         queryOrderItem.addBindValue(0);
         queryOrderItem.exec();
         while (queryOrderItem.next())
         {
-            QString name = queryOrderItem.value(1).toString();//colume 1 在表orderItems中对应菜名
-            quint16 num = queryOrderItem.value(3).toInt();    //colume 3 在表orderItems中对应某个菜的数量
+            QString name = queryOrderItem.value(1).toString();//colume 1 在表orderItemDB中对应菜名
+            quint16 num = queryOrderItem.value(3).toInt();    //colume 3 在表orderItemDB中对应某个菜的数量
             m_htmlbody += "<tr><td align=\"center\">" + name
                     + "</td><td align=\"center\">"+QString::number(num) + "</td></tr>";
         }
@@ -196,8 +196,8 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
 
     m_html += "<h2 align=\"center\"><font size=\"+2\">" + m_title + "</font></h2>";
     //通过orderNum来查询OrderList表中的座位号
-    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderList(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    queryOrderList.prepare("SELECT * FROM orderList WHERE orderNO = ?");
+    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    queryOrderList.prepare("SELECT * FROM orderDB WHERE orderNO = ?");
     queryOrderList.addBindValue(mOrderNum);
     queryOrderList.exec();
     // 为厨房创建菜单，只包括订单号、座位号、菜名和对应的数量
@@ -215,15 +215,15 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
     m_html += "<table align=\"center\" border=\"0\" cellspacing=\"12\" width=\"100%\"><tr bgcolor=\"lightgray\"><th>" + QObject::tr("菜名")
             + "</th><th>" + QObject::tr("价格") + "</th><th>" + QObject::tr("份数") + "</th><th>" + QObject::tr("小计") + "</th></tr>";
 
-    queryOrderItem.exec("CREATE TABLE IF NOT EXISTS orderItems(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type INTEGER,printname TEXT,printbool INTEGER,cookbool INTEGER)");
-    queryOrderItem.prepare("SELECT * FROM orderItems WHERE orderNO = ?");
+    queryOrderItem.exec("CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type INTEGER,printname TEXT,printbool INTEGER,cookbool INTEGER)");
+    queryOrderItem.prepare("SELECT * FROM orderItemDB WHERE orderNO = ?");
     queryOrderItem.addBindValue(mOrderNum);
     queryOrderItem.exec();
 
     while (queryOrderItem.next())
     {
-        QString name = queryOrderItem.value(1).toString();//colume 1 在表orderItems中对应菜单名
-        quint16 num = queryOrderItem.value(3).toInt();    //colume 3 在表orderItems中对应某个菜的数量
+        QString name = queryOrderItem.value(1).toString();//colume 1 在表orderItemDB中对应菜单名
+        quint16 num = queryOrderItem.value(3).toInt();    //colume 3 在表orderItemDB中对应某个菜的数量
         float  price = queryOrderItem.value(2).toFloat();
         totalPrice += price * num;
         m_html += "<tr><td align=\"center\">" + name + "</td><td align=\"center\">" + QString::number(price, 'g', 6)

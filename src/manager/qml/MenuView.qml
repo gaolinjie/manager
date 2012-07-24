@@ -2,7 +2,7 @@ import QtQuick 1.0
 import "../js/global.js" as Global
 
 Item {
-    id: start
+    id: menuView
     width: 1280; height: 800
     clip: true
 
@@ -18,20 +18,20 @@ Item {
 
     Image {
         id: backButton
-        anchors.right: startText.left; anchors.rightMargin: 20
-        anchors.bottom: startText.bottom; anchors.bottomMargin: 7
+        anchors.right: title.left; anchors.rightMargin: 20
+        anchors.bottom: title.bottom; anchors.bottomMargin: 7
         source: "qrc:/images/back.png"
 
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                loadRect("qrc:/qml/manager.qml")
+                loadRect("qrc:/qml/ManagerView.qml")
             }
         }
     }
 
     Text {
-        id: startText
+        id: title
         x: 130; y: 70
         text: "菜 单"
         font.family: "微软雅黑"
@@ -52,19 +52,19 @@ Item {
         id: timer
         interval: 1000; running: false; repeat: true
         onTriggered: {
-            startText.x = 100
-            startText.opacity = 1
+            title.x = 100
+            title.opacity = 1
         }
     }
 
     Flickable {
          id: flick
          width: 1180; height: 480
-         contentWidth: (grid.count/3+1)*grid.cellWidth; contentHeight: 480
+         contentWidth: (menuGrid.count/3+1)*menuGrid.cellWidth; contentHeight: 480
          x:100; y:201
 
-         StartView {
-             id: grid
+         MenuGrid {
+             id: menuGrid
              x:450; //y:201
 
              Behavior on x {
@@ -73,7 +73,7 @@ Item {
 
              Component.onCompleted: {
                  timer.running = true
-                 grid.x = 0
+                 menuGrid.x = 0
              }
          }
 
@@ -139,9 +139,9 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     var index = 0;
-                    while (index < grid.model.count) {
-                        if (grid.checkedIndex == grid.model.get(index).cid) {
-                            grid.model.remove(index);
+                    while (index < menuGrid.model.count) {
+                        if (menuGrid.checkedIndex == menuGrid.model.get(index).cid) {
+                            menuGrid.model.remove(index);
                             break;
                         }
                         index++;
@@ -172,7 +172,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    grid.pressAndHoldRect(-1);                   
+                    menuGrid.pressAndHoldRect(-1);
                     bottomBar.y = 800;
                     addPanel.x = 1280;
                     clearEdit();

@@ -9,7 +9,7 @@ Item {
     property int rectCid: -1
 
     Connections{
-        target: start
+        target: menuView
         onClearEdit: {
             clearEdit();
         }
@@ -68,6 +68,8 @@ Item {
             x: 40; y: 40
             text: "新 建"
             font.pixelSize: 38
+            font.family: "微软雅黑"
+            smooth: true
             color: "white"
         }
 
@@ -138,6 +140,7 @@ Item {
                 anchors.left: wraper.left
                 anchors.top: wraper.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
                 color: "white"
             }
 
@@ -170,6 +173,7 @@ Item {
                 anchors.left: wraper.left
                 anchors.top: nameEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
                 color: "white"
             }
 
@@ -188,6 +192,7 @@ Item {
                 anchors.left: wraper.left
                 anchors.top: backEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
                 color: "white"
             }
 
@@ -214,6 +219,7 @@ Item {
                     anchors.centerIn: parent
                     color: "white"
                     font.pixelSize: 16
+                    font.family: "微软雅黑"
                 }
 
                 MouseArea {
@@ -227,23 +233,23 @@ Item {
                         }
                         else {
                             if (addPanel.state == "new") {
-                                var index = grid.model.count - 1;
+                                var index = menuGrid.model.count - 1;
                                 var maxcid = -1;
-                                if (grid.model.count > 1) {
-                                    maxcid = grid.model.get(index-1).cid + 1;
+                                if (menuGrid.model.count > 1) {
+                                    maxcid = menuGrid.model.get(index-1).cid + 1;
                                 }
                                 else {
                                     maxcid = 0;
                                 }
-                                grid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                                menuGrid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;
                                 while (index < grid.model.count) {
-                                    if (grid.model.get(index).cid == addPanel.rectCid) {
-                                        grid.model.get(index).title = nameTextEdit.text;
-                                        grid.model.get(index).backColor = backEdit.color;
-                                        grid.model.get(index).foreColor = foreEdit.color;
+                                    if (menuGrid.model.get(index).cid == addPanel.rectCid) {
+                                        menuGrid.model.get(index).title = nameTextEdit.text;
+                                        menuGrid.model.get(index).backColor = backEdit.color;
+                                        menuGrid.model.get(index).foreColor = foreEdit.color;
                                         break;
                                     }
                                     index++;
@@ -273,6 +279,7 @@ Item {
                     anchors.centerIn: parent
                     color: "white"
                     font.pixelSize: 16
+                    font.family: "微软雅黑"
                 }
 
                 MouseArea {

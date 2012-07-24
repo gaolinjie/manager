@@ -5,7 +5,7 @@ ListView {
     id: categoryListView
     width: 150
     height: 300
-    model: StartModel{}
+    model: MenuGridModel{}
     delegate: categoryDelegate
     spacing: 10
     smooth: true

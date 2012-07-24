@@ -95,8 +95,8 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatModel(sid INTEGER key, cid INTEGER, seat TEXT, active INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM seatModel WHERE cid = ?', [Global.seatType]);
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatDB(sid INTEGER key, cid INTEGER, seat TEXT, active INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM seatDB WHERE cid = ?', [Global.seatType]);
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
@@ -262,16 +262,16 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE seatModel');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatModel(sid INTEGER key, cid INTEGER, seat TEXT, active INTEGER)');
+                    //tx.executeSql('DROP TABLE seatDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatDB(sid INTEGER key, cid INTEGER, seat TEXT, active INTEGER)');
 
                     var index = 0;
                     var item;
                     while (index < seatModel.count) {
                         item = seatModel.get(index);
                         if (item.active == 1) {
-                            tx.executeSql('UPDATE seatModel SET active = 0');
-                            tx.executeSql('UPDATE seatModel SET active = ? WHERE sid = ?', [1, item.sid]);
+                            tx.executeSql('UPDATE seatDB SET active = 0');
+                            tx.executeSql('UPDATE seatDB SET active = ? WHERE sid = ?', [1, item.sid]);
                         }
                         index++;
                     }

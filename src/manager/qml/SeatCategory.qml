@@ -51,8 +51,8 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatCategoryModel(cid INTEGER key, type TEXT, active INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM seatCategoryModel');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatCategoryDB(cid INTEGER key, type TEXT, active INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM seatCategoryDB');
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
@@ -88,12 +88,12 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('DROP TABLE seatCategoryModel');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatCategoryModel(cid INTEGER key, type TEXT, active INTEGER)');
+                    tx.executeSql('DROP TABLE seatCategoryDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatCategoryDB(cid INTEGER key, type TEXT, active INTEGER)');
                     var index = 0;
                     while (index < seatCategoryModel.count) {
                         var item = seatCategoryModel.get(index);
-                        tx.executeSql('INSERT INTO seatCategoryModel VALUES(?,?,?)', [item.cid, item.type, item.active]);
+                        tx.executeSql('INSERT INTO seatCategoryDB VALUES(?,?,?)', [item.cid, item.type, item.active]);
                         index++;
                     }
                 }

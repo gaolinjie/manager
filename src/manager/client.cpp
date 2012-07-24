@@ -29,7 +29,7 @@ void Client::sendPaiedOrder(quint32 orderNO)
     out.setVersion(QDataStream::Qt_4_7);
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM orderList WHERE orderNO = ?");
+    query.prepare("SELECT * FROM orderDB WHERE orderNO = ?");
     query.addBindValue(orderNO);
     query.exec();
 
@@ -39,7 +39,7 @@ void Client::sendPaiedOrder(quint32 orderNO)
         mac = query.value(2).toString();
     }
 
-    query.prepare("SELECT * FROM devices WHERE mac = ?");
+    query.prepare("SELECT * FROM deviceDB WHERE mac = ?");
     query.addBindValue(mac);
     query.exec();
 
@@ -65,7 +65,7 @@ void Client::sendDeviceNO(quint32 deviceNO)
 
     // get device ip
     QSqlQuery query;
-    query.prepare("SELECT * FROM devices WHERE deviceNO = ?");
+    query.prepare("SELECT * FROM deviceDB WHERE deviceNO = ?");
     query.addBindValue(deviceNO);
     query.exec();
 
@@ -184,19 +184,19 @@ void Client::syncMenu(const QString &ip)
     out << quint16(0) << quint8('X');
 
     QSqlQuery query;
-    query.exec("SELECT COUNT(*) FROM startModel");
+    query.exec("SELECT COUNT(*) FROM menuDB");
     quint16 cnum = 0;
     if (query.next()) {
         cnum = query.value(0).toUInt();
     }
-    query.exec("SELECT COUNT(*) FROM itemModel");
+    query.exec("SELECT COUNT(*) FROM itemDB");
     quint16 inum = 0;
     if (query.next()) {
         inum = query.value(0).toUInt();
     }
     out << cnum << inum;
 
-    query.exec("SELECT * FROM startModel");
+    query.exec("SELECT * FROM menuDB");
 
     quint16 cid = 0;
     QString title = "";
@@ -219,7 +219,7 @@ void Client::syncMenu(const QString &ip)
         cnum++;
     }
 
-    query.exec("SELECT * FROM itemModel");
+    query.exec("SELECT * FROM itemDB");
 
     quint16 iid = 0;
     QString tag = "";

@@ -18,18 +18,14 @@ SOURCES += \
 
 OTHER_FILES += \
     qml/main.qml \
-    qml/manager.qml \
-    qml/ManagerView.qml \
     qml/ImageRect.qml \
     qml/IconRect.qml \
     js/global.js \
     images/note.png \
     images/background.png \
-    qml/start.qml \
     qml/AddRect.qml \
     images/pattern.png \
     images/wood.png \
-    qml/StartView.qml \
     qml/AddPanel.qml \
     images/shadow.png \
     qml/AddList.qml \
@@ -42,8 +38,6 @@ OTHER_FILES += \
     images/menu_image.png \
     images/next.png \
     images/back.png \
-    qml/StartDelegate.qml \
-    qml/StartModel.qml \
     images/cancel.png \
     images/edit.png \
     images/down.png \
@@ -106,12 +100,10 @@ OTHER_FILES += \
     qml/Display2.qml \
     qml/ItemsList.qml \
     qml/KeyBoard.qml \
-    qml/login.qml \
     qml/OrderDialog.qml \
     qml/OrderDialogRect.qml \
     qml/OrdersList.qml \
     qml/SumCategoryList.qml \
-    qml/cashier.qml \
     js/calculator.js \
     images/stripes.png \
     images/next2.png \
@@ -125,7 +117,17 @@ OTHER_FILES += \
     images/button-green.png \
     images/button-blue.png \
     images/button-.png \
-    images/background2.png
+    images/background2.png \
+    qml/MenuView.qml \
+    qml/MenuGrid.qml \
+    qml/MenuGridDelegate.qml \
+    qml/MenuGridModel.qml \
+    qml/ManagerGrid.qml \
+    qml/ManagerView.qml \
+    qml/LoginView.qml \
+    qml/CashierView.qml \
+    images/shopping_cart.png \
+    qml/IconRect2.qml
 
 RESOURCES += \
     resource.qrc

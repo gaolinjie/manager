@@ -24,7 +24,7 @@ Item {
         interval: 350
         running: false
         onTriggered: {
-            loadRect("start.qml")
+            loadRect("MenuView.qml")
         }
     }
 
