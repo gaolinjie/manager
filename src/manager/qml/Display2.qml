@@ -6,7 +6,8 @@ Rectangle {
     Text {
         id: displayText
         anchors.centerIn: parent
-        font.pixelSize: 66
+        font.family: "微软雅黑"
+            font.pixelSize: 66
         color: "white"; smooth: true
         text: ""
     }

@@ -5,6 +5,7 @@ Item {
     id: itemsScreen
     width: 1280; height: 800
     signal loadStart()
+    clip: true
 
     Image {
         id: background
@@ -41,7 +42,7 @@ Item {
     Rectangle {
         id: mainView
         width: parent.width; height: parent.height
-        color: "#B6CFE2"
+        color: Global.backColor
         anchors.verticalCenter: parent.verticalCenter
         transform: Rotation { id: viewRotation; origin.x: parent.width * 0.8; origin.y: parent.height * 0.8 * 0.5 + 100; axis { x: 0; y: 1; z: 0 } angle: -70 }
         smooth: true
@@ -53,7 +54,9 @@ Item {
             anchors.leftMargin: 125; anchors.topMargin: 70
             text: Global.title
             font.pixelSize: 50
-            color: "black"
+            font.family: "微软雅黑"
+            smooth: true
+            color: "white"
         }
 
         Image {

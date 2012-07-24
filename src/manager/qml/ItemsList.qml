@@ -77,7 +77,9 @@ ListView {
                     Text {
                         id: nameText
                         text: name
-                        font.pixelSize: 15
+                        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 10
                         color: "black"
@@ -86,7 +88,9 @@ ListView {
                     Text {
                         id: priceText
                         text: price
-                        font.pixelSize: 15
+                        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 120
                         color: "black"
@@ -95,7 +99,9 @@ ListView {
                     Text {
                         id: numberText
                         text: num
-                        font.pixelSize: 15
+                        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 200
                         color: "black"
@@ -104,7 +110,9 @@ ListView {
                     Text {
                         id: subtotalText
                         text: price * num
-                        font.pixelSize: 15
+                        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 255
                         color: "black"

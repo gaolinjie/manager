@@ -59,6 +59,8 @@ GridView {
                  anchors.verticalCenter: parent.verticalCenter;
                  anchors.horizontalCenter: parent.horizontalCenter;
                  font.pixelSize: 15
+                 font.family: "微软雅黑"
+                 smooth: true
                  color: "white"
              }
 
@@ -68,6 +70,8 @@ GridView {
                  anchors.right: parent.right; anchors.rightMargin: 2
                  anchors.top: parent.top; anchors.topMargin: 3
                  font.pixelSize: 16
+                 font.family: "微软雅黑"
+                 smooth: true
                  color: "white"
              }
             states: State {

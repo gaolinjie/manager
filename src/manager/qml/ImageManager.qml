@@ -23,6 +23,8 @@ Item {
             anchors.left: parent.left; anchors.top: parent.top
             anchors.leftMargin: 100; anchors.topMargin: 70
             text: "图 片"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 50
             color: "white"
         }
@@ -63,6 +65,8 @@ Item {
         Text {
             id: selectedTitle
             text: "已选中的图片"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             color: "white"
             anchors.left: imageGrid.left; anchors.leftMargin: 4
@@ -108,7 +112,9 @@ Item {
                 text: "导 入"
                 anchors.centerIn: parent
                 color: "white"
-                font.pixelSize: 14
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 14
             }
 
             MouseArea {
@@ -141,7 +147,9 @@ Item {
                 text: "取 消"
                 anchors.centerIn: parent
                 color: "white"
-                font.pixelSize: 14
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 14
             }
 
             MouseArea {

@@ -23,6 +23,8 @@ Rectangle {
         text: "添加打印机"
         color: "white"
         font.pixelSize: 28
+        font.family: "微软雅黑"
+        smooth: true
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top; anchors.topMargin: 40
     }
@@ -33,6 +35,8 @@ Rectangle {
         anchors.left: nameEdit.left
         anchors.bottom: nameEdit.top; anchors.bottomMargin: 10
         font.pixelSize: 16
+        font.family: "微软雅黑"
+        smooth: true
         color: "white"
     }
 
@@ -52,6 +56,8 @@ Rectangle {
             width: 300
             text: ""
             font.pixelSize: 20
+            font.family: "微软雅黑"
+            smooth: true
             color: "white"
             focus: true
             anchors.centerIn: parent
@@ -73,6 +79,8 @@ Rectangle {
             anchors.centerIn: parent
             color: "white"
             font.pixelSize: 16
+            font.family: "微软雅黑"
+            smooth: true
         }
 
         MouseArea {
@@ -126,6 +134,8 @@ Rectangle {
             anchors.centerIn: parent
             color: "white"
             font.pixelSize: 16
+            font.family: "微软雅黑"
+            smooth: true
         }
 
         MouseArea {

@@ -67,7 +67,9 @@ ListView {
                 Text {
                     id: orderNOText
                     text: orderNO
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 10
                     color: "black"
@@ -76,7 +78,9 @@ ListView {
                 Text {
                     id: seatNOText
                     text: seatNO
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 120
                     color: "black"
@@ -85,7 +89,9 @@ ListView {
                 Text {
                     id: dateText
                     text: date
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 180
                     color: "black"
@@ -94,7 +100,9 @@ ListView {
                 Text {
                     id: timeText
                     text: time
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 290
                     color: "black"
@@ -103,7 +111,9 @@ ListView {
                 Text {
                     id: discountText
                     text: discount
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 393
                     color: "black"
@@ -113,7 +123,9 @@ ListView {
                 Text {
                     id: totalText
                     text: total
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 480
                     color: "black"

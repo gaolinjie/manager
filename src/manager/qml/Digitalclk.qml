@@ -19,6 +19,8 @@ import QtQuick 1.0
         Text {
             id: systemTime
             text: ""
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 30
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left; anchors.leftMargin: 30
@@ -27,6 +29,8 @@ import QtQuick 1.0
         Text {
             id: systemYear
             text: ""
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: systemTime.right; anchors.leftMargin: 15
@@ -35,6 +39,8 @@ import QtQuick 1.0
         Text {
             id:nian
             text: "年"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: systemYear.right; anchors.leftMargin: 3
@@ -43,6 +49,8 @@ import QtQuick 1.0
         Text {
             id: systemMonth
             text:""
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: nian.right; anchors.leftMargin: 3
@@ -51,6 +59,8 @@ import QtQuick 1.0
         Text {
             id:yue
             text: "月"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: systemMonth.right; anchors.leftMargin: 3
@@ -59,6 +69,8 @@ import QtQuick 1.0
         Text {
             id: systemDate
             text:""
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: yue.right; anchors.leftMargin: 3
@@ -67,6 +79,8 @@ import QtQuick 1.0
         Text {
             id:ri
             text: "日"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: parent.top; anchors.topMargin: 1
             anchors.left: systemDate.right; anchors.leftMargin: 3
@@ -75,6 +89,8 @@ import QtQuick 1.0
         Text {
             id:xingqi
             text: "星期"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: systemYear.top; anchors.topMargin: 15
             anchors.left: systemTime.right; anchors.leftMargin: 15
@@ -83,6 +99,8 @@ import QtQuick 1.0
         Text {
             id:systemWeekday
             text: ""
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 12
             anchors.top: systemYear.top; anchors.topMargin: 15
             anchors.left: xingqi.right; anchors.leftMargin: 3

@@ -130,6 +130,8 @@ Item {
                     anchors.left: rect.right; anchors.leftMargin: 20
                     anchors.top: rect.top
                     font.pixelSize: 30
+                    font.family: "微软雅黑"
+                    smooth: true
                     color: "white"
                 }
             }
@@ -160,6 +162,8 @@ Item {
                     width: 300
                     text: ""
                     font.pixelSize: 20
+                    font.family: "微软雅黑"
+                    smooth: true
                     color: "white"
                     focus: true
                     anchors.centerIn: parent

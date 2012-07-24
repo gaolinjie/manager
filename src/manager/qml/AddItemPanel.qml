@@ -61,6 +61,8 @@ Item {
             x: 40; y: 40
             text: "新 建"
             font.pixelSize: 38
+            font.family: "微软雅黑"
+            smooth: true
             color: "white"
         }
 
@@ -86,6 +88,8 @@ Item {
                 anchors.left: editRect.left
                 anchors.top: editRect.top// anchors.topMargin: 1540
                 font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
                 color: "white"
             }
 
@@ -105,6 +109,8 @@ Item {
                     text: ""
                     font.pixelSize: 20
                     color: "white"
+                    font.family: "微软雅黑"
+                    smooth: true
                     focus: true
                     anchors.centerIn: parent
                     clip: true
@@ -117,6 +123,8 @@ Item {
                 anchors.left: nameEdit.left
                 anchors.top: nameEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
                 color: "white"
             }
 
@@ -135,6 +143,8 @@ Item {
                     width: 300
                     text: ""
                     font.pixelSize: 20
+                    font.family: "微软雅黑"
+                    smooth: true
                     color: "white"
                     focus: true
                     anchors.centerIn: parent
@@ -147,6 +157,8 @@ Item {
                     anchors.right: priceEdit.right; anchors.rightMargin: 10
                     anchors.verticalCenter: priceTextEdit.verticalCenter
                     font.pixelSize: 16
+                    font.family: "微软雅黑"
+                    smooth: true
                     color: "white"
                 }
             }
@@ -157,6 +169,8 @@ Item {
                 anchors.left: priceEdit.left
                 anchors.top: priceEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
                 color: "white"
             }
 
@@ -176,6 +190,8 @@ Item {
                     width: 300; height: 36*3 - 20
                     text: ""
                     font.pixelSize: 20
+                    font.family: "微软雅黑"
+                    smooth: true
                     color: "white"
                     focus: true
                     anchors.centerIn: parent
@@ -189,6 +205,8 @@ Item {
                 anchors.left: detailEdit.left
                 anchors.top: detailEdit.bottom; anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
                 color: "white"
             }
 
@@ -228,6 +246,8 @@ Item {
                 anchors.left: imagePreview.right; anchors.leftMargin: 15
                 anchors.top: imagePreview.top; //anchors.topMargin: 40
                 font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
                 color: "white"
 
                 Behavior on opacity {
@@ -283,6 +303,8 @@ Item {
                     anchors.centerIn: parent
                     color: "white"
                     font.pixelSize: 16
+                    font.family: "微软雅黑"
+                    smooth: true
                 }
 
                 MouseArea {
@@ -343,6 +365,8 @@ Item {
                     anchors.centerIn: parent
                     color: "white"
                     font.pixelSize: 16
+                    font.family: "微软雅黑"
+                    smooth: true
                 }
 
                 MouseArea {

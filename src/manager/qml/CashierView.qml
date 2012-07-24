@@ -110,6 +110,8 @@ Image {
             id: title
             text: "Colorful POS"
             font.pixelSize: 26
+            font.family: "微软雅黑"
+            smooth: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: logo.right; anchors.leftMargin: 15
             color: "white"
@@ -144,6 +146,8 @@ Image {
             Text {
                 text: "未结订单"
                 font.pixelSize: 18
+                font.family: "微软雅黑"
+                smooth: true
                 anchors.centerIn: parent
                 color: "white"
             }
@@ -177,6 +181,8 @@ Image {
                 id: finishRectLabelText
                 text: "已结订单"
                 font.pixelSize: 18
+                font.family: "微软雅黑"
+                smooth: true
                 anchors.centerIn: parent
                 color: "white"
             }
@@ -202,7 +208,9 @@ Image {
         Text {
             id: orderNO
             text: "单号"
-            font.pixelSize: 15
+            font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15            
             anchors.top: parent.top; anchors.topMargin: 30
             anchors.left: parent.left; anchors.leftMargin: 50
             color: "grey"
@@ -211,6 +219,8 @@ Image {
         Text {
             id: seatNO
             text: "座位"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: orderNO.top
             anchors.left: orderNO.right; anchors.leftMargin: 75
@@ -220,6 +230,8 @@ Image {
         Text {
             id: date
             text: "日期"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: seatNO.top
             anchors.left: seatNO.right; anchors.leftMargin: 50
@@ -229,6 +241,8 @@ Image {
         Text {
             id: time
             text: "时间"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: date.top
             anchors.left: date.right; anchors.leftMargin: 65
@@ -238,6 +252,8 @@ Image {
         Text {
             id: discount
             text: "折扣"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: time.top
             anchors.left: time.right; anchors.leftMargin: 70
@@ -247,6 +263,8 @@ Image {
         Text {
             id: total
             text: "总计"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: discount.top
             anchors.left: discount.right; anchors.leftMargin: 55
@@ -335,7 +353,9 @@ Image {
 
             Text {
                 text: "订单详情"
-                font.pixelSize: 18
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 18
                 anchors.centerIn: parent
                 color: "white"
             }
@@ -344,6 +364,8 @@ Image {
         Text {
             id: name
             text: "菜名"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: parent.top; anchors.topMargin: 30
             anchors.left: parent.left; anchors.leftMargin: 40
@@ -353,6 +375,8 @@ Image {
         Text {
             id: price
             text: "单价"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: name.top
             anchors.left: name.right; anchors.leftMargin: 80
@@ -362,6 +386,8 @@ Image {
         Text {
             id: number
             text: "份数"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: price.top
             anchors.left: price.right; anchors.leftMargin: 40
@@ -371,6 +397,8 @@ Image {
         Text {
             id: amount
             text: "小计"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             anchors.top: number.top
             anchors.left: number.right; anchors.leftMargin: 30
@@ -456,7 +484,9 @@ Image {
                     text: "合 计:"
                     anchors.top: parent.top; anchors.topMargin: 15
                     anchors.left: parent.left; anchors.leftMargin: 110
-                    font.pixelSize: 16
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 16
                     color: "white"
                 }
 
@@ -465,7 +495,9 @@ Image {
                     text: Global.orderNO
                     anchors.top: sumTitle.top
                     anchors.right: parent.right; anchors.rightMargin: 110
-                    font.pixelSize: 16
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 16
                     color: "white"
                 }
 
@@ -474,7 +506,9 @@ Image {
                     text: "折 扣:"
                     anchors.top: sumTitle.bottom; anchors.topMargin: 5
                     anchors.left: sumTitle.left
-                    font.pixelSize: 16
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 16
                     color: "white"
                 }
 
@@ -483,7 +517,9 @@ Image {
                     text: ""
                     anchors.top: sumText.bottom; anchors.topMargin: 5
                     anchors.right: sumText.right
-                    font.pixelSize: 16
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 16
                     color: "white"
                 }
 
@@ -492,7 +528,9 @@ Image {
                     text: sumText.text - discText.text
                     anchors.bottom: parent.bottom; anchors.bottomMargin: 15
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 55
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 55
                     color: "white"
                 }
             }
@@ -696,7 +734,9 @@ Image {
             Text {
                 id: cashDialogTitle
                 text: "现金收取"
-                font.pixelSize: 20
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
                 font.bold: true
                 anchors.centerIn: parent
                 color: "white"
@@ -706,6 +746,8 @@ Image {
         Text {
             id: totalDueTitle
             text: "应收金额"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -716,6 +758,8 @@ Image {
         Text {
             id: totalDue
             text: totalText.text
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 56
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -725,6 +769,8 @@ Image {
         Text {
             id: tenderedTitle
             text: "实收金额"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -803,7 +849,9 @@ Image {
             Text {
                 id: changeDialogTitle
                 text: "现金找零"
-                font.pixelSize: 20
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
                 font.bold: true
                 anchors.centerIn: parent
                 color: "white"
@@ -813,6 +861,8 @@ Image {
         Text {
             id: tendered2Title
             text: "实收金额:"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -823,6 +873,8 @@ Image {
         Text {
             id: tendered2
             text: display.text
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             color: "white"
             anchors.right: totalDue2.right
@@ -832,6 +884,8 @@ Image {
         Text {
             id: totalDue2Title
             text: "应收金额:"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -842,6 +896,8 @@ Image {
         Text {
             id: totalDue2
             text: totalDue.text
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             color: "white"
             anchors.right: parent.right; anchors.rightMargin: 220
@@ -851,6 +907,8 @@ Image {
         Text {
             id: changeTitle
             text: "找 零"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -861,6 +919,8 @@ Image {
         Text {
             id: change
             text: tendered2.text - totalDue2.text
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 66
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -932,7 +992,9 @@ Image {
             Text {
                 id: cardDialogTitle
                 text: "刷卡支付"
-                font.pixelSize: 20
+                font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
                 font.bold: true
                 anchors.centerIn: parent
                 color: "white"
@@ -942,6 +1004,8 @@ Image {
         Text {
             id: totalDue3Title
             text: "应收金额"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 16
             font.bold: true
             color: "grey"
@@ -952,6 +1016,8 @@ Image {
         Text {
             id: total3Due
             text: totalDue.text
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 56
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter

@@ -43,6 +43,8 @@ Item {
             anchors.left: parent.left; anchors.top: parent.top
             anchors.leftMargin: 125; anchors.topMargin: 70
             text: Global.title
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 50
             color: "black"
         }
@@ -67,6 +69,8 @@ Item {
             anchors.left: viewTitle.left
             anchors.top: viewTitle.bottom; anchors.topMargin: 40
             text: "所有打印机"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 30
             color: "black"
         }
@@ -76,6 +80,8 @@ Item {
             anchors.left: printerTitle.left
             anchors.top: printerTitle.bottom; anchors.topMargin: 10
             text: "点击下面的打印机,在右边会显示详细的打印机配置信息."
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 15
             color: "black"
         }

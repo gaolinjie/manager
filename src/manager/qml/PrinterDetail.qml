@@ -20,7 +20,9 @@ Item {
         anchors.left: parent.left
         anchors.top: parent.top
         text: "打印机配置详情"
-        font.pixelSize: 30
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 30
         color: "black"
     }
 
@@ -29,7 +31,9 @@ Item {
         anchors.left: printerDetailTitle.left
         anchors.top: printerDetailTitle.bottom; anchors.topMargin: 30
         text: "选择网络中的打印机"
-        font.pixelSize: 20
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
         color: "black"
     }
 
@@ -48,7 +52,9 @@ Item {
         anchors.left: choosePrinterRect.left
         anchors.top: choosePrinterRect.bottom; anchors.topMargin: 40
         text: "指定发送到该打印机的菜品类别"
-        font.pixelSize: 20
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
         color: "black"
     }
 
@@ -57,7 +63,9 @@ Item {
         anchors.left: chooseCategoryTitle.left
         anchors.top: chooseCategoryTitle.bottom; anchors.topMargin: 160
         text: "指定发送到该打印机的菜品"
-        font.pixelSize: 20
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 20
         color: "black"
     }
 

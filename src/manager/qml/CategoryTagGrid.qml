@@ -55,6 +55,8 @@ GridView {
                     anchors.left: parent.left; anchors.leftMargin: 15
                     anchors.top: parent.top; anchors.topMargin: 20
                     text: "请选择菜品类别:"
+                    font.family: "微软雅黑"
+                    smooth: true
                     font.pixelSize: 15
                     color: "white"
                 }

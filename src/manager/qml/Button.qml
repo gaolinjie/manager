@@ -21,7 +21,9 @@ BorderImage {
         id: buttonText
         anchors.centerIn: parent; anchors.verticalCenterOffset: -1
         font.pixelSize: textSize
-        style: Text.Sunken; color: "white"; styleColor: "black"; smooth: true
+        font.family: "微软雅黑"
+        smooth: true
+        style: Text.Sunken; color: "white"; styleColor: "black"
         font.bold: true
     }
 

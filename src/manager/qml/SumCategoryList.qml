@@ -49,7 +49,9 @@ ListView {
                 Text {
                     id: categoryText
                     text: categoryName
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"

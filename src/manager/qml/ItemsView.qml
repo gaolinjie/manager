@@ -51,6 +51,8 @@ Item {
             anchors.left: parent.left; anchors.top: parent.top
             anchors.leftMargin: 100; anchors.topMargin: 70
             text: Global.title
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 50
             color: "white"
         }
@@ -135,7 +137,9 @@ Item {
                 Text {
                     id: editTitle
                     text: "编 辑"
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.top: editButton.bottom; anchors.topMargin: 5
                     anchors.horizontalCenter: editButton.horizontalCenter
                     color: "white"
@@ -162,7 +166,9 @@ Item {
                 Text {
                     id: deleteTitle
                     text: "删 除"
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.top: deleteButton.bottom; anchors.topMargin: 5
                     anchors.horizontalCenter: deleteButton.horizontalCenter
                     color: "white"
@@ -196,7 +202,9 @@ Item {
                 Text {
                     id: downTitle
                     text: "返 回"
-                    font.pixelSize: 15
+                    font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 15
                     anchors.top: downButton.bottom; anchors.topMargin: 5
                     anchors.horizontalCenter: downButton.horizontalCenter
                     color: "white"

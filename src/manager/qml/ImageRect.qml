@@ -65,6 +65,7 @@ Rectangle {
         x: 40
         anchors.verticalCenter: titleRect.verticalCenter
         text: title
+        font.family: "微软雅黑"
         font.pixelSize: 20
         color: "white"
         smooth: true

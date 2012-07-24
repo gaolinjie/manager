@@ -64,6 +64,8 @@ Item {
             text: name
             anchors.left: parent.left; anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 14
             color: "white"
         }
@@ -73,6 +75,8 @@ Item {
             text: "￥ " + price + " 元"
             anchors.right: parent.right; anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 14
             color: "white"
         }

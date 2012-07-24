@@ -22,6 +22,8 @@ ListView {
                  anchors.centerIn: parent
                  color: active == 1 ? "white" : "black"
                  font.pixelSize: 16
+                 font.family: "微软雅黑"
+                 smooth: true
              }
 
              MouseArea {

@@ -39,6 +39,8 @@ GridView {
                  anchors.top: parent.top; anchors.topMargin: 10
                  color: "black"
                  font.pixelSize: 18
+                 font.family: "微软雅黑"
+                 smooth: true
              }
 
              Text {
@@ -47,7 +49,9 @@ GridView {
                  anchors.left: seatText.left
                  anchors.top: seatText.bottom; anchors.topMargin: 3
                  color: "black"
-                 font.pixelSize: 12
+                 font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 12
              }
 
              Text {
@@ -56,7 +60,9 @@ GridView {
                  anchors.right: numLabel.left; anchors.rightMargin: 5
                  anchors.bottom: numLabel.bottom; anchors.bottomMargin: -3
                  color: "black"
-                 font.pixelSize: 22
+                 font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 22
              }
 
              Text {
@@ -65,7 +71,9 @@ GridView {
                  anchors.right: parent.right; anchors.rightMargin: 20
                  anchors.bottom: categoryText.bottom; //anchors.topMargin: 3
                  color: "black"
-                 font.pixelSize: 14
+                 font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 14
              }
 
 

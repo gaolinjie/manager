@@ -116,6 +116,8 @@ Item {
         Text {
             id: headTitle
             text: "title"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 20
             font.bold: true
             anchors.centerIn: parent

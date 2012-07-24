@@ -20,6 +20,8 @@ Image {
         Text {
             id: promopt
             text: "请输入密码"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 20
             //font.bold: true
             color: "white"

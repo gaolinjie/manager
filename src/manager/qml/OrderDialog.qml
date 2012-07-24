@@ -39,7 +39,9 @@ Rectangle {
         anchors.left: parent.left; anchors.leftMargin: 0
         anchors.verticalCenter: parent.verticalCenter
         text: titleText
-        font.pixelSize: 25
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 25
         font.bold: true
         color: "grey"
     }
@@ -50,7 +52,9 @@ Rectangle {
         anchors.left: textInTitle.right; anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         text: inText
-        font.pixelSize: 25
+        font.family: "微软雅黑"
+            smooth: true
+            font.pixelSize: 25
         font.bold: true
         color: "grey"
     }

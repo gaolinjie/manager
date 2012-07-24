@@ -24,6 +24,8 @@ Item {
             text: tag.name
             anchors.centerIn: parent
             color: "black"
+            font.family: "微软雅黑"
+            smooth: true
             font.pixelSize: 10
         }
     }
