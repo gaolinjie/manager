@@ -12,6 +12,7 @@ class Client : public QTcpSocket
 public:
     explicit Client(QObject *parent = 0);
     ~Client();
+    bool mIsSyncing;
     
 public slots:
     void syncMenu(const QString &ip);
@@ -34,7 +35,7 @@ private:
     quint16 mImageIndex;
     QStringList mImageList;
     QDir mImageDir;
-    bool mIsSyncing;
+
 };
 
 #endif // CLIENT_H

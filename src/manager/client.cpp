@@ -213,7 +213,7 @@ void Client::syncMenu(const QString &ip)
         style = query.value(3).toString();
         slotQml = query.value(4).toString();
         backColor = query.value(5).toString();
-        foreColor = query.value(6).toString();
+        foreColor = query.value(6).toString();        
         out << cid << title << image << style
             << slotQml << backColor << foreColor;
         cnum++;
@@ -225,6 +225,8 @@ void Client::syncMenu(const QString &ip)
     QString tag = "";
     QString name = "";
     QString detail = "";
+    quint16 needPrint = 0;
+    QString printer = "";
     float price = 0;
     while (query.next()) {
         iid = query.value(0).toUInt();
@@ -235,8 +237,11 @@ void Client::syncMenu(const QString &ip)
         image.remove(imagePath);
         detail = query.value(5).toString();
         price = query.value(6).toFloat();
+        needPrint = query.value(7).toUInt();
+        printer = query.value(8).toString();
         out << iid << cid << tag << name
-            << image << detail << price;
+            << image << detail << price
+            << needPrint << printer;
         inum++;
     }
 

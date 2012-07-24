@@ -10,5 +10,6 @@ void SyncManager::syncMenu()
 {
     QString ip = "";
     Client *socket = new Client(this);
+    socket->mIsSyncing = true;
     socket->syncMenu(ip);
 }
