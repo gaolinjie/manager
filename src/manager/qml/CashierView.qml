@@ -162,10 +162,10 @@ Image {
                     Global.gorderIndex = 0;
                     orderList.loadOrderList()
                     itemList.loadItemsData()
-                    newOrderButton.height = 50
-                    modifyButton.height = 50
-                    addButton.height = 50
-                    cookButton.height = 50
+                    newOrderButton.height = 40
+                    modifyButton.height = 40
+                    addButton.height = 40
+                    cookButton.height = 40
                 }
             }
         }
@@ -282,23 +282,23 @@ Image {
             //Component.onDestruction: orderList.saveOrderList()
         }
 
-        Rectangle  {
+        Item  {
                id: ordersButton
                width: 600; height: 60
                anchors.bottom: parent.bottom; anchors.bottomMargin: 0
                anchors.left: parent.left; anchors.leftMargin: 0
-               color: "#cd96cd"
-               radius: 0
+               //color: "#cd96cd"
+               //radius: 0
                smooth: true
                opacity: 1
                Button {
                    id: newOrderButton
-                   width: 120; height: 50
+                   width: 280; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
-                   anchors.left:parent.left; anchors.leftMargin: 150
-                   color: 'red'
+                   anchors.left:parent.left; anchors.leftMargin: 10
+                   //color: 'red'
                    operation: "新建订单"
-                   textSize: 22
+                   textSize: 16
 
                    onOperate: {
                        newOrderDialog.x=620
@@ -313,12 +313,12 @@ Image {
                }
                Button {
                    id: modifyButton
-                   width: 120; height: 50
+                   width: 280; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
-                   anchors.right:ordersButton.right; anchors.rightMargin: 150
-                   color: 'red'
+                   anchors.right:ordersButton.right; anchors.rightMargin: 10
+                   //color: 'red'
                    operation: "修改订单"
-                   textSize: 22
+                   textSize: 16
 
                    onOperate: {
                        modifyOrderDialog.x=620
@@ -413,23 +413,23 @@ Image {
             //Component.onDestruction: itemList.saveItemsData()
         }
 
-        Rectangle  {
+        Item  {
                id: detailButton
                width: 380; height: 60
                anchors.bottom: parent.bottom; anchors.bottomMargin: 0
                anchors.left: parent.left; anchors.leftMargin: 0
-               color: "#cd96cd"
-               radius: 0
+               //color: "#cd96cd"
+               //radius: 0
                smooth: true
                opacity: 1
                Button {
                    id: addButton
-                   width: 110; height: 50
+                   width: 160; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
-                   anchors.left:parent.left; anchors.leftMargin: 60
-                   color: 'red'
+                   anchors.left:parent.left; anchors.leftMargin: 20
+                   //color: 'red'
                    operation: "增加菜品"
-                   textSize: 22
+                   textSize: 16
 
                    onOperate: {
                         addMenuItem.y = 490
@@ -442,12 +442,12 @@ Image {
                }
                Button {
                    id: cookButton
-                   width: 110; height: 50
+                   width: 160; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
-                   anchors.right:parent.right; anchors.rightMargin: 60
-                   color: 'red'
-                   operation: "烹饪菜品"
-                   textSize: 22
+                   anchors.right:parent.right; anchors.rightMargin: 20
+                   //color: 'red'
+                   operation: "烹制菜品"
+                   textSize: 16
 
                    onOperate: {
                        printOrder.printMenutoKitchen(Global.orderNO)
@@ -456,6 +456,7 @@ Image {
                }
          }
     }
+
     Item{
             id: rightbord
             width: 380; height: 280
