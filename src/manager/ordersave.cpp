@@ -22,9 +22,9 @@ void OrderSave::saveData(qint32 orderNo,qint32 seatNo,float discount){
     time = datatime->time();
 
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
 
-    query.prepare("INSERT INTO orderDB(orderNO, seatNO, mac, date, time, discount, total, pay) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO orderListDB(orderNO, seatNO, mac, date, time, discount, total, pay) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
     query.addBindValue(orderNo);
     query.addBindValue(seatNo);
     query.addBindValue(mac);
@@ -43,9 +43,9 @@ void OrderSave::changeData(qint32 orderNo,qint32 seatNo,float discount){
     time = datatime->time();
 
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
 
-/*    query.prepare("UPDATE orderDB SET(orderNO, seatNO, date, time, discount) VALUES(?, ?, ?, ?, ?) WHERE orderNO = ?");
+/*    query.prepare("UPDATE orderListDB SET(orderNO, seatNO, date, time, discount) VALUES(?, ?, ?, ?, ?) WHERE orderNO = ?");
     query.addBindValue(orderNo);
      query.addBindValue(seatNo);
     query.addBindValue(date);
@@ -54,13 +54,13 @@ void OrderSave::changeData(qint32 orderNo,qint32 seatNo,float discount){
     query.addBindValue(oldorder);*/ //好像不能同时更新多个值
 
     if(seatNo != -1) {
-    query.prepare("UPDATE orderDB SET seatNO = ? WHERE orderNO = ?");
+    query.prepare("UPDATE orderListDB SET seatNO = ? WHERE orderNO = ?");
     query.addBindValue(seatNo);
     query.addBindValue(orderNo);
     query.exec();
     }
     if (discount!=-1){
-    query.prepare("UPDATE orderDB SET discount = ? WHERE orderNO = ?");
+    query.prepare("UPDATE orderListDB SET discount = ? WHERE orderNO = ?");
     query.addBindValue(discount);
     query.addBindValue(orderNo);
     query.exec();

@@ -164,9 +164,9 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE orderDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM orderDB WHERE pay = ?', [Global.pay]);
+                    //tx.executeSql('DROP TABLE orderListDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM orderListDB WHERE pay = ?', [Global.pay]);
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
@@ -217,12 +217,12 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('DROP TABLE orderDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    tx.executeSql('DROP TABLE orderListDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                     var index = 0;
                     while (index < ordersModel.count) {
                         var item = ordersModel.get(index);
-                        tx.executeSql('INSERT INTO orderDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.seatNO, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
+                        tx.executeSql('INSERT INTO orderListDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.seatNO, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
                         index++;
                     }
                 }
@@ -236,7 +236,7 @@ ListView {
 
         db.transaction(
             function(tx) {
-                    tx.executeSql('UPDATE orderDB SET total = ? WHERE orderNO = ? ', [Global.gorderTotalPrice,Global.orderNO]);
+                    tx.executeSql('UPDATE orderListDB SET total = ? WHERE orderNO = ? ', [Global.gorderTotalPrice,Global.orderNO]);
                 }
           )
       }
@@ -270,8 +270,8 @@ ListView {
          ordersModel.remove(Global.gorderIndex);
           db.transaction(
                  function(tx) {
-                  tx.executeSql('CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
-                  var rs = tx.executeSql('SELECT * FROM orderDB WHERE pay = ?', [Global.pay]);
+                  tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                  var rs = tx.executeSql('SELECT * FROM orderListDB WHERE pay = ?', [Global.pay]);
                   var index = 0;
                   if (rs.rows.length > 0) {
                       while (index < rs.rows.length) {
@@ -285,7 +285,7 @@ ListView {
                            }
                        }
                   }
-                  tx.executeSql('DELETE FROM orderDB WHERE orderNO = ? ', [Global.orderNO]);
+                  tx.executeSql('DELETE FROM orderListDB WHERE orderNO = ? ', [Global.orderNO]);
                   tx.executeSql('DELETE FROM orderItemDB WHERE orderNO = ? ', [Global.orderNO]);
                   if (index ==0){Global.oldorderNO =""; }
                   else {Global.orderNO=Global.oldorderNO;}

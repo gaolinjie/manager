@@ -66,7 +66,7 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE orderDB');
+                    //tx.executeSql('DROP TABLE orderListDB');
                     tx.executeSql('CREATE TABLE IF NOT EXISTS sumCategoryList(categoryName TEXT)');
                     tx.executeSql('CREATE TABLE IF NOT EXISTS sumMenuList(name TEXT, image TEXT, detail TEXT, price REAL,type TEXT,printname TEXT,printbool INTEGER,cookbool INTEGER)');
                     var rs = tx.executeSql('SELECT * FROM sumMenuList');

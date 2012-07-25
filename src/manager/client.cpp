@@ -29,7 +29,7 @@ void Client::sendPaiedOrder(quint32 orderNO)
     out.setVersion(QDataStream::Qt_4_7);
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM orderDB WHERE orderNO = ?");
+    query.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     query.addBindValue(orderNO);
     query.exec();
 
@@ -184,19 +184,19 @@ void Client::syncMenu(const QString &ip)
     out << quint16(0) << quint8('X');
 
     QSqlQuery query;
-    query.exec("SELECT COUNT(*) FROM menuDB");
+    query.exec("SELECT COUNT(*) FROM menuTypeDB");
     quint16 cnum = 0;
     if (query.next()) {
         cnum = query.value(0).toUInt();
     }
-    query.exec("SELECT COUNT(*) FROM itemDB");
+    query.exec("SELECT COUNT(*) FROM menuItemDB");
     quint16 inum = 0;
     if (query.next()) {
         inum = query.value(0).toUInt();
     }
     out << cnum << inum;
 
-    query.exec("SELECT * FROM menuDB");
+    query.exec("SELECT * FROM menuTypeDB");
 
     quint16 cid = 0;
     QString title = "";
@@ -219,7 +219,7 @@ void Client::syncMenu(const QString &ip)
         cnum++;
     }
 
-    query.exec("SELECT * FROM itemDB");
+    query.exec("SELECT * FROM menuItemDB");
 
     quint16 iid = 0;
     QString tag = "";

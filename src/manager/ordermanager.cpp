@@ -10,8 +10,8 @@ OrderManager::OrderManager(QObject *parent) :
 void OrderManager::payOrder(quint32 orderNO)
 {
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    query.prepare("UPDATE orderDB SET pay = ? WHERE orderNO = ?");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.prepare("UPDATE orderListDB SET pay = ? WHERE orderNO = ?");
     query.addBindValue(1);
     query.addBindValue(orderNO);
     query.exec();

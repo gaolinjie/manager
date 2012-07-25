@@ -84,8 +84,8 @@ void ClientSocket::readOrder(QDataStream &in)
         query.exec();
     }
 
-    query.exec("CREATE TABLE IF NOT EXISTS orderDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    query.prepare("SELECT * FROM orderDB WHERE orderNO = ?");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     query.addBindValue(orderNO);
     query.exec();
 
@@ -94,14 +94,14 @@ void ClientSocket::readOrder(QDataStream &in)
         qreal preTotal = query.value(6).toReal();
         total += preTotal;
 
-        query.prepare("UPDATE orderDB SET total = ? WHERE orderNO = ?");
+        query.prepare("UPDATE orderListDB SET total = ? WHERE orderNO = ?");
         query.addBindValue(total);
         query.addBindValue(orderNO);
         query.exec();
     }
     else
     {
-        query.prepare("INSERT INTO orderDB(orderNO, seatNO, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        query.prepare("INSERT INTO orderListDB(orderNO, seatNO, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         query.addBindValue(orderNO);
         query.addBindValue(seatNO);
         query.addBindValue(mac);
