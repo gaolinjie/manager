@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("client", &client);
     QObject::connect(&orderManager, SIGNAL(pay(quint32)), &client, SLOT(sendPaiedOrder(quint32)));
     QObject::connect(&server, SIGNAL(registered(quint32)), &client, SLOT(sendDeviceNO(quint32)));
+    QObject::connect(&server, SIGNAL(registered(quint32)), &syncManager, SLOT(sendNeedSyncSignal()));
 
     return a.exec();
 }

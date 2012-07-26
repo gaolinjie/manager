@@ -36,3 +36,8 @@ bool SyncManager::isNeedSync()
         return false;
     }
 }
+
+void SyncManager::sendNeedSyncSignal()
+{
+    emit needSync();
+}

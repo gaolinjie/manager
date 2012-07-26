@@ -10,10 +10,12 @@ public:
     explicit SyncManager(QObject *parent = 0);
     
 signals:
+    void needSync();
     
 public slots:
     void syncMenu();
     bool isNeedSync();
+    void sendNeedSyncSignal();
 };
 
 #endif // SYNCMANAGER_H

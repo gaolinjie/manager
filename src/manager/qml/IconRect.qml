@@ -43,13 +43,20 @@ Rectangle {
         sourceSize.width: 90
         sourceSize.height: 90
 
+        property bool on: false
+        NumberAnimation on rotation {
+            running: icon.on; from: 0; to: 360; loops: Animation.Infinite; duration: 1200
+        }
+
         Component.onCompleted: {
             if (parent.iconTitle == "同 步") {
                 if (syncManager.isNeedSync()) {
                     icon.source = "qrc:/images/refresh-warning.png";
+                    icon.on = true;
                 }
                 else {
                     icon.source = "qrc:/images/refresh.png";
+                    icon.on = false;
                 }
             }
         }
@@ -66,5 +73,15 @@ Rectangle {
         font.family: "微软雅黑"
         color: "white"
         smooth: true
+    }
+
+    Connections{
+        target: syncManager
+        onNeedSync: {
+            if (text.text == "同 步") {
+                icon.source = "qrc:/images/refresh-warning.png";
+                icon.on = true;
+            }
+        }
     }
 }

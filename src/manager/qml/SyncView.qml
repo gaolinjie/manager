@@ -6,6 +6,13 @@ Item {
     width: 1280; height: 800
     signal loadStart()
 
+    Connections{
+        target: syncManager
+        onNeedSync: {
+            syncWarnningText.visible = true;
+        }
+    }
+
     Image {
         id: background
         source: "qrc:/images/background.png"
@@ -97,6 +104,30 @@ Item {
                 }
                 onReleased: {
                     syncAllRect.color = "#de9317"
+                }
+            }
+        }
+
+        Text {
+            id: syncWarnningText
+            anchors.bottom: viewTitle.bottom
+            anchors.bottomMargin: 4
+            anchors.left: viewTitle.right
+            anchors.leftMargin: 20
+            font.pixelSize: 16
+            color: "red"
+            text: "警告： 系统中仍有设备数据未更新，请先同步所有设备数据！"
+            font.family: "微软雅黑"
+            font.letterSpacing: 1
+            smooth: true
+            visible: false
+
+            Component.onCompleted: {
+                if (syncManager.isNeedSync()) {
+                    syncWarnningText.visible = true;
+                }
+                else {
+                    syncWarnningText.visible = false;
                 }
             }
         }
