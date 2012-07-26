@@ -163,7 +163,8 @@ Item {
                     onClicked: {
                         //dialog.y = 800;
                         //foreground.visible = false;
-                        client.syncMenu("192.168.1.106");
+                        //client.syncMenu("192.168.1.106");
+                        syncManager.syncMenu();
                         okButton.visible = false;
                         cancelButton.visible = false;
                         busyIndicator.visible = true;

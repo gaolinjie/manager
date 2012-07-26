@@ -22,3 +22,17 @@ void SyncManager::syncMenu()
         socket->syncMenu(ip);
     }
 }
+
+bool SyncManager::isNeedSync()
+{
+    QSqlQuery query;
+    query.exec("CREATE TABLE IF NOT EXISTS deviceDB(mac TEXT key, ip TEXT, deviceNO INTEGER, synced INTEGER)");
+    query.exec("SELECT * FROM deviceDB WHERE synced = 0");
+
+    if (query.next()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}

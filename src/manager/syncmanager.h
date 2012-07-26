@@ -13,6 +13,7 @@ signals:
     
 public slots:
     void syncMenu();
+    bool isNeedSync();
 };
 
 #endif // SYNCMANAGER_H

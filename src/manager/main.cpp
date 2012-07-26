@@ -15,6 +15,7 @@
 #include "ordermanager.h"
 #include "digitalclock.h"
 #include "ordersave.h"
+#include "syncmanager.h"
 
 int main(int argc, char *argv[])
 { 
@@ -38,6 +39,9 @@ int main(int argc, char *argv[])
     QDeclarativeView view;
     view.engine()->setOfflineStoragePath(path);
     QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &a, SLOT(quit()));
+
+    SyncManager syncManager;
+    view.rootContext()->setContextProperty("syncManager", &syncManager);
 
     view.setSource(QUrl("qrc:/qml/main.qml"));
     view.setBackgroundRole(QPalette::Dark);

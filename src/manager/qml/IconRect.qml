@@ -42,6 +42,17 @@ Rectangle {
         source: parent.iconSource
         sourceSize.width: 90
         sourceSize.height: 90
+
+        Component.onCompleted: {
+            if (parent.iconTitle == "同 步") {
+                if (syncManager.isNeedSync()) {
+                    icon.source = "qrc:/images/refresh-warning.png";
+                }
+                else {
+                    icon.source = "qrc:/images/refresh.png";
+                }
+            }
+        }
     }
 
     Text {

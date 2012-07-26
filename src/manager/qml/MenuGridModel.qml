@@ -16,7 +16,7 @@ ListModel {
                 if (rs.rows.length > 0) {
                     while (index < rs.rows.length) {
                         var item = rs.rows.item(index);
-                        var rss = tx.executeSql('SELECT * FROM itemDB where cid = ?', [item.cid]);
+                        var rss = tx.executeSql('SELECT * FROM menuItemDB where cid = ?', [item.cid]);
                         if (rss.rows.length > 0) {
                             if (item.style == "IMAGE_RECT") {
                                 item.image = rss.rows.item(0).image;
