@@ -41,3 +41,10 @@ void SyncManager::sendNeedSyncSignal()
 {
     emit needSync();
 }
+
+void SyncManager::setSyncOn()
+{
+    QSqlQuery query;
+    query.exec("CREATE TABLE IF NOT EXISTS deviceDB(mac TEXT key, ip TEXT, deviceNO INTEGER, synced INTEGER)");
+    query.exec("UPDATE deviceDB SET synced = 0");
+}

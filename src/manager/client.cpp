@@ -148,6 +148,32 @@ void Client::sendData()
 
 void Client::getData()
 {
+    QDataStream in(this);
+    in.setVersion(QDataStream::Qt_4_7);
+
+    if (nextBlockSize == 0)
+    {
+        if (bytesAvailable() < sizeof(quint16))
+            return;
+        in >> nextBlockSize;
+    }
+
+    if (bytesAvailable() < nextBlockSize)
+        return;
+
+    quint8 requestType = 0;
+    QString mac;
+
+    in >> requestType >> mac;
+    if (requestType == 'X')
+    {
+        QSqlQuery query;
+        query.prepare("UPDATE deviceDB SET synced = ? WHERE mac = ?");
+        query.addBindValue(1);
+        query.addBindValue(mac);
+        query.exec();
+        qDebug() << "synced";
+    }
 }
 
 void Client::connectionClosedByServer()

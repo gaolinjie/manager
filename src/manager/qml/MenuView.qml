@@ -154,6 +154,7 @@ Item {
                     bottomBar.y = 800;
                     addPanel.x = 1280;
                     clearEdit();
+                    syncManager.setSyncOn();
                 }
             }
         }

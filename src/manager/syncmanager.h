@@ -16,6 +16,9 @@ public slots:
     void syncMenu();
     bool isNeedSync();
     void sendNeedSyncSignal();
+    void setSyncOn();
+
+private:
 };
 
 #endif // SYNCMANAGER_H

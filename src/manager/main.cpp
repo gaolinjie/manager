@@ -34,33 +34,27 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-
-
     QDeclarativeView view;
     view.engine()->setOfflineStoragePath(path);
     QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &a, SLOT(quit()));
 
     SyncManager syncManager;
     view.rootContext()->setContextProperty("syncManager", &syncManager);
-
-    view.setSource(QUrl("qrc:/qml/main.qml"));
-    view.setBackgroundRole(QPalette::Dark);
-    view.show();
-
     ImageManager imageManager;
     view.rootContext()->setContextProperty("imageManager", &imageManager);
-
     OrderManager orderManager;
     OrderSave ordersave;
     DigitalClock systemClock;
     Printer  printOrder;
-
     view.rootContext()->setContextProperty("server", &server);
     view.rootContext()->setContextProperty("orderManager", &orderManager);
     view.rootContext()->setContextProperty("ordersave", &ordersave);
     view.rootContext()->setContextProperty("printOrder", &printOrder);
     view.rootContext()->setContextProperty("systemClock", &systemClock);
 
+    view.setSource(QUrl("qrc:/qml/main.qml"));
+    view.setBackgroundRole(QPalette::Dark);
+    view.show();
 
     QString md5;
     QString dbname="DemoDB";

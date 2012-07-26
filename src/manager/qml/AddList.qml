@@ -94,6 +94,7 @@ ListView {
                             maxcid = 0;
                         }
                         menuGrid.model.insert(index, {"cid": maxcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                        syncManager.setSyncOn();
                     }
                     else if (name == "座 位") {
                         var index = menuGrid.model.count - 1;
@@ -105,6 +106,7 @@ ListView {
                             maxcid = 0;
                         }
                         menuGrid.model.insert(index, {"cid": maxcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                        syncManager.setSyncOn();
                     }
                 }
             }

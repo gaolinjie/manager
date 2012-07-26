@@ -50,15 +50,25 @@ Rectangle {
 
         Component.onCompleted: {
             if (parent.iconTitle == "同 步") {
-                if (syncManager.isNeedSync()) {
-                    icon.source = "qrc:/images/refresh-warning.png";
-                    icon.on = true;
-                }
-                else {
-                    icon.source = "qrc:/images/refresh.png";
-                    icon.on = false;
-                }
+                isNeedSync()
             }
+        }
+
+        function isNeedSync() {
+            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+            db.transaction(
+                function(tx) {
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS deviceDB(mac TEXT key, ip TEXT, deviceNO INTEGER, synced INTEGER)');
+                            var rs = tx.executeSql('SELECT * FROM deviceDB WHERE synced = ?', [0]);
+                    if (rs.rows.length > 0) {
+                        icon.source = "qrc:/images/refresh-warning.png";
+                        icon.on = true;
+                    }
+                    else {
+                        icon.source = "qrc:/images/refresh.png";
+                        icon.on = false;
+                    }
+                })
         }
     }
 

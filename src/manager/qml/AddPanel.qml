@@ -261,6 +261,7 @@ Item {
                             }
                             addPanel.x = 1280;
                             clearEdit();
+                            syncManager.setSyncOn();
                         }
                     }
                     onReleased: {
