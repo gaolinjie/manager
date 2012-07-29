@@ -11,7 +11,7 @@ void ImageManager::construct()
     QStringList filters;
     filters << "*.png";
     //mImageDir.setPath(QDir::homePath()+"/Pictures/manager"); // Linux
-    mImageDir.setPath("C:/Users/gao/pics"); // Windows
+    mImageDir.setPath("C:/manager"); // Windows
     mImageDir.setNameFilters(filters);
     mImageList = mImageDir.entryList ();
 }

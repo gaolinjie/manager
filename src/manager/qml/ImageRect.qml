@@ -13,6 +13,7 @@ Rectangle {
     Connections{
         target: grid
         onClickedRect: {
+            console.log("onClickedRect" + cid)
             if (rectId == cid) {
                 Global.backColor = backColor;
                 Global.foreColor = foreColor;

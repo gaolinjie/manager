@@ -240,7 +240,7 @@ Item {
                                 var index = menuGrid.model.count - 1;
                                 var maxcid = -1;
                                 if (menuGrid.model.count > 1) {
-                                    maxcid = menuGrid.model.get(index-1).cid + 1;
+                                    maxcid = menuGrid.model.get(index-1).cid++;
                                 }
                                 else {
                                     maxcid = 0;

@@ -196,14 +196,14 @@ void Client::syncMenu(const QString &ip)
 {
     QStringList filters;
     filters << "*.png";
-    mImageDir.setPath("C:/Users/gao/pics/"); // Windows
+    mImageDir.setPath("C:/manager/"); // Windows
     mImageDir.setNameFilters(filters);
     mImageList = mImageDir.entryList ();
     mImageIndex = 0;
 
 
 
-    QString imagePath = "file:///C:/Users/gao/pics/";
+    QString imagePath = "file:///C:/manager/";
     block = new QByteArray();
     QDataStream out(block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_7);

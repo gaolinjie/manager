@@ -146,6 +146,7 @@ Item {
                     while (index < menuGrid.model.count) {
                         if (menuGrid.checkedIndex == menuGrid.model.get(index).cid) {
                             menuGrid.model.remove(index);
+                            deleteItemsData(index);
                             break;
                         }
                         index++;
@@ -155,6 +156,16 @@ Item {
                     addPanel.x = 1280;
                     clearEdit();
                     syncManager.setSyncOn();
+                }
+
+                function deleteItemsData(cidDeleted) {
+                    var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+                    db.transaction(
+                        function(tx) {
+                            tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
+                            tx.executeSql('DELETE FROM menuItemDB WHERE cid = ? ', [cidDeleted]);
+                        }
+                    )
                 }
             }
         }

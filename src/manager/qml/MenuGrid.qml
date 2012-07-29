@@ -17,6 +17,18 @@ GridView {
     signal releasedRect(int rectId)
     property int checkedIndex: -1
 
+    Component.onCompleted: {
+        timer.running = true
+    }
+
+    Timer {
+        id: timer
+        interval: 10
+        onTriggered: {
+            grid.model.reloadItemsData()
+        }
+    }
+
     MouseArea {
         property int currentId: -1                       // Original position in model
         property int newIndex                            // Current Position in model
@@ -26,6 +38,7 @@ GridView {
         anchors.fill: parent
         onClicked: {
             clickedRect(index)
+            console.log("clickedRect" + index)
         }
         onPressAndHold: {
             Global.mouseHolding = 1;
