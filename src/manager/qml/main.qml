@@ -11,7 +11,7 @@ Item {
     Loader {
         id: mainLoader
         source: "qrc:/qml/ManagerView.qml"
-        anchors.centerIn: parent
+        anchors.centerIn: parent       
     }
 
     Connections{

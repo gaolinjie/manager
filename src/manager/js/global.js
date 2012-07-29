@@ -1,6 +1,6 @@
 .pragma library
 
-var cid = -1
+var cid = ""
 var backColor = "#4eb3b9"
 var foreColor = "#96b232"
 var title = ""

@@ -10,7 +10,7 @@ ListModel {
         var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
         db.transaction(
             function(tx) {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, cid TEXT, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
                 var rs = tx.executeSql('SELECT * FROM menuItemDB where cid = ?', [Global.cid]);
                 var index = 0;
                 if (rs.rows.length > 0) {
@@ -30,22 +30,10 @@ ListModel {
         db.transaction(
             function(tx) {
                 //tx.executeSql('DROP TABLE menuItemDB');
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, cid TEXT, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
                 tx.executeSql('DELETE FROM menuItemDB WHERE cid = ? ', [Global.cid]);
-                var rs = tx.executeSql('SELECT * FROM menuItemDB');
                 var index = 0;
-                if (rs.rows.length > 0) {
-                    while (index < rs.rows.length) {
-                        var item = rs.rows.item(index);
-                        tx.executeSql('UPDATE menuItemDB SET iid = ? WHERE iid = ?', [index, item.iid]);
-                        index++;
-                    }
-                }
-
-                rs = tx.executeSql('SELECT * FROM menuItemDB');
-                index = 0;
                 while (index < itemModel.count && itemModel.get(index).style != "ADD_RECT") {
-                    itemModel.get(index).iid = index + rs.rows.length;
                     var item = itemModel.get(index);
                     tx.executeSql('INSERT INTO menuItemDB VALUES(?,?,?,?,?,?,?,?,?)', [item.iid, item.cid, item.tag, item.name, item.image, item.detail, item.price, item.needPrint, item.printer]);
                     index++;

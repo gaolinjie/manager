@@ -16,6 +16,7 @@
 #include "digitalclock.h"
 #include "ordersave.h"
 #include "syncmanager.h"
+#include "idmanager.h"
 
 int main(int argc, char *argv[])
 { 
@@ -77,6 +78,9 @@ int main(int argc, char *argv[])
     QObject::connect(&orderManager, SIGNAL(pay(quint32)), &client, SLOT(sendPaiedOrder(quint32)));
     QObject::connect(&server, SIGNAL(registered(quint32)), &client, SLOT(sendDeviceNO(quint32)));
     QObject::connect(&server, SIGNAL(registered(quint32)), &syncManager, SLOT(sendNeedSyncSignal()));
+
+    IDManager idManager;
+    view.rootContext()->setContextProperty("idManager", &idManager);
 
     return a.exec();
 }

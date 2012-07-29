@@ -319,13 +319,7 @@ Item {
                         else {
                             if (addPanel.state == "view") {
                                 var index = grid.model.count - 1;
-                                var maxiid = -1;
-                                if (grid.model.count > 1) {
-                                    maxiid = grid.model.get(index-1).iid + 1;
-                                }
-                                else {
-                                    maxiid = 0;
-                                }
+                                var maxiid = idManager.createID();;
                                 grid.model.insert(index, {"iid": maxiid, "cid": Global.cid, "tag": "", "name": nameTextEdit.text, "image": imagePreview.source, "detail": detailTextEdit.text, "price": priceTextEdit.text, "style": "IMAGE_RECT"});
                             }
                             else if (addPanel.state == "edit") {

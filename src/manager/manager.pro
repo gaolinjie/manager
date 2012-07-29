@@ -14,7 +14,8 @@ SOURCES += \
     digitalclock.cpp \
     ordermanager.cpp \
     ordersave.cpp \
-    printer.cpp
+    printer.cpp \
+    idmanager.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -142,4 +143,5 @@ HEADERS += \
     digitalclock.h \
     ordermanager.h \
     ordersave.h \
-    printer.h
+    printer.h \
+    idmanager.h

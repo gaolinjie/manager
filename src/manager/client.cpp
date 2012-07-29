@@ -224,7 +224,7 @@ void Client::syncMenu(const QString &ip)
 
     query.exec("SELECT * FROM menuTypeDB");
 
-    quint16 cid = 0;
+    QString cid = "";
     QString title = "";
     QString image = "";
     QString style = "";
@@ -232,7 +232,7 @@ void Client::syncMenu(const QString &ip)
     QString backColor = "";
     QString foreColor = "";
     while (query.next()) {
-        cid = query.value(0).toUInt();
+        cid = query.value(0).toString();
         title = query.value(1).toString();
         image = query.value(2).toString();
         image.remove(imagePath);
@@ -247,7 +247,7 @@ void Client::syncMenu(const QString &ip)
 
     query.exec("SELECT * FROM menuItemDB");
 
-    quint16 iid = 0;
+    QString iid = 0;
     QString tag = "";
     QString name = "";
     QString detail = "";
@@ -255,8 +255,8 @@ void Client::syncMenu(const QString &ip)
     QString printer = "";
     float price = 0;
     while (query.next()) {
-        iid = query.value(0).toUInt();
-        cid = query.value(1).toUInt();
+        iid = query.value(0).toString();
+        cid = query.value(1).toString();
         tag = query.value(2).toString();
         name = query.value(3).toString();
         image = query.value(4).toString();

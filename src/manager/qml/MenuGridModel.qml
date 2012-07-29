@@ -10,8 +10,8 @@ ListModel {
         var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
         db.transaction(
             function(tx) {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid TEXT primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, cid TEXT, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
                 var rs = tx.executeSql('SELECT * FROM menuTypeDB');
                 var index = 0;
                 if (rs.rows.length > 0) {
@@ -43,10 +43,10 @@ ListModel {
         db.transaction(
             function(tx) {
                 tx.executeSql('DROP TABLE menuTypeDB');
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid TEXT primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
                 var index = 0;
                 while (index < menuGridModel.count && menuGridModel.get(index).style != "ADD_RECT") {
-                    menuGridModel.get(index).cid = index;
+                    //menuGridModel.get(index).cid = index;
                     var item = menuGridModel.get(index);
                     tx.executeSql('INSERT INTO menuTypeDB VALUES(?,?,?,?,?,?,?)', [item.cid, item.title, item.image, item.style, item.slotQml, item.backColor, item.foreColor]);
                     index++;
@@ -60,8 +60,8 @@ ListModel {
         var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
         db.transaction(
             function(tx) {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid INTEGER primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
-                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid INTEGER primary key, cid INTEGER, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuTypeDB(cid TEXT primary key, title TEXT, image TEXT, style TEXT, slotQml TEXT, backColor TEXT, foreColor TEXT)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, cid TEXT, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
                 var rs = tx.executeSql('SELECT * FROM menuTypeDB');
                 var index = 0;
                 if (rs.rows.length > 0) {

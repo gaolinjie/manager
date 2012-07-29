@@ -238,14 +238,8 @@ Item {
                         else {
                             if (addPanel.state == "new") {
                                 var index = menuGrid.model.count - 1;
-                                var maxcid = -1;
-                                if (menuGrid.model.count > 1) {
-                                    maxcid = menuGrid.model.get(index-1).cid++;
-                                }
-                                else {
-                                    maxcid = 0;
-                                }
-                                menuGrid.model.insert(index, {"cid": maxcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                                var newcid = idManager.createID();
+                                menuGrid.model.insert(index, {"cid": newcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;

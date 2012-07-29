@@ -86,26 +86,14 @@ ListView {
                     }
                     else if (name == "购物车") {
                         var index = menuGrid.model.count - 1;
-                        var maxcid = -1;
-                        if (menuGrid.model.count > 1) {
-                            maxcid = menuGrid.model.get(index-1).cid + 1;
-                        }
-                        else {
-                            maxcid = 0;
-                        }
-                        menuGrid.model.insert(index, {"cid": maxcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                        var newcid = idManager.createID();
+                        menuGrid.model.insert(index, {"cid": newcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
                         syncManager.setSyncOn();
                     }
                     else if (name == "座 位") {
                         var index = menuGrid.model.count - 1;
-                        var maxcid = -1;
-                        if (menuGrid.model.count > 1) {
-                            maxcid = menuGrid.model.get(index-1).cid + 1;
-                        }
-                        else {
-                            maxcid = 0;
-                        }
-                        menuGrid.model.insert(index, {"cid": maxcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                        var newcid = idManager.createID();
+                        menuGrid.model.insert(index, {"cid": newcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
                         syncManager.setSyncOn();
                     }
                 }
