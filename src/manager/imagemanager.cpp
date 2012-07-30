@@ -3,7 +3,7 @@
 
 ImageManager::ImageManager(QObject *parent) :
     QObject(parent)
-{
+{   
 }
 
 void ImageManager::construct()

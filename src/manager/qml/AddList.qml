@@ -85,17 +85,32 @@ ListView {
                         addPanel.state = "new";
                     }
                     else if (name == "购物车") {
-                        var index = menuGrid.model.count - 1;
-                        var newcid = idManager.createID();
-                        menuGrid.model.insert(index, {"cid": newcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
-                        syncManager.setSyncOn();
+                        if (!checkIsHaveMenuType(idManager.getUniqueShopcarID())) {
+                            var index = menuGrid.model.count - 1;
+                            var newcid = idManager.getUniqueShopcarID();
+                            menuGrid.model.insert(index, {"cid": newcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                            syncManager.setSyncOn();
+                        }
                     }
                     else if (name == "座 位") {
-                        var index = menuGrid.model.count - 1;
-                        var newcid = idManager.createID();
-                        menuGrid.model.insert(index, {"cid": newcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
-                        syncManager.setSyncOn();
+                        if (!checkIsHaveMenuType(idManager.getUniqueSeatID())) {
+                            var index = menuGrid.model.count - 1;
+                            var newcid = idManager.getUniqueSeatID();
+                            menuGrid.model.insert(index, {"cid": newcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                            syncManager.setSyncOn();
+                        }
                     }
+                }
+
+                function checkIsHaveMenuType(id) {
+                    var index = 0;
+                    while (index < menuGrid.model.count) {
+                        if (id == menuGrid.model.get(index).cid) {
+                            return true;
+                        }
+                        index++;
+                    }
+                    return false;
                 }
             }
         }

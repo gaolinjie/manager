@@ -13,7 +13,12 @@ signals:
     
 public slots:
     QString createID();
-    
+    QString getUniqueShopcarID();
+    QString getUniqueSeatID();
+
+private:
+    QString mUniqueShopcarID;
+    QString mUniqueSeatID;
 };
 
 #endif // IDMANAGER_H

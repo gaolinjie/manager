@@ -12,10 +12,10 @@ GridView {
     smooth: true
     flow: GridView.TopToBottom
     interactive: false
-    signal clickedRect(int rectId)
-    signal pressAndHoldRect(int rectId)
-    signal releasedRect(int rectId)
-    property int checkedIndex: -1
+    signal clickedRect(string rectId)
+    signal pressAndHoldRect(string rectId)
+    signal releasedRect(string rectId)
+    property string checkedIndex: ""
 
     Component.onCompleted: {
         timer.running = true
@@ -30,34 +30,35 @@ GridView {
     }
 
     MouseArea {
-        property int currentId: -1                       // Original position in model
+        property string currentId: ""                    // Original position in model
         property int newIndex                            // Current Position in model
         property int index: grid.indexAt(mouseX, mouseY) // Item underneath cursor
         property int offset: -1
         id: loc
         anchors.fill: parent
         onClicked: {
-            clickedRect(index)
-            console.log("clickedRect" + index)
+            clickedRect(grid.model.get(index).cid)
+            //console.log("clickedRect" + grid.model.get(index).cid)
         }
         onPressAndHold: {
             Global.mouseHolding = 1;
             if (flick.interactive == true) {
                 flick.interactive = false;
             }
-            currentId = rects.get(newIndex = index).cid;
+            currentId = grid.model.get(newIndex = index).cid;
+            console.log("clickedRect" + currentId)
             grid.checkedIndex = currentId;
             pressAndHoldRect(currentId);
             bottomBar.y = 700;
         }
         onReleased: {
             Global.mouseHolding = 0;
-            currentId = -1;
+            currentId = "";
             flick.interactive = true;
             releasedRect(currentId);
         }
         onMousePositionChanged: {
-            if (loc.currentId != -1 && index != -1 && index != newIndex)
+            if (loc.currentId != "" && index != -1 && index != newIndex)
                 rects.move(newIndex, newIndex = index, 1)
             if (offset < 0) {
                 var n = 0;

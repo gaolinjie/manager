@@ -12,20 +12,20 @@ GridView {
     smooth: true
     flow: GridView.TopToBottom
     interactive: false
-    signal clickedRect(int rectId)
-    signal pressAndHoldRect(int rectId)
-    signal releasedRect(int rectId)
-    property int checkedIndex: -1
+    signal clickedRect(string rectId)
+    signal pressAndHoldRect(string rectId)
+    signal releasedRect(string rectId)
+    property string checkedIndex: ""
 
     MouseArea {
-        property int currentId: -1                       // Original position in model
+        property string currentId: ""                    // Original position in model
         property int newIndex                            // Current Position in model
         property int index: grid.indexAt(mouseX, mouseY) // Item underneath cursor
         property int offset: -1
         id: loc
         anchors.fill: parent
         onClicked: {
-            clickedRect(index)
+            clickedRect(grid.model.get(index).iid)
         }
         onPressAndHold: {
             console.log("dddd")
@@ -41,12 +41,12 @@ GridView {
         }
         onReleased: {
             Global.mouseHolding = 0;
-            currentId = -1;
+            currentId = "";
             flick.interactive = true;
             releasedRect(currentId);
         }
         onMousePositionChanged: {
-            if (loc.currentId != -1 && index != -1 && index != newIndex)
+            if (loc.currentId != "" && index != -1 && index != newIndex)
                 rects.move(newIndex, newIndex = index, 1)
             if (offset < 0) {
                 var n = 0;

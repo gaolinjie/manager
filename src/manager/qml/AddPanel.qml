@@ -6,7 +6,7 @@ Item {
     id: addPanel
     width: 400
     height: 800
-    property int rectCid: -1
+    property string rectCid: ""
 
     Connections{
         target: menuView
