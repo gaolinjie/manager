@@ -128,7 +128,8 @@ OTHER_FILES += \
     qml/LoginView.qml \
     qml/CashierView.qml \
     images/shopping_cart.png \
-    qml/IconRect2.qml
+    qml/IconRect2.qml \
+    qml/CheckBox.qml
 
 RESOURCES += \
     resource.qrc

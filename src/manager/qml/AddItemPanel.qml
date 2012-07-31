@@ -6,7 +6,7 @@ Item {
     id: addPanel
     width: 400
     height: 800
-    property int rectIid: -1
+    property string rectIid: ""
     property string addedImageName: ""
     property string addedImage: ""
     property string imagePreviewState: "hide"
@@ -121,7 +121,7 @@ Item {
                 id: priceTitle
                 text: "菜品价格:"
                 anchors.left: nameEdit.left
-                anchors.top: nameEdit.bottom; anchors.topMargin: 40
+                anchors.top: nameEdit.bottom; anchors.topMargin: 30
                 font.pixelSize: 16
                 font.family: "微软雅黑"
                 smooth: true
@@ -167,7 +167,7 @@ Item {
                 id: detailTitle
                 text: "菜品介绍:"
                 anchors.left: priceEdit.left
-                anchors.top: priceEdit.bottom; anchors.topMargin: 40
+                anchors.top: priceEdit.bottom; anchors.topMargin: 30
                 font.pixelSize: 16
                 font.family: "微软雅黑"
                 smooth: true
@@ -176,7 +176,7 @@ Item {
 
             Rectangle {
                 id: detailEdit
-                width: 320; height: 36*3
+                width: 320; height: 36*2
                 color: "#de9317"
                 border.color: "white"//"#d54d34"
                 border.width: 2
@@ -187,7 +187,7 @@ Item {
 
                 TextEdit {
                     id: detailTextEdit
-                    width: 300; height: 36*3 - 20
+                    width: 300; height: 36*2 - 20
                     text: ""
                     font.pixelSize: 20
                     font.family: "微软雅黑"
@@ -203,7 +203,7 @@ Item {
                 id: imageTitle
                 text: "菜品图片:"
                 anchors.left: detailEdit.left
-                anchors.top: detailEdit.bottom; anchors.topMargin: 40
+                anchors.top: detailEdit.bottom; anchors.topMargin: 30
                 font.pixelSize: 16
                 font.family: "微软雅黑"
                 smooth: true
@@ -276,9 +276,10 @@ Item {
             Image {
                 id: imageButton
                 source: "qrc:/images/camera.png"
-                sourceSize.width: 36; sourceSize.height: 36
-                anchors.left: imageRect.left
-                anchors.top: imageRect.bottom; anchors.topMargin: 15
+                sourceSize.width: 24; sourceSize.height: 24
+                anchors.right: imageRect.right
+                //anchors.top: imageRect.bottom; anchors.topMargin: 15
+                y: imageTitle.y
 
                 MouseArea {
                     anchors.fill: parent
@@ -287,6 +288,14 @@ Item {
                         addPanel.imagePreviewState = "hide";
                     }
                 }
+            }
+
+            CheckBox {
+                id: printCheckbox
+                anchors.top: imageRect.bottom
+                anchors.topMargin: 20
+                anchors.left: imageTitle.left
+                anchors.leftMargin: 4
             }
 
             Rectangle {

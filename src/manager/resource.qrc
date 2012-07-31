@@ -111,5 +111,6 @@
         <file>qml/CashierView.qml</file>
         <file>images/shopping_cart.png</file>
         <file>qml/IconRect2.qml</file>
+        <file>qml/CheckBox.qml</file>
     </qresource>
 </RCC>
