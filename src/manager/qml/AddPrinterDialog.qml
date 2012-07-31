@@ -97,13 +97,7 @@ Rectangle {
                 }
                 else {
                     var index = printerGrid.model.count - 1;
-                    var maxpid = -1;
-                    if (printerGrid.model.count > 1) {
-                        maxpid = printerGrid.model.get(index-1).pid + 1;
-                    }
-                    else {
-                        maxpid = 0;
-                    }
+                    var maxpid = idManager.createID();
                     for (var i = 0; i < printerGrid.model.count; i++) {
                         printerGrid.model.setProperty(i, "active", 0);
                     }

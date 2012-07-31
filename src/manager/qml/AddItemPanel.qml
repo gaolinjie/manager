@@ -212,7 +212,7 @@ Item {
 
             Rectangle {
                 id: imageRect
-                width: 320; height: 90
+                width: 320; height: 60
                 color: "#d54d34"
                 opacity: 0
                 anchors.left: imageTitle.left
@@ -230,7 +230,7 @@ Item {
             Image {
                 id: imagePreview
                 source: addPanel.addedImage
-                sourceSize.width: 98; sourceSize.height: 72
+                sourceSize.width: 68; sourceSize.height: 42
                 anchors.left: imageRect.left; anchors.leftMargin: 15
                 anchors.verticalCenter: imageRect.verticalCenter
                 opacity: 0
@@ -261,6 +261,7 @@ Item {
                     PropertyChanges { target: imageRect; opacity: 0; y: imageTitle.y + imageTitle.height - imageRect.height}
                     PropertyChanges { target: imagePreview; opacity: 0 }
                     PropertyChanges { target: imagePreviewName; opacity: 0 }
+                    PropertyChanges { target: selectPrinterComboBox; dropDown: true }
                     when: addPanel.imagePreviewState == "hide"
                 },
 
@@ -269,6 +270,7 @@ Item {
                     PropertyChanges { target: imageRect; opacity: 0.3; y: imageTitle.y + imageTitle.height + 15}
                     PropertyChanges { target: imagePreview; opacity: 1 }
                     PropertyChanges { target: imagePreviewName; opacity: 1 }
+                    PropertyChanges { target: selectPrinterComboBox; dropDown: false }
                     when: addPanel.imagePreviewState == "show"
                 }
             ]
@@ -276,7 +278,7 @@ Item {
             Image {
                 id: imageButton
                 source: "qrc:/images/camera.png"
-                sourceSize.width: 24; sourceSize.height: 24
+                sourceSize.width: 26; sourceSize.height: 26
                 anchors.right: imageRect.right
                 //anchors.top: imageRect.bottom; anchors.topMargin: 15
                 y: imageTitle.y
@@ -290,12 +292,83 @@ Item {
                 }
             }
 
+            Text {
+                id: printSettingTitle
+                text: "打印设置:"
+                anchors.left: imageTitle.left
+                anchors.top: imageRect.bottom; anchors.topMargin: 20
+                font.pixelSize: 16
+                font.family: "微软雅黑"
+                smooth: true
+                color: "white"
+            }
+
             CheckBox {
                 id: printCheckbox
-                anchors.top: imageRect.bottom
-                anchors.topMargin: 20
-                anchors.left: imageTitle.left
+                anchors.top: printSettingTitle.bottom
+                anchors.topMargin: 15
+                anchors.left: printSettingTitle.left
                 anchors.leftMargin: 4
+                backColor: "#de9317"
+                foreColor: "#d54d34"
+                property int isNeedPrint: checked?1:0
+                checked: true
+
+                onOperate: {
+                    if (printCheckbox.checked) {
+                        printCheckbox.isNeedPrint = 1;
+
+                    }
+                    else {
+                        printCheckbox.isNeedPrint = 0;
+                    }
+                    console.log(printCheckbox.isNeedPrint )
+                }
+            }
+
+            Text {
+                id: printCheckBoxTitle
+                text: "是否需要发送到厨房"
+                anchors.left: printCheckbox.right
+                anchors.leftMargin: 10
+                anchors.bottom: printCheckbox.bottom
+                font.pixelSize: 14
+                font.family: "微软雅黑"
+                smooth: true
+                color: "white"
+            }
+/*
+            Text {
+                id: selectPrinterTitle
+                text: "选择打印机"
+                anchors.left: printCheckbox.left
+                anchors.top: printCheckbox.bottom
+                anchors.topMargin: 15
+                font.pixelSize: 14
+                font.family: "微软雅黑"
+                smooth: true
+                color: "white"
+                visible: printCheckbox.checked
+            }*/
+
+            ComboBox {
+                id: selectPrinterComboBox
+                prompt: "请选择打印机"
+                anchors.left: printSettingTitle.left
+                anchors.top: printCheckbox.bottom
+                anchors.topMargin: 15
+                visible: printCheckbox.checked
+                dropDown: addPanel.addedImage=="" ? true : false
+                z: 2
+                contentModel: PrinterModel {
+                                  id: printModel
+                                  readOnly: true
+                              }
+
+                property string seletedPrinter: ""
+                onOperate: {
+                    selectPrinterComboBox.seletedPrinter = selectPrinterComboBox.contentModel.get(index).pid;
+                }
             }
 
             Rectangle {
@@ -311,9 +384,9 @@ Item {
                     text: "确 定"
                     anchors.centerIn: parent
                     color: "white"
-                    font.pixelSize: 16
                     font.family: "微软雅黑"
                     smooth: true
+                    font.pixelSize: 16
                 }
 
                 MouseArea {
@@ -329,7 +402,7 @@ Item {
                             if (addPanel.state == "view") {
                                 var index = grid.model.count - 1;
                                 var maxiid = idManager.createID();;
-                                grid.model.insert(index, {"iid": maxiid, "cid": Global.cid, "tag": "", "name": nameTextEdit.text, "image": imagePreview.source, "detail": detailTextEdit.text, "price": priceTextEdit.text, "style": "IMAGE_RECT"});
+                                grid.model.insert(index, {"iid": maxiid, "cid": Global.cid, "tag": "", "name": nameTextEdit.text, "image": imagePreview.source, "detail": detailTextEdit.text, "price": priceTextEdit.text, "needPrint": printCheckbox.isNeedPrint, "printer": selectPrinterComboBox.seletedPrinter, "style": "IMAGE_RECT"});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;
@@ -339,6 +412,13 @@ Item {
                                         grid.model.get(index).image = imagePreview.source;
                                         grid.model.get(index).detail = detailTextEdit.text;
                                         grid.model.get(index).price = priceTextEdit.text;
+                                        grid.model.get(index).needPrinter = printCheckbox.isNeedPrint;
+                                        if (printCheckbox.isNeedPrint == 1) {
+                                            grid.model.get(index).printer = selectPrinterComboBox.seletedPrinter;
+                                        }
+                                        else {
+                                            grid.model.get(index).printer = "gvvv";
+                                        }
                                         break;
                                     }
                                     index++;
@@ -394,6 +474,8 @@ Item {
         priceTextEdit.text = '';
         detailTextEdit.text = '';
         addPanel.imagePreviewState = "hide";
+        printCheckbox.checked = true
+        selectPrinterComboBox.prompt = "请选择打印机";
     }
 
     function refreshEdit() {
@@ -402,6 +484,15 @@ Item {
         detailTextEdit.text = Global.checkedDetail;
         addPanel.addedImage = Global.checkedImage;
         imagePreviewState = "show";
+        printCheckbox.checked = Global.checkedNeedPrint;
+        var index = 0;
+        while (index < selectPrinterComboBox.contentModel.count) {
+            if (Global.checkedPrinter == selectPrinterComboBox.contentModel.get(index).pid) {
+                selectPrinterComboBox.prompt = selectPrinterComboBox.contentModel.get(index).name
+            }
+            index++;
+        }
+        selectPrinterComboBox.seletedPrinter = Global.checkedPrinter;
     }
 
     BorderImage {

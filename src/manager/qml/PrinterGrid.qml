@@ -3,7 +3,7 @@ import "../js/global.js" as Global
 
 GridView {
     id: printerGrid
-    model: printerModel
+    model: PrinterModel{}
     delegate: printerDelegate
     cacheBuffer: 100
     cellWidth: 350
@@ -119,52 +119,6 @@ GridView {
                      }
                  }
              }
-        }
-    }
-
-    ListModel {
-        id: printerModel
-        Component.onCompleted: loadItemsData()
-        Component.onDestruction: saveItemsData()
-        function loadItemsData() {
-            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
-            db.transaction(
-                function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid INTEGER primary key, name TEXT, active INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM printerDB');
-                    var index = 0;
-                    if (rs.rows.length > 0) {
-                        while (index < rs.rows.length) {
-                            var item = rs.rows.item(index);
-                            printerModel.append({"pid": item.pid,
-                                              "name": item.name,
-                                              "active": item.active,
-                                                    "style": item.style});
-                            index++;
-                        }
-                    }
-                    else {
-                    }
-                    printerModel.append({"pid": index, "name": "", "active": 0, "style": "ADD_RECT"});
-                }
-            )
-        }
-
-        function saveItemsData() {
-            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
-            db.transaction(
-                function(tx) {
-                    tx.executeSql('DROP TABLE printerDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid INTEGER primary key, name TEXT, active INTEGER, style TEXT)');
-                    var index = 0;
-                    while (index < printerModel.count && printerModel.get(index).style != "ADD_RECT") {
-                        printerModel.get(index).pid = index;
-                        var item = printerModel.get(index);
-                        tx.executeSql('INSERT INTO printerDB VALUES(?,?,?,?)', [item.pid, item.name, item.active, item.style]);
-                        index++;
-                    }
-                }
-            )
         }
     }
 }

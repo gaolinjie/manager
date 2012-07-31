@@ -2,10 +2,13 @@
 import QtQuick 1.1
 
 Rectangle {
-    id: checkBox;
+    id: checkBox
     property bool checked: false
+    property string backColor: "#de9317"
+    property string foreColor: "#d54d34"
 
     signal clicked( bool checked )
+    signal operate
 
     Component.onCompleted: {
         if (!checked)
@@ -14,19 +17,19 @@ Rectangle {
             checkedIcon.visible = true
     }
 
-    width: 22
-    height: 22
-    color: "#de9317"
+    width: 18
+    height: 18
+    color: backColor
     border.width: 2
     border.color: "white"
     smooth: true
+    radius: 1
 
     Image {
         id: checkedIcon
         source: "qrc:/images/check.png"
-        sourceSize.width: 22
-        sourceSize.height: 22
-        //anchors.fill: parent
+        sourceSize.width: checkBox.width //- 2
+        sourceSize.height: checkBox.height //- 2
         anchors.centerIn: parent
     }
 
@@ -35,8 +38,9 @@ Rectangle {
 
         anchors.fill: parent
         onClicked: {
-            checked = !checked
-            checkBox.clicked( checked )
+            checked = !checked;
+            checkBox.clicked( checked );
+            checkBox.operate();
         }
     }
 
@@ -52,7 +56,7 @@ Rectangle {
             target: checkedIcon
             visible: checked
         }
-        PropertyChanges { target: checkBox; border.color: "white"; color: "#d54d34"}
+        PropertyChanges { target: checkBox; border.color: "white"; color: foreColor}
         }
     ]
 }

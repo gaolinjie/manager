@@ -29,6 +29,8 @@ Item {
                 Global.checkedDetail = detail;
                 Global.checkedImage = image;
                 Global.checkedIid = iid;
+                Global.checkedNeedPrint = needPrint==1 ? true : false;
+                Global.checkedPrinter = printer;
             }
             else {
                 console.log("dd")

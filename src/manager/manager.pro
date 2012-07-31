@@ -129,7 +129,9 @@ OTHER_FILES += \
     qml/CashierView.qml \
     images/shopping_cart.png \
     qml/IconRect2.qml \
-    qml/CheckBox.qml
+    qml/CheckBox.qml \
+    qml/ComboBox.qml \
+    qml/PrinterModel.qml
 
 RESOURCES += \
     resource.qrc

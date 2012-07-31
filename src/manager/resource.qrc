@@ -112,5 +112,7 @@
         <file>images/shopping_cart.png</file>
         <file>qml/IconRect2.qml</file>
         <file>qml/CheckBox.qml</file>
+        <file>qml/ComboBox.qml</file>
+        <file>qml/PrinterModel.qml</file>
     </qresource>
 </RCC>
