@@ -7,31 +7,26 @@ Rectangle {
     height: parent.height
     color: backColor
     smooth: true
+    anchors.centerIn: parent
 
     property string iconSource: ""
     property string iconTitle: ""
 
-    transform: Rotation {
-        id: rotation;
-        origin.x: parent.width * 0.5;
-        origin.y: 0//parent.height * 0.5;
-        axis { x: 1; y: 0; z: 0 }
-        angle: 0
-    }
-
     MouseArea{
         anchors.fill: parent
         onPressed: {
-            rotation.angle = -15;
+            rect.width = rect.width*0.95
+            rect.height = rect.height*0.95
         }
         onClicked: {
             Global.backColor = backColor
             Global.foreColor = foreColor
             Global.title = title
-            loadRect(slotQml)
         }
         onReleased: {
-            rotation.angle = 0;
+            rect.width = rect.parent.width
+            rect.height = rect.parent.height
+            loadRect(slotQml)
         }
     }
 

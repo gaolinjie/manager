@@ -31,8 +31,8 @@ GridView {
                      anchors.top: parent.top; anchors.topMargin: 10
                      color: active == 1 ? "white" : "black"
                      font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 18
+                     smooth: true
+                     font.pixelSize: 18
                  }
 
                  Text {
@@ -42,8 +42,8 @@ GridView {
                      anchors.verticalCenter: parent.verticalCenter
                      color: active == 1 ? "white" : "black"
                      font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 18
+                     smooth: true
+                     font.pixelSize: 18
                      visible: addButton.visible
                  }
 

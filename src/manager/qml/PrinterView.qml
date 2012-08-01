@@ -32,7 +32,7 @@ Item {
     Rectangle {
         id: mainView
         width: parent.width; height: parent.height
-        color: "#BABAB9"
+        color: "#5859b9"//"#BABAB9"
         anchors.verticalCenter: parent.verticalCenter
         transform: Rotation { id: viewRotation; origin.x: parent.width * 0.8; origin.y: parent.height * 0.8 * 0.5 + 100; axis { x: 0; y: 1; z: 0 } angle: -70 }
         smooth: true
@@ -46,7 +46,7 @@ Item {
             font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 50
-            color: "black"
+            color: "white"
         }
 
         Image {
@@ -72,7 +72,7 @@ Item {
             font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 30
-            color: "black"
+            color: "white"
         }
 
         Text {
@@ -83,7 +83,7 @@ Item {
             font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 15
-            color: "black"
+            color: "white"
         }
 
         PrinterGrid {

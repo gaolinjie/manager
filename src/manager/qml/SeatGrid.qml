@@ -25,7 +25,7 @@ GridView {
 
         Rectangle {
              width: 330; height: 60
-             color: active == 1 ? "black" : "#359533"
+             color: "#de9317"//active == 1 ? "black" : "#359533"
 
              Image {
                  id: labelImage
@@ -37,7 +37,7 @@ GridView {
                  text: seat
                  anchors.left: parent.left; anchors.leftMargin: 30
                  anchors.top: parent.top; anchors.topMargin: 10
-                 color: "black"
+                 color: "white"
                  font.pixelSize: 18
                  font.family: "微软雅黑"
                  smooth: true
@@ -48,7 +48,7 @@ GridView {
                  text: "大 厅"
                  anchors.left: seatText.left
                  anchors.top: seatText.bottom; anchors.topMargin: 3
-                 color: "black"
+                 color: "white"
                  font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 12
@@ -59,7 +59,7 @@ GridView {
                  text: "8"
                  anchors.right: numLabel.left; anchors.rightMargin: 5
                  anchors.bottom: numLabel.bottom; anchors.bottomMargin: -3
-                 color: "black"
+                 color: "white"
                  font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 22
@@ -70,7 +70,7 @@ GridView {
                  text: "人座位"
                  anchors.right: parent.right; anchors.rightMargin: 20
                  anchors.bottom: categoryText.bottom; //anchors.topMargin: 3
-                 color: "black"
+                 color: "white"
                  font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 14

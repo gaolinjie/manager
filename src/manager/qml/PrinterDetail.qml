@@ -23,20 +23,20 @@ Item {
         font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 30
-        color: "black"
+        color: "white"
     }
 
     Text {
         id: choosePrinterTitle
         anchors.left: printerDetailTitle.left
         anchors.top: printerDetailTitle.bottom; anchors.topMargin: 30
-        text: "选择网络中的打印机"
+        text: "网络中的打印机"
         font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 20
-        color: "black"
+        color: "white"
     }
-
+/*
     Rectangle {
         id: choosePrinterRect
         width: 320; height: 36
@@ -45,33 +45,65 @@ Item {
         border.width: 2
         anchors.left: choosePrinterTitle.left
         anchors.top: choosePrinterTitle.bottom; anchors.topMargin: 15
+    }  */
+
+    ComboBox {
+        id: selectPrinterDeviceComboBox
+        prompt: "请选择网络中的打印机设备"
+        anchors.left: choosePrinterTitle.left
+        anchors.top: choosePrinterTitle.bottom; anchors.topMargin: 15
+        dropDown: true
+        z: 3
+        contentModel: printerDeviceModel
+        onOperate: {
+        }
+        ListModel {
+            id: printerDeviceModel
+            ListElement {
+                name: "GP-100125"
+            }
+            ListElement {
+                name: "EPSON-6000"
+            }
+            ListElement {
+                name: "STAR-2578"
+            }
+        }
     }
 
     Text {
-        id: chooseCategoryTitle
-        anchors.left: choosePrinterRect.left
-        anchors.top: choosePrinterRect.bottom; anchors.topMargin: 40
-        text: "指定发送到该打印机的菜品类别"
+        id: choosePrinterTypeTitle
+        anchors.left: printerDetailTitle.left
+        anchors.top: selectPrinterDeviceComboBox.bottom; anchors.topMargin: 30
+        text: "打印机类型"
         font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 20
-        color: "black"
+        color: "white"
     }
 
-    Text {
-        id: chooseItemTitle
-        anchors.left: chooseCategoryTitle.left
-        anchors.top: chooseCategoryTitle.bottom; anchors.topMargin: 160
-        text: "指定发送到该打印机的菜品"
-        font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 20
-        color: "black"
-    }
+    ComboBox {
+        id: selectPrinterTypeComboBox
+        prompt: "请选择打印机类型"
+        anchors.left: choosePrinterTitle.left
+        anchors.top: choosePrinterTypeTitle.bottom; anchors.topMargin: 15
+        dropDown: true
+        z: 2
+        contentModel: printerTypeModel
+        onOperate: {
+        }
 
-    CategoryTagGrid {
-        id: categoryTagGrid
-        anchors.left: chooseCategoryTitle.left
-        anchors.top: chooseCategoryTitle.bottom; anchors.topMargin: 20
-    }  
+        ListModel {
+            id: printerTypeModel
+            ListElement {
+                name: "前台打印机"
+            }
+            ListElement {
+                name: "厨房打印机"
+            }
+            ListElement {
+                name: "其它类型"
+            }
+        }
+    }
 }

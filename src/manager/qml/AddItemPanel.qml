@@ -412,7 +412,7 @@ Item {
                                         grid.model.get(index).image = imagePreview.source;
                                         grid.model.get(index).detail = detailTextEdit.text;
                                         grid.model.get(index).price = priceTextEdit.text;
-                                        grid.model.get(index).needPrinter = printCheckbox.isNeedPrint;
+                                        grid.model.get(index).needPrint = printCheckbox.isNeedPrint;
                                         if (printCheckbox.isNeedPrint == 1) {
                                             grid.model.get(index).printer = selectPrinterComboBox.seletedPrinter;
                                         }
