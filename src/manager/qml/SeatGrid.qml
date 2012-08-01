@@ -26,6 +26,8 @@ GridView {
         Rectangle {
              width: 330; height: 60
              color: "#de9317"//active == 1 ? "black" : "#359533"
+             smooth: true
+             opacity: 0.8
 
              Image {
                  id: labelImage

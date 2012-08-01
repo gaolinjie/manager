@@ -15,12 +15,12 @@ ListView {
         id: seatCategoryDelegate
         Rectangle {
              width: 200; height: 40
-             color: active == 1 ? "black" : "#ADCEDC"
+             color: active == 1 ? "#de9317" : "#5859b9"
 
              Text {
                  text: type
                  anchors.centerIn: parent
-                 color: active == 1 ? "white" : "black"
+                 color: "white"//active == 1 ? "white" : "black"
                  font.pixelSize: 16
                  font.family: "微软雅黑"
                  smooth: true
