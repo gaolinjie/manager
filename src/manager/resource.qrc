@@ -114,5 +114,6 @@
         <file>qml/CheckBox.qml</file>
         <file>qml/ComboBox.qml</file>
         <file>qml/PrinterModel.qml</file>
+        <file>qml/AddSeatPanel.qml</file>
     </qresource>
 </RCC>

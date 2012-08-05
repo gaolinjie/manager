@@ -131,7 +131,8 @@ OTHER_FILES += \
     qml/IconRect2.qml \
     qml/CheckBox.qml \
     qml/ComboBox.qml \
-    qml/PrinterModel.qml
+    qml/PrinterModel.qml \
+    qml/AddSeatPanel.qml
 
 RESOURCES += \
     resource.qrc

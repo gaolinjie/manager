@@ -19,13 +19,13 @@ Rectangle {
             rect.height = rect.height*0.95
         }
         onClicked: {
-            Global.backColor = backColor
-            Global.foreColor = foreColor
-            Global.title = title
         }
         onReleased: {
             rect.width = rect.parent.width
             rect.height = rect.parent.height
+            Global.title = title
+            Global.backColor = backColor
+            Global.foreColor = foreColor
             loadRect(slotQml)
         }
     }

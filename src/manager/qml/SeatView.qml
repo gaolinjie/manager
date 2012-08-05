@@ -26,14 +26,22 @@ Item {
         interval: 10
         running: false
         onTriggered: {
+            var index = 0;
+            while (index < seatCategory.model.count) {
+                if (seatCategory.model.get(index).active == 1) {
+                    Global.seatType = seatCategory.model.get(index).scid;
+                }
+                index++;
+            }
+
             seatView.source = "qrc:/qml/SeatGrid.qml"
         }
     }
 
-
     Connections {
         target: seatCategory
         onChangeSeatType: {
+            //console.log("SeatView" + Global.seatType)
             seatView.source = "";
             timer3.running = true;
         }
@@ -74,22 +82,71 @@ Item {
             }
         }
 
+        Rectangle {
+             id: addSeatRect
+             width: 100; height: 40
+             color: "#de9317"
+             anchors.left: viewTitle.left
+             anchors.top: viewTitle.bottom; anchors.topMargin: 40
+
+             Text {
+                 text: ""
+                 anchors.centerIn: parent
+                 color: "white"//active == 1 ? "white" : "black"
+                 font.pixelSize: 16
+                 font.family: "微软雅黑"
+                 smooth: true
+             }
+
+             Image {
+                 id: addSeatTypeImage
+                 source: "qrc:/images/add.png"
+                 sourceSize.width: 28
+                 sourceSize.height: 28
+                 anchors.centerIn: parent
+             }
+
+             MouseArea {
+                 anchors.fill: parent
+                 onPressed: {
+                     addSeatRect.color = "#5859b9";
+                 }
+                 onClicked: {
+                 }
+                 onReleased: {
+                     addSeatRect.color = "#de9317";
+                     addSeatPanel.visible = true;
+                     addSeatPanel.x = 880;
+                     //addSeatPanel.state = "newtype"
+                 }
+             }
+        }
 
         SeatCategory {
             id: seatCategory
-            anchors.left: viewTitle.left
-            anchors.top: viewTitle.bottom; anchors.topMargin: 40
+            anchors.left: addSeatRect.right
+            anchors.leftMargin: 10
+            anchors.top: addSeatRect.top
         }
 
         Loader {
             id: seatView
             anchors.left: seatCategory.left
             anchors.top: seatCategory.bottom; anchors.topMargin: 50
-
+            source: ""
+            property ListModel contentModel: ListModel{}
             Component.onCompleted: {
                 timer3.running = true;
             }
-            source: ""
+        }
+
+        AddSeatPanel {
+            id: addSeatPanel
+            x: parent.width//parent.width - addPanel.width
+            visible: false
+            Behavior on x {
+                NumberAnimation { duration: 600; easing.type: Easing.OutQuint}
+            }
         }
 /*
         Rectangle {
