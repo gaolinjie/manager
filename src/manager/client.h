@@ -13,6 +13,9 @@ public:
     explicit Client(QObject *parent = 0);
     ~Client();
     bool mIsSyncing;
+
+signals:
+    void synced();
     
 public slots:
     void syncMenu(const QString &ip);

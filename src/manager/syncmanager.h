@@ -11,12 +11,14 @@ public:
     
 signals:
     void needSync();
+    void haveSynced();
     
 public slots:
     void syncMenu();
     bool isNeedSync();
     void sendNeedSyncSignal();
     void setSyncOn();
+    void sendSyncedSignal();
 
 private:
 };

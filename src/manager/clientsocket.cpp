@@ -4,6 +4,7 @@
 #include <QDateTime>
 
 #include "clientsocket.h"
+#include "client.h"
 
 ClientSocket::ClientSocket(QObject *parent)
     : QTcpSocket(parent)
@@ -36,11 +37,6 @@ void ClientSocket::readClient()
     {
         readOrder(in);
     }
-/*    else if (requestType == 'R')
-    {
-        qDebug() << "register";
-        readRegistration(in);
-    }*/
 
     close();
 }

@@ -87,6 +87,7 @@ void Client::sendDeviceNO(quint32 deviceNO)
          if(address.protocol() == QAbstractSocket::IPv4Protocol)
          {
              hostIP = address.toString();
+             qDebug() << "dcscdscs"<<hostIP;
          }
     }
 #else
@@ -140,6 +141,7 @@ void Client::sendData()
             out << ba;
             file.close();
         }
+        out << 0xFFFF;
     }
 
     delete block;
@@ -173,6 +175,7 @@ void Client::getData()
         query.addBindValue(mac);
         query.exec();
         qDebug() << "synced";
+        emit synced();
     }
 }
 
@@ -201,8 +204,6 @@ void Client::syncMenu(const QString &ip)
     mImageList = mImageDir.entryList ();
     mImageIndex = 0;
 
-
-
     QString imagePath = "file:///C:/manager/";
     block = new QByteArray();
     QDataStream out(block, QIODevice::WriteOnly);
@@ -210,6 +211,16 @@ void Client::syncMenu(const QString &ip)
     out << quint16(0) << quint8('X');
 
     QSqlQuery query;
+    query.exec("SELECT COUNT(*) FROM seatTypeDB");
+    quint16 scnum = 0;
+    if (query.next()) {
+        scnum = query.value(0).toUInt();
+    }
+    query.exec("SELECT COUNT(*) FROM seatItemDB");
+    quint16 snum = 0;
+    if (query.next()) {
+        snum = query.value(0).toUInt();
+    }
     query.exec("SELECT COUNT(*) FROM menuTypeDB");
     quint16 cnum = 0;
     if (query.next()) {
@@ -220,10 +231,34 @@ void Client::syncMenu(const QString &ip)
     if (query.next()) {
         inum = query.value(0).toUInt();
     }
-    out << cnum << inum;
+
+    out << scnum << snum << cnum << inum;
+
+    query.exec("SELECT * FROM seatTypeDB");
+    QString scid = "";
+    QString scname = "";
+    while (query.next()) {
+        scid = query.value(0).toString();
+        scname = query.value(1).toString();
+        out << scid << scname;
+    }
+
+    query.exec("SELECT * FROM seatItemDB");
+    QString sid = "";
+    scid = "";
+    QString seat = "";
+    scname = "";
+    quint16 capacity = 0;
+    while (query.next()) {
+        sid = query.value(0).toString();
+        scid = query.value(1).toString();
+        seat = query.value(2).toString();
+        scname = query.value(3).toString();
+        capacity = query.value(4).toUInt();
+        out << sid << scid << seat << scname << capacity;
+    }
 
     query.exec("SELECT * FROM menuTypeDB");
-
     QString cid = "";
     QString title = "";
     QString image = "";
@@ -242,11 +277,9 @@ void Client::syncMenu(const QString &ip)
         foreColor = query.value(6).toString();        
         out << cid << title << image << style
             << slotQml << backColor << foreColor;
-        cnum++;
     }
 
     query.exec("SELECT * FROM menuItemDB");
-
     QString iid = 0;
     QString tag = "";
     QString name = "";
@@ -268,10 +301,7 @@ void Client::syncMenu(const QString &ip)
         out << iid << cid << tag << name
             << image << detail << price
             << needPrint << printer;
-        inum++;
     }
-
-    //out << 0xFFFF;
 
     out.device()->seek(0);
     out << quint16(block->size() - sizeof(quint16));

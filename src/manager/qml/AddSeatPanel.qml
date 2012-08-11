@@ -315,6 +315,7 @@ Item {
 
                             addPanel.x = 1280;
                             clearEdit();
+                            syncManager.setSyncOn(); // 待定
                         }
                     }
                     onReleased: {

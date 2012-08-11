@@ -11,6 +11,11 @@ Item {
         onNeedSync: {
             syncWarnningText.visible = true;
         }
+        onHaveSynced: {
+            dialogContent.text = "同步菜单数据完成"
+            returnButton.visible = true;
+            busyIndicator.visible = false;
+        }
     }
 
     Image {
@@ -199,8 +204,7 @@ Item {
                         okButton.visible = false;
                         cancelButton.visible = false;
                         busyIndicator.visible = true;
-                        dialogContent.text = "正 在 同 步 菜 单 数 据, 请 稍 候...";
-                        timer2.running = true;
+                        dialogContent.text = "正在同步菜单数据, 请稍候...";
                     }
                     onReleased: {
                         okButton.color = "#d54d34"
@@ -271,17 +275,6 @@ Item {
                         cancelButton.color = "#d54d34"
                     }
                 }
-            }
-        }
-
-        Timer {
-            id: timer2
-            interval: 10000
-            running: false
-            onTriggered: {
-                dialogContent.text = "同 步 菜 单 数 据 完 成"
-                returnButton.visible = true;
-                busyIndicator.visible = false;
             }
         }
 

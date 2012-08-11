@@ -417,7 +417,7 @@ Item {
                                             grid.model.get(index).printer = selectPrinterComboBox.seletedPrinter;
                                         }
                                         else {
-                                            grid.model.get(index).printer = "gvvv";
+                                            grid.model.get(index).printer = "";
                                         }
                                         break;
                                     }
