@@ -1081,7 +1081,7 @@ Image {
         y:768
         opacity: 1
         Behavior on y {
-            NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
+            NumberAnimation { duration: 400; easing.type: Easing.OutQuint }
         }
         Rectangle{
             width: 1024; height: 278
@@ -1094,7 +1094,7 @@ Image {
            // signal addsignal(string lname, double lprice, int ltype)
             anchors.left: parent.left; anchors.leftMargin: 10
             anchors.top: parent.top; anchors.topMargin: 15
-            Component.onCompleted: addMenuGrid.loadSumMenuData()
+           //Component.onCompleted: addMenuGrid.loadSumMenuData()
            // Component.onDestruction: addMenuGrid.saveSumMenuData()  //此时保存的可能只是一种类型的数据，因此不能保存
         }
         Rectangle{
@@ -1120,7 +1120,7 @@ Image {
              Component.onCompleted: {
                  sumCategoryList.getCategoryList();
                  sumCategoryList.getCategoryModel();
-                 sumCategoryList.getfistCategory();
+                 //sumCategoryList.getfistCategory();
              }
         }
         Image {
@@ -1139,7 +1139,7 @@ Image {
                     addMenuItem.y = 768
                     rightbord.x = 630
                     leftbord.x = 15
-                 //   addMenuGrid.saveSumMenuData()
+                 //  addMenuGrid.saveSumMenuData()
                  //   CalcEngine.addMenuBack()
                 }
              }
@@ -1178,7 +1178,7 @@ Image {
         property int discountNo: 3
         property int orderRectNo: 2
         Behavior on x {
-            NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
+            NumberAnimation { duration: 400; easing.type: Easing.OutQuint }
         }
         onToMaincancel:{
             modifyOrderDialog.x = 1024

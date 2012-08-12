@@ -102,15 +102,33 @@ Rectangle {
                         printerGrid.model.setProperty(i, "active", 0);
                     }
                     printerGrid.model.insert(index, {"pid": maxpid, "name": nameTextEdit.text, "active": 1, "style": "PRINTER_RECT"});
-                    printerDetailLoader.source = "";
-                    printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
+                    //printerDetailLoader.source = "";
+                    //printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
+                    Global.printerSelfDefName = nameTextEdit.text;
+                    okButton.saveItemsData()
+                    signalManager.sendPrinterChange()
                 }
                 nameTextEdit.text = "";
-
             }
             onReleased: {
                 okButton.color = "#7B3349"
             }
+        }
+        function saveItemsData() {
+            var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+            db.transaction(
+                function(tx) {
+                    tx.executeSql('DROP TABLE printerDB');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid TEXT primary key, name TEXT, active INTEGER, style TEXT)');
+                    var index = 0;
+                    while (index < printerGrid.model.count && printerGrid.model.get(index).style != "ADD_RECT") {
+                        //printerModel.get(index).pid = index;
+                        var item = printerGrid.model.get(index);
+                        tx.executeSql('INSERT INTO printerDB VALUES(?,?,?,?)', [item.pid, item.name, item.active, item.style]);
+                        index++;
+                    }
+                }
+            )
         }
     }
 

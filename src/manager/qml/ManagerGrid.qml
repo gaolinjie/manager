@@ -45,7 +45,6 @@ ListView {
                             if (style == "IMAGE_RECT") {
                                 component = Qt.createComponent("ImageRect.qml");
                                 component.createObject(wraper, {"iconSource": image, "iconTitle": title});
-
                             }
                             else {
                                 component = Qt.createComponent("IconRect.qml");

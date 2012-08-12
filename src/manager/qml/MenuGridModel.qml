@@ -27,7 +27,6 @@ ListModel {
                             if (item.style == "IMAGE_RECT") {
                                 item.image = "";
                             }
-
                         }
                         menuGridModel.append({"cid": item.cid, "title": item.title, "image": item.image, "style": item.style, "slotQml": item.slotQml, "backColor": item.backColor, "foreColor": item.foreColor});
                         index++;

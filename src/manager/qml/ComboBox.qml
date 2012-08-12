@@ -141,7 +141,7 @@ Rectangle {
                                 dropRect.visible = true
                                 dropIcon.text = comboBox.dropDown ? "∧" : "∨"
                             }
-                            promptTitle.text = dropList.model.get(index).name;
+                            comboBox.prompt = dropList.model.get(index).name;
                         }
                     }
                 }

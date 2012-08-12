@@ -15,7 +15,8 @@ SOURCES += \
     ordermanager.cpp \
     ordersave.cpp \
     printer.cpp \
-    idmanager.cpp
+    idmanager.cpp \
+    signalmanager.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -148,4 +149,5 @@ HEADERS += \
     ordermanager.h \
     ordersave.h \
     printer.h \
-    idmanager.h
+    idmanager.h \
+    signalmanager.h

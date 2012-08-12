@@ -276,9 +276,23 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
 
 QString Printer::printerList() {
     QString printersName;
+    QSqlQuery query;
+    query.exec("DROP TABLE printerActualListData");
+    query.exec("CREATE TABLE IF NOT EXISTS printerActualListData(printerActualName TEXT)");
     QPrinterInfo printerInfo = QPrinterInfo();
        foreach (QPrinterInfo item, printerInfo.availablePrinters()){
+           if( item.printerName() == "Microsoft XPS Document Writer" || item.printerName() == "Fax")
+           {}
+           else
+           {
+               query.prepare("INSERT INTO printerActualListData(printerActualName) VALUES(?)");
+               query.addBindValue( item.printerName() );
+               query.exec();
+           }
            printersName.append(item.printerName() + "\n");
        }
+    /*   query.prepare("INSERT INTO printerActualListData(printerActualName) VALUES(?)");
+       query.addBindValue( "None" );
+       query.exec();*/
      return printersName;
 }

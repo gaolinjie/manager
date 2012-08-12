@@ -19,6 +19,14 @@ Item {
             loadStart()
         }
     }
+    Timer {
+        id: timer2
+        interval: 50
+        running: false
+        onTriggered: {
+            signalManager.sendPrinterChange()
+        }
+    }
 
     Timer {
         id: timer3
@@ -90,6 +98,7 @@ Item {
             id: printerGrid
             anchors.left: printerDesciption.left
             anchors.top: printerDesciption.bottom; anchors.topMargin: 40
+            Component.onCompleted: timer2.running = true
         }
 
         Loader{

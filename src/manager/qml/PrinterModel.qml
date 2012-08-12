@@ -1,12 +1,18 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import "../js/global.js" as Global
 
 ListModel {
     id: printerModel
-    Component.onCompleted: loadItemsData()
+    Component.onCompleted:
+    {
+        loadItemsData();
+        getCurrentPrinterName();
+    }
     Component.onDestruction: saveItemsData()
     property bool readOnly: false
     function loadItemsData() {
+        printerModel.clear()
         var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
         db.transaction(
             function(tx) {
@@ -45,6 +51,23 @@ ListModel {
                     tx.executeSql('INSERT INTO printerDB VALUES(?,?,?,?)', [item.pid, item.name, item.active, item.style]);
                     index++;
                 }
+            }
+        )
+    }
+    function getCurrentPrinterName()
+    {
+        var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+        db.transaction(
+            function(tx) {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS printerDB(pid INTEGER primary key, name TEXT, active INTEGER, style TEXT)');
+                var rs = tx.executeSql('SELECT * FROM printerDB WHERE active = ?',1);
+                var index = 0;
+                if(rs.rows.length>0)
+                {
+                    var item = rs.rows.item(0);
+                    Global.printerSelfDefName = item.name;
+                }
+                else {Global.printerSelfDefName = ""}
             }
         )
     }

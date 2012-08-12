@@ -17,6 +17,7 @@
 #include "ordersave.h"
 #include "syncmanager.h"
 #include "idmanager.h"
+#include "signalmanager.h"
 
 int main(int argc, char *argv[])
 { 
@@ -53,10 +54,6 @@ int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("printOrder", &printOrder);
     view.rootContext()->setContextProperty("systemClock", &systemClock);
 
-    view.setSource(QUrl("qrc:/qml/main.qml"));
-    view.setBackgroundRole(QPalette::Dark);
-    view.show();
-
     QString md5;
     QString dbname="DemoDB";
     QByteArray ba;
@@ -72,6 +69,7 @@ int main(int argc, char *argv[])
         qDebug() << "Cannot open database";
         return 1;
     }
+    printOrder.printerList(); //读取所有可用打印机信息列表
 
     Client client;
     view.rootContext()->setContextProperty("client", &client);
@@ -80,7 +78,12 @@ int main(int argc, char *argv[])
     QObject::connect(&server, SIGNAL(registered(quint32)), &syncManager, SLOT(sendNeedSyncSignal()));
 
     IDManager idManager;
+    SignalManager signalManager;
     view.rootContext()->setContextProperty("idManager", &idManager);
+    view.rootContext()->setContextProperty("signalManager", &signalManager);
 
+    view.setSource(QUrl("qrc:/qml/main.qml"));
+    view.setBackgroundRole(QPalette::Dark);
+    view.show();
     return a.exec();
 }

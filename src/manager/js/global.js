@@ -69,4 +69,7 @@ var newDiscount=""
 var newDate
 var newTime
 var newSumcount
+/////////////////////
+var printerSelfDefName =""
+var printerActualName = ""
 //--------Colorful------------

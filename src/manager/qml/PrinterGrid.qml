@@ -61,6 +61,8 @@ GridView {
                                      printerGrid.model.setProperty(i, "active", 0);
                                  }
                              }
+                             Global.printerSelfDefName = name
+                             signalManager.sendPrinterChange()
                          }
                      }
                  }
@@ -83,21 +85,33 @@ GridView {
                          anchors.fill: parent
                          onClicked: {
                              var index = 0;
-                             while (index < printerGrid.model.count) {
-                                 if (pid == printerGrid.model.get(index).pid) {
-                                     if (printerGrid.model.get(index).active == 1) {
-                                         printerGrid.model.remove(index);
-                                         printerGrid.model.get(0).active = 1;
-                                         printerDetailLoader.source = "";
-                                         printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
+                             printerGrid.delItemData(name)
+                             if(printerGrid.model.count != 1)
+                             {
+                                 while (index < printerGrid.model.count) {
+                                     if (pid == printerGrid.model.get(index).pid) {
+                                         if (printerGrid.model.get(index).active == 1) {
+                                             printerGrid.model.remove(index);
+                                             printerGrid.model.get(0).active = 1;
+                                             //printerDetailLoader.source = "";
+                                             //printerDetailLoader.source = "qrc:/qml/PrinterDetail.qml";
+                                             Global.printerSelfDefName = printerGrid.model.get(0).name;
+                                             signalManager.sendPrinterChange();
+                                         }
+                                         else {
+                                             printerGrid.model.remove(index);
+                                         }
+                                         break;
                                      }
-                                     else {
-                                         printerGrid.model.remove(index);
-                                     }
-                                     break;
-                                 }
-                                 index++;
-                             }
+                                     index++;
+                                  }
+                              }
+                              else
+                              {
+                                  printerGrid.model.remove(index);
+                                  printerDetailLoader.source = "";
+                              }
+                              printerGrid.model.saveItemsData();
                          }
                      }
                  }
@@ -120,5 +134,22 @@ GridView {
                  }
              }
         }
+    }
+    function delItemData(delname)
+    {
+        var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
+        db.transaction(
+            function(tx) {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS printerSelfActuaData(selfName TEXT, actualName TEXT,type TEXT)');
+                var rs = tx.executeSql('SELECT * FROM printerSelfActuaData WHERE selfName = ?',delname);
+                if (rs.rows.length > 0)
+                {
+                    tx.executeSql('DELETE FROM printerSelfActuaData WHERE selfName = ?',delname);
+                }
+                else
+                {
+                }
+            }
+        )
     }
 }

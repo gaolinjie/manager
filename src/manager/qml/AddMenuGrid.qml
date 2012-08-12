@@ -18,6 +18,7 @@ GridView {
     Connections {
         target: parent.parent
         onMainCategoryChangeSignal: {
+            //loadSumMenuData()
             loadSumMenuData()
         }
     }
