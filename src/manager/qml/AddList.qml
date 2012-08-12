@@ -88,7 +88,7 @@ ListView {
                         if (!checkIsHaveMenuType(idManager.getUniqueShopcarID())) {
                             var index = menuGrid.model.count - 1;
                             var newcid = idManager.getUniqueShopcarID();
-                            menuGrid.model.insert(index, {"cid": newcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                            menuGrid.model.insert(index, {"cid": newcid, "title": "购物车", "image": "qrc:/images/shopping_cart.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ShopcarView.qml", "backColor": backColor, "foreColor": backColor});
                             syncManager.setSyncOn();
                         }
                     }
@@ -96,7 +96,7 @@ ListView {
                         if (!checkIsHaveMenuType(idManager.getUniqueSeatID())) {
                             var index = menuGrid.model.count - 1;
                             var newcid = idManager.getUniqueSeatID();
-                            menuGrid.model.insert(index, {"cid": newcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backColor, "foreColor": backColor});
+                            menuGrid.model.insert(index, {"cid": newcid, "title": "座 位", "image": "qrc:/images/map_pin.png", "style": "ICON_RECT", "slotQml": "qrc:/qml/SeatView.qml", "backColor": backColor, "foreColor": backColor});
                             syncManager.setSyncOn();
                         }
                     }
@@ -123,20 +123,23 @@ ListView {
             name: "菜 单"
             image: "qrc:/images/address_book.png"
             backColor: "#4eb3b9"
+            foreColor: "d54d34"
             detail: "将同类菜品置于该组件中方便用户浏览"
         }
 
         ListElement {
             name: "购物车"
             image: "qrc:/images/shopping_cart.png"
-            backColor: "#96b232"
+            backColor: "#de9317"
+            foreColor: "#d54d34"
             detail: "该组建为用户提供全局搜素功能"
         }
 
         ListElement {
             name: "座 位"
             image: "qrc:/images/map_pin.png"
-            backColor: "#FF0097"
+            backColor: "#d54d34"
+            foreColor: "#de9317"
             detail: "用户可以添加自己喜欢的菜式到该组件"
         }
     }
