@@ -134,25 +134,6 @@ GridView {
                      }
                  }
              }
-
-
-
-/*
-             MouseArea {
-                 anchors.fill: parent
-
-                 onClicked: {
-                     orderManager.setSeatNO(sid);
-                     for (var i = 0; i < seatView.model.count; i++) {
-                         if (seatView.model.get(i).sid == sid) {
-                             seatView.model.setProperty(i, "active", 1);
-                         }
-                         else {
-                             seatView.model.setProperty(i, "active", 0);
-                         }
-                     }
-                 }
-             }*/
         }
     }
 

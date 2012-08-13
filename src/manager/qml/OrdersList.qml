@@ -68,19 +68,19 @@ ListView {
                     id: orderNOText
                     text: orderNO
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 10
                     color: "black"
                 }
 
                 Text {
-                    id: seatNOText
-                    text: seatNO
+                    id: seatText
+                    text: orderManager.getSeatName(seat)
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 120
                     color: "black"
@@ -90,8 +90,8 @@ ListView {
                     id: dateText
                     text: date
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 180
                     color: "black"
@@ -101,8 +101,8 @@ ListView {
                     id: timeText
                     text: time
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 290
                     color: "black"
@@ -112,8 +112,8 @@ ListView {
                     id: discountText
                     text: discount
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 393
                     color: "black"
@@ -124,8 +124,8 @@ ListView {
                     id: totalText
                     text: total
                     font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                    smooth: true
+                    font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left; anchors.leftMargin: 480
                     color: "black"
@@ -165,7 +165,7 @@ ListView {
             db.transaction(
                 function(tx) {
                     //tx.executeSql('DROP TABLE orderListDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                     var rs = tx.executeSql('SELECT * FROM orderListDB WHERE pay = ?', [Global.pay]);
                     var index = 0;
                     if (rs.rows.length > 0) {
@@ -177,7 +177,7 @@ ListView {
                             }////这个的意思是刚上电的时候，默认的Global.orderNO 为第一个，显示的Item是第一个
 
                             ordersModel.append({"orderNO": item.orderNO,
-                                                "seatNO": item.seatNO,
+                                                "seat": item.seat,
                                                 "mac": item.mac,
                                                 "date": item.date,
                                                 "time": item.time,
@@ -190,23 +190,6 @@ ListView {
                     } else {
 
                        Global.orderNO = 0;
-                       /* ordersModel.append({"orderNO": "120212001",
-                                            "seatNO": "18",
-                                            "mac":"0d:02:03:04",
-                                            "date": "2012-02-12",
-                                            "time": "11:00",
-                                            "discount": "10",
-                                            "total": "100",
-                                            "pay": "0"});
-                        ordersModel.append({"orderNO": "120212002",
-                                            "seatNO": "11",
-                                            "mac":"0d:02:03:04",
-                                            "date": "2012-02-12",
-                                            "time": "11:10",
-                                            "discount": "10",
-                                            "total": "200",
-                                            "pay": "1"});
-                        saveOrderList();*/
                     }
                 }
             )
@@ -218,11 +201,11 @@ ListView {
             db.transaction(
                 function(tx) {
                     tx.executeSql('DROP TABLE orderListDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                     var index = 0;
                     while (index < ordersModel.count) {
                         var item = ordersModel.get(index);
-                        tx.executeSql('INSERT INTO orderListDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.seatNO, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
+                        tx.executeSql('INSERT INTO orderListDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.seat, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
                         index++;
                     }
                 }
@@ -270,7 +253,7 @@ ListView {
          ordersModel.remove(Global.gorderIndex);
           db.transaction(
                  function(tx) {
-                  tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                  tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                   var rs = tx.executeSql('SELECT * FROM orderListDB WHERE pay = ?', [Global.pay]);
                   var index = 0;
                   if (rs.rows.length > 0) {

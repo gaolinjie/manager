@@ -54,6 +54,10 @@ int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("printOrder", &printOrder);
     view.rootContext()->setContextProperty("systemClock", &systemClock);
 
+    view.setSource(QUrl("qrc:/qml/main.qml"));
+    view.setBackgroundRole(QPalette::Dark);
+    view.show();
+
     QString md5;
     QString dbname="DemoDB";
     QByteArray ba;
@@ -82,8 +86,5 @@ int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("idManager", &idManager);
     view.rootContext()->setContextProperty("signalManager", &signalManager);
 
-    view.setSource(QUrl("qrc:/qml/main.qml"));
-    view.setBackgroundRole(QPalette::Dark);
-    view.show();
     return a.exec();
 }

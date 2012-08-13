@@ -18,6 +18,7 @@ signals:
 
 public slots:
     void payOrder(quint32 orderNO);
+    QString getSeatName(QString seatID);
 };
 
 #endif // ORDERMANAGER_H

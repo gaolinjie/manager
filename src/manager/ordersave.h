@@ -8,8 +8,8 @@ class OrderSave : public QObject
     Q_OBJECT
 public:
     explicit OrderSave(QObject *parent = 0);
-    Q_INVOKABLE void saveData(qint32 orderNo,qint32 seatNo,float discount);
-    Q_INVOKABLE void changeData(qint32 orderNo,qint32 seatNo,float discount);
+    Q_INVOKABLE void saveData(qint32 orderNo, QString seat, float discount);
+    Q_INVOKABLE void changeData(qint32 orderNo, QString seat, float discount);
 
 public:
     QString mac;

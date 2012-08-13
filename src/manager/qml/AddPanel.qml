@@ -243,7 +243,7 @@ Item {
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;
-                                while (index < grid.model.count) {
+                                while (index < menuGrid.model.count) {
                                     if (menuGrid.model.get(index).cid == addPanel.rectCid) {
                                         menuGrid.model.get(index).title = nameTextEdit.text;
                                         menuGrid.model.get(index).backColor = backEdit.color;

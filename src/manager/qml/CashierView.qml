@@ -1152,7 +1152,7 @@ Image {
         x: 1024;y:70
         property string title: "新建订单"
         property int orderNo: 1
-        property int seatNo: 2
+        property string seat: ""
         property int discountNo: 3
         property int orderRectNo: 1
         Behavior on x {
@@ -1174,7 +1174,7 @@ Image {
         x: 1024;y:70
         property string title: "修改订单"
         property int orderNo: 1
-        property int seatNo: 2
+        property string seat: ""
         property int discountNo: 3
         property int orderRectNo: 2
         Behavior on x {

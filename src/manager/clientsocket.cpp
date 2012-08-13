@@ -44,7 +44,7 @@ void ClientSocket::readClient()
 void ClientSocket::readOrder(QDataStream &in)
 {
     quint32 orderNO = 0;
-    quint16 seatNO = 0;
+    QString seat = "";
     QString mac;
     QDate date;
     QTime time;
@@ -57,8 +57,8 @@ void ClientSocket::readOrder(QDataStream &in)
 
     QSqlQuery query;
 
-    in >> orderNO >>seatNO >> mac;
-    qDebug() << QString("%1").arg(orderNO) << QString("%1").arg(seatNO);
+    in >> orderNO >> seat >> mac;
+    qDebug() << orderNO << seat;
     QDateTime *datatime=new QDateTime(QDateTime::currentDateTime());
     date = datatime->date();
     time = datatime->time();
@@ -80,7 +80,7 @@ void ClientSocket::readOrder(QDataStream &in)
         query.exec();
     }
 
-    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
     query.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     query.addBindValue(orderNO);
     query.exec();
@@ -97,9 +97,9 @@ void ClientSocket::readOrder(QDataStream &in)
     }
     else
     {
-        query.prepare("INSERT INTO orderListDB(orderNO, seatNO, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        query.prepare("INSERT INTO orderListDB(orderNO, seat, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         query.addBindValue(orderNO);
-        query.addBindValue(seatNO);
+        query.addBindValue(seat);
         query.addBindValue(mac);
         query.addBindValue(date);
         query.addBindValue(time);

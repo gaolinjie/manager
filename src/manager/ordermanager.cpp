@@ -10,7 +10,7 @@ OrderManager::OrderManager(QObject *parent) :
 void OrderManager::payOrder(quint32 orderNO)
 {
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
     query.prepare("UPDATE orderListDB SET pay = ? WHERE orderNO = ?");
     query.addBindValue(1);
     query.addBindValue(orderNO);
@@ -60,4 +60,23 @@ void OrderManager::saveManualOrder(qint32 orderNo)
         query.addBindValue(orderNo);
         query.exec();
      }
+}
+
+QString OrderManager::getSeatName(QString seatID)
+{
+    QSqlQuery query;
+    query.exec("CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, scid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)");
+    query.prepare("SELECT * FROM seatItemDB WHERE sid = ?");
+    query.addBindValue(seatID);
+    query.exec();
+
+    if ( query.next() )
+    {
+        QString seatName = query.value(2).toString();
+        return seatName;
+    }
+    else
+    {
+        return "";
+    }
 }

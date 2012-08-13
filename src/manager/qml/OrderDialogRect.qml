@@ -9,7 +9,7 @@ Item {
     function doOp(operation) { CalcEngine.doOperation3(operation) }
     property string title: ""
     property int orderNo: 1
-    property int seatNo: 2
+    property string seat: ""
     property int discountNo: 3
     property int orderRectNo: 1
     signal rectDiaChanged()
@@ -140,7 +140,7 @@ Item {
         id: textIn2
         titleText: "座号："
         inText: ""
-        textNo:seatNo
+        textNo: seat
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: textIn1.bottom; anchors.topMargin: 20
     }

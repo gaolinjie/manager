@@ -116,7 +116,7 @@ void Printer::printMenutoKitchen(quint32 orderNum){
   //  float discount = 0;
 
     //通过orderNum来查询orderListDB表中的座位号
-    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
     queryOrderList.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     queryOrderList.addBindValue(mOrderNum);
     queryOrderList.exec();
@@ -196,7 +196,7 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
 
     m_html += "<h2 align=\"center\"><font size=\"+2\">" + m_title + "</font></h2>";
     //通过orderNum来查询OrderList表中的座位号
-    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seatNO INTEGER, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
     queryOrderList.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     queryOrderList.addBindValue(mOrderNum);
     queryOrderList.exec();
