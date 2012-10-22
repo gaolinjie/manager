@@ -23,7 +23,7 @@ Rectangle {
         onReleased: {
             rect.width = rect.parent.width
             rect.height = rect.parent.height
-            Global.title = title
+            Global.type = type
             Global.backColor = backColor
             Global.foreColor = foreColor
             loadRect(slotQml)
@@ -44,7 +44,7 @@ Rectangle {
         }
 
         Component.onCompleted: {
-            if (parent.iconTitle == "同 步") {
+            if (parent.icontype == "同 步") {
                 isNeedSync()
             }
         }

@@ -402,7 +402,7 @@ Item {
                             if (addPanel.state == "view") {
                                 var index = grid.model.count - 1;
                                 var maxiid = idManager.createID();;
-                                grid.model.insert(index, {"iid": maxiid, "cid": Global.cid, "tag": "", "name": nameTextEdit.text, "image": imagePreview.source, "detail": detailTextEdit.text, "price": priceTextEdit.text, "needPrint": printCheckbox.isNeedPrint, "printer": selectPrinterComboBox.seletedPrinter, "style": "IMAGE_RECT"});
+                                grid.model.insert(index, {"iid": maxiid, "tid": Global.tid, "type": Global.type, "name": nameTextEdit.text, "image": imagePreview.source, "detail": detailTextEdit.text, "price": priceTextEdit.text, "needPrint": printCheckbox.isNeedPrint, "printer": selectPrinterComboBox.seletedPrinter, "style": "IMAGE_RECT"});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;

@@ -3,7 +3,7 @@ import "../js/global.js" as Global
 
 ListView {
     id: ordersList
-    width: 600; height:250
+    width: 800; height:250
     model: ordersModel
     delegate: orderDelegate
     smooth: true
@@ -16,17 +16,9 @@ ListView {
         }
     }
 
-   /* Connections {
-        target: parent.parent
-        onMainChangeOrderList: {
-            itemUpdate()
-        }
-    }*/
-
     ListModel{
         id: ordersModel
     }
-
 
     Component {
         id: orderDelegate
@@ -55,7 +47,7 @@ ListView {
 
             Rectangle {
                 id: orderRect
-                width: 520; height: 30
+                width: 700; height: 30
                 radius: 8
                 anchors.left: parent.left; anchors.leftMargin: 40
                 anchors.verticalCenter: parent.verticalCenter
@@ -77,12 +69,12 @@ ListView {
 
                 Text {
                     id: seatText
-                    text: orderManager.getSeatName(seat)
+                    text: seat
                     font.family: "微软雅黑"
                     smooth: true
                     font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left; anchors.leftMargin: 120
+                    anchors.left: parent.left; anchors.leftMargin: 140
                     color: "black"
                 }
 
@@ -93,7 +85,7 @@ ListView {
                     smooth: true
                     font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left; anchors.leftMargin: 180
+                    anchors.left: parent.left; anchors.leftMargin: 272
                     color: "black"
                 }
 
@@ -104,7 +96,7 @@ ListView {
                     smooth: true
                     font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left; anchors.leftMargin: 290
+                    anchors.left: parent.left; anchors.leftMargin: 400
                     color: "black"
                 }
 
@@ -115,7 +107,7 @@ ListView {
                     smooth: true
                     font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left; anchors.leftMargin: 393
+                    anchors.left: parent.left; anchors.leftMargin: 534
                     color: "black"
                 }
 
@@ -127,7 +119,7 @@ ListView {
                     smooth: true
                     font.pixelSize: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left; anchors.leftMargin: 480
+                    anchors.left: parent.left; anchors.leftMargin: 664
                     color: "black"
                 }
             }
@@ -164,19 +156,17 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE orderListDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(oid TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                     var rs = tx.executeSql('SELECT * FROM orderListDB WHERE pay = ?', [Global.pay]);
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
                             var item = rs.rows.item(index);
-                            if (index == 0 && Global.oldorderNO=="") {
-                                Global.orderNO = item.orderNO
-                                Global.oldorderNO = -1;
-                            }////这个的意思是刚上电的时候，默认的Global.orderNO 为第一个，显示的Item是第一个
-
-                            ordersModel.append({"orderNO": item.orderNO,
+                            if (index == 0) {
+                                Global.oid = item.oid
+                            }
+                            ordersModel.append({"oid": item.oid,
+                                                "orderNO": item.orderNO,
                                                 "seat": item.seat,
                                                 "mac": item.mac,
                                                 "date": item.date,
@@ -188,7 +178,6 @@ ListView {
                             index++;
                         }
                     } else {
-
                        Global.orderNO = 0;
                     }
                 }
@@ -201,11 +190,11 @@ ListView {
             db.transaction(
                 function(tx) {
                     tx.executeSql('DROP TABLE orderListDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderListDB(oid TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)');
                     var index = 0;
                     while (index < ordersModel.count) {
                         var item = ordersModel.get(index);
-                        tx.executeSql('INSERT INTO orderListDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.seat, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
+                        tx.executeSql('INSERT INTO orderListDB VALUES(?,?,?,?,?,?,?,?,?)', [item.oid, item.orderNO, item.seat, item.mac, item.date, item.time, item.discount, item.total, item.pay]);
                         index++;
                     }
                 }
@@ -229,8 +218,8 @@ ListView {
         db.transaction(
             function(tx) {
                 //tx.executeSql('DROP TABLE orderItemDB');
-                tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER,type TEXT,printname TEXT,printbool INTEGER,cookbool INTEGER)');
-                var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ?', [Global.orderNO]);
+                tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(oid TEXT key, iid TEXT, tid TEXT, type TEXT, name TEXT, image TEXT, price REAL, print INTEGER, printer TEXT, num INTEGER)');
+                var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE oid = ?', [Global.oid]);
                 var index = 0;
                 Global.gorderTotalPrice = 0;
                 if (rs.rows.length > 0) {

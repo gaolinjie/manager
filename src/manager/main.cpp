@@ -44,12 +44,11 @@ int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("syncManager", &syncManager);
     ImageManager imageManager;
     view.rootContext()->setContextProperty("imageManager", &imageManager);
-    OrderManager orderManager;
+
     OrderSave ordersave;
     DigitalClock systemClock;
     Printer  printOrder;
-    view.rootContext()->setContextProperty("server", &server);
-    view.rootContext()->setContextProperty("orderManager", &orderManager);
+    view.rootContext()->setContextProperty("server", &server);  
     view.rootContext()->setContextProperty("ordersave", &ordersave);
     view.rootContext()->setContextProperty("printOrder", &printOrder);
     view.rootContext()->setContextProperty("systemClock", &systemClock);
@@ -75,9 +74,11 @@ int main(int argc, char *argv[])
     }
     printOrder.printerList(); //读取所有可用打印机信息列表
 
+    OrderManager orderManager;
+    view.rootContext()->setContextProperty("orderManager", &orderManager);
     Client client;
     view.rootContext()->setContextProperty("client", &client);
-    QObject::connect(&orderManager, SIGNAL(pay(quint32)), &client, SLOT(sendPaiedOrder(quint32)));
+    QObject::connect(&orderManager, SIGNAL(pay(QString)), &client, SLOT(sendPaiedOrder(QString)));
     QObject::connect(&server, SIGNAL(registered(quint32)), &client, SLOT(sendDeviceNO(quint32)));
     QObject::connect(&server, SIGNAL(registered(quint32)), &syncManager, SLOT(sendNeedSyncSignal()));
 

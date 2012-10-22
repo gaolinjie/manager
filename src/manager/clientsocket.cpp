@@ -5,6 +5,7 @@
 
 #include "clientsocket.h"
 #include "client.h"
+#include "ordermanager.h"
 
 ClientSocket::ClientSocket(QObject *parent)
     : QTcpSocket(parent)
@@ -43,7 +44,7 @@ void ClientSocket::readClient()
 
 void ClientSocket::readOrder(QDataStream &in)
 {
-    quint32 orderNO = 0;
+    QString oid = "";
     QString seat = "";
     QString mac;
     QDate date;
@@ -51,14 +52,20 @@ void ClientSocket::readOrder(QDataStream &in)
     qreal discount = 0;
     qreal total = 0;
 
-    QString name;
-    qreal price;
-    quint16 num;
+    QString iid = "";
+    QString tid = "";
+    QString type = "";
+    QString name = "";
+    QString image = "";
+    float price = 0;
+    quint16 print = 0;
+    QString printer = "";
+    quint16 num = 0;
 
     QSqlQuery query;
 
-    in >> orderNO >> seat >> mac;
-    qDebug() << orderNO << seat;
+    in >> oid >> seat >> mac;
+    qDebug() << oid << seat;
     QDateTime *datatime=new QDateTime(QDateTime::currentDateTime());
     date = datatime->date();
     time = datatime->time();
@@ -66,38 +73,45 @@ void ClientSocket::readOrder(QDataStream &in)
     quint32 flag;
     while(in >> flag, flag != 0xFFFF)
     {
-        in >> name >> price >> num;
+        in >> iid >> tid >> type >> name >> image >> price >> print >> printer >> num;
         total += price * num;
 
-        qDebug() << QString("%1").arg(name) << QString("%1").arg(price) << QString("%1").arg(num);
-
-        query.exec("CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key, name TEXT, price REAL, num INTEGER)");
-        query.prepare("INSERT INTO orderItemDB(orderNO, name, price, num) VALUES (?, ?, ?, ?)");
-        query.addBindValue(orderNO);
+        query.exec("CREATE TABLE IF NOT EXISTS orderItemDB(oid TEXT key, iid TEXT, tid TEXT, type TEXT, name TEXT, image TEXT, price REAL, print INTEGER, printer TEXT, num INTEGER)");
+        query.prepare("INSERT INTO orderItemDB(oid, iid, tid, type, name, image, price, print, printer, num) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        query.addBindValue(oid);
+        query.addBindValue(iid);
+        query.addBindValue(tid);
+        query.addBindValue(type);
         query.addBindValue(name);
+        query.addBindValue(image);
         query.addBindValue(price);
+        query.addBindValue(print);
+        query.addBindValue(printer);
         query.addBindValue(num);
         query.exec();
     }
 
-    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    query.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
-    query.addBindValue(orderNO);
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(oid TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.prepare("SELECT * FROM orderListDB WHERE oid = ?");
+    query.addBindValue(oid);
     query.exec();
 
     if (query.next())
     {
-        qreal preTotal = query.value(6).toReal();
+        qreal preTotal = query.value(7).toReal();
         total += preTotal;
 
-        query.prepare("UPDATE orderListDB SET total = ? WHERE orderNO = ?");
+        query.prepare("UPDATE orderListDB SET total = ? WHERE oid = ?");
         query.addBindValue(total);
-        query.addBindValue(orderNO);
+        query.addBindValue(oid);
         query.exec();
     }
     else
     {
-        query.prepare("INSERT INTO orderListDB(orderNO, seat, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        quint32 orderNO = OrderManager::getNextOrderNO();
+        qDebug() << "clientsocket" << orderNO;
+        query.prepare("INSERT INTO orderListDB(oid, orderNO, seat, mac, date, time, discount, total, pay) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        query.addBindValue(oid);
         query.addBindValue(orderNO);
         query.addBindValue(seat);
         query.addBindValue(mac);
@@ -111,44 +125,3 @@ void ClientSocket::readOrder(QDataStream &in)
 
     emit dbChanged();
 }
-/*
-void ClientSocket::readRegistration(QDataStream &in)
-{
-    quint32 deviceNO = 100;
-    QString mac;
-    QString ip;
-    in >> mac >> ip;
-    qDebug() << mac << ip;
-
-    QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS deviceDB(mac TEXT key, ip TEXT, deviceNO INTEGER)");
-    query.prepare("SELECT * FROM deviceDB WHERE mac = ?");
-    query.addBindValue(mac);
-    query.exec();
-
-    if (query.next())
-    {
-        deviceNO = query.value(2).toUInt();
-        query.prepare("UPDATE deviceDB SET ip = ? WHERE mac = ?");
-        query.addBindValue(ip);
-        query.addBindValue(mac);
-        query.exec();
-    }
-    else
-    {
-        query.exec("select max(deviceNO) from deviceDB");
-        if (query.next())
-        {
-            deviceNO = query.value(0).toUInt();
-        }
-        deviceNO++;
-
-        query.prepare("INSERT INTO deviceDB(mac, ip, deviceNO) VALUES (?, ?, ?)");
-        query.addBindValue(mac);
-        query.addBindValue(ip);
-        query.addBindValue(deviceNO);
-        query.exec();
-    }
-
-    emit registering(deviceNO);
-}*/

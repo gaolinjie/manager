@@ -13,13 +13,13 @@ Rectangle {
     Connections{
         target: grid
         onPressAndHoldRect: {
-            if (rectId == cid) {
+            if (rectId == tid) {
                 addPanel.x = 1280;
                 checkRect.visible = true;
                 Global.checkedBackColor = backColor;
                 Global.checkedForeColor = foreColor;
                 Global.checkedTitle = title;
-                Global.checkedCid = cid;
+                Global.checkedTid = tid;
             }
             else {
                 bx.enabled = true;
@@ -48,7 +48,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: icon.right
         anchors.leftMargin: 20
-        text: title
+        text: type
         font.pixelSize: 30
         font.family: "微软雅黑"
         color: "white"
@@ -78,7 +78,7 @@ Rectangle {
     Behavior on y { id: by; enabled: false; NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
 
     states: State {
-        name: "active"; when: loc.currentId == cid
+        name: "active"; when: loc.currentId == tid
         PropertyChanges { target: rect; x: loc.mouseX - width/2; y: loc.mouseY - height/2; scale: 0.7; z: 10 }
     }
     transitions: Transition { NumberAnimation { property: "scale"; duration: 200} }

@@ -29,7 +29,7 @@ Item {
             var index = 0;
             while (index < seatCategory.model.count) {
                 if (seatCategory.model.get(index).active == 1) {
-                    Global.seatType = seatCategory.model.get(index).scid;
+                    Global.seatType = seatCategory.model.get(index).stid;
                 }
                 index++;
             }
@@ -60,7 +60,7 @@ Item {
             id: viewTitle
             anchors.left: parent.left; anchors.top: parent.top
             anchors.leftMargin: 125; anchors.topMargin: 70
-            text: Global.title
+            text: Global.type
             font.pixelSize: 50
             font.family: "微软雅黑"
             smooth: true

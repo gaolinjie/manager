@@ -145,21 +145,21 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {/*
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(scid TEXT key, name TEXT, active INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(stid TEXT key, name TEXT, active INTEGER)');
                     var rss = tx.executeSql('SELECT * FROM seatTypeDB WHERE active = ?', [1]);
                     if (rss.rows.length > 0) {
                         var item = rss.rows.item(0);
-                        Global.seatType = item.scid;
+                        Global.seatType = item.stid;
                     }*/
 
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, scid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM seatItemDB WHERE scid = ?', [Global.seatType]);
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, stid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM seatItemDB WHERE stid = ?', [Global.seatType]);
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
                             var item = rs.rows.item(index);
                             seatModel.append({"sid": item.sid,
-                                              "scid": item.scid,
+                                              "stid": item.stid,
                                               "seat": item.seat,
                                               "type": item.type,
                                               "capacity": item.capacity,
@@ -175,12 +175,12 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                   tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, scid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
-                   tx.executeSql('DELETE FROM seatItemDB WHERE scid = ? ', [Global.seatType]);
+                   tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, stid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
+                   tx.executeSql('DELETE FROM seatItemDB WHERE stid = ? ', [Global.seatType]);
                    var index = 0;
                    while (index < seatModel.count) {
                        var item = seatModel.get(index);
-                       tx.executeSql('INSERT INTO seatItemDB VALUES(?,?,?,?,?,?)', [item.sid, item.scid, item.seat, item.type, item.capacity, item.active]);
+                       tx.executeSql('INSERT INTO seatItemDB VALUES(?,?,?,?,?,?)', [item.sid, item.stid, item.seat, item.type, item.capacity, item.active]);
                        index++;
                    }
                 }
@@ -191,147 +191,147 @@ GridView {
 
 /*else {
     seatModel.append({"sid": 0,
-                      "cid": 0,
+                      "tid": 0,
                       "seat": "001 号",
                       "active": 0});
     seatModel.append({"sid": 1,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "002 号",
                          "active": 0});
     seatModel.append({"sid": 2,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "003 号",
                          "active": 0});
     seatModel.append({"sid": 3,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "004 号",
                          "active": 0});
     seatModel.append({"sid": 4,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "005 号",
                          "active": 0});
     seatModel.append({"sid": 5,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "006 号",
                          "active": 0});
     seatModel.append({"sid": 6,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "007 号",
                          "active": 0});
     seatModel.append({"sid": 7,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "008 号",
                          "active": 0});
     seatModel.append({"sid": 8,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "009 号",
                          "active": 0});
     seatModel.append({"sid": 9,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "010 号",
                          "active": 0});
     seatModel.append({"sid": 10,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "011 号",
                          "active": 0});
     seatModel.append({"sid": 11,
-                         "cid": 0,
+                         "tid": 0,
                       "seat": "012 号",
                          "active": 0});
     seatModel.append({"sid": 12,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "吉 祥 厅",
                          "active": 0});
     seatModel.append({"sid": 13,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "如 意 厅",
                          "active": 0});
     seatModel.append({"sid": 14,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "功 成 厅",
                          "active": 0});
     seatModel.append({"sid": 15,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "名 就 厅",
                          "active": 0});
     seatModel.append({"sid": 16,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "花 好 厅",
                          "active": 0});
     seatModel.append({"sid": 17,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "月 圆 厅",
                          "active": 0});
     seatModel.append({"sid": 18,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "福 禄 厅",
                          "active": 0});
     seatModel.append({"sid": 19,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "亨 通 厅",
                          "active": 0});
     seatModel.append({"sid": 20,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "荣 华 厅",
                          "active": 0});
     seatModel.append({"sid": 21,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "富 贵 厅",
                          "active": 0});
     seatModel.append({"sid": 22,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "财 寿 厅",
                          "active": 0});
     seatModel.append({"sid": 23,
-                         "cid": 1,
+                         "tid": 1,
                       "seat": "康 宁 厅",
                          "active": 0});
     seatModel.append({"sid": 24,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 001",
                          "active": 0});
     seatModel.append({"sid": 25,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 002",
                          "active": 0});
     seatModel.append({"sid": 26,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 003",
                          "active": 0});
     seatModel.append({"sid": 27,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 004",
                          "active": 0});
     seatModel.append({"sid": 28,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 005",
                          "active": 0});
     seatModel.append({"sid": 29,
-                         "cid": 2,
+                         "tid": 2,
                       "seat": "VIP 006",
                          "active": 0});
     seatModel.append({"sid": 30,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 001",
                          "active": 0});
     seatModel.append({"sid": 31,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 002",
                          "active": 0});
     seatModel.append({"sid": 32,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 003",
                          "active": 0});
     seatModel.append({"sid": 33,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 004",
                          "active": 0});
     seatModel.append({"sid": 34,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 005",
                          "active": 0});
     seatModel.append({"sid": 35,
-                         "cid": 3,
+                         "tid": 3,
                       "seat": "订 座 006",
                          "active": 0});
 }*/

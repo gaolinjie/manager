@@ -19,14 +19,14 @@ GridView {
             Tag {
                 id: tag
                 name: cate
-                visible: cid != -1
+                visible: tid != -1
                 z: 1
             }
 
             Image {
                 id: addTag
                 source: "qrc:/images/tag_add.png"
-                visible: cid == -1
+                visible: tid == -1
                 z: 1
 
                 MouseArea {
@@ -78,34 +78,34 @@ GridView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS categoryTagModel(cid INTEGER primary key, cate TEXT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS categoryTagModel(tid INTEGER primary key, cate TEXT)');
                     var rs = tx.executeSql('SELECT * FROM categoryTagModel');
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
                             var item = rs.rows.item(index);
-                            categoryTagModel.append({"cid": item.cid,
+                            categoryTagModel.append({"tid": item.tid,
                                               "cate": item.cate});
                             index++;
                         }
                     }
                     else {
-                        /*categoryTagModel.append({"cid": 0,
+                        /*categoryTagModel.append({"tid": 0,
                                           "cate": "特色"});
-                        categoryTagModel.append({"cid": 1,
+                        categoryTagModel.append({"tid": 1,
                                           "cate": "套餐"});
-                        categoryTagModel.append({"cid": 2,
+                        categoryTagModel.append({"tid": 2,
                                           "cate": "推荐"});
-                        categoryTagModel.append({"cid": 3,
+                        categoryTagModel.append({"tid": 3,
                                           "cate": "炒菜"});
-                        categoryTagModel.append({"cid": 4,
+                        categoryTagModel.append({"tid": 4,
                                           "cate": "干锅"});
-                        categoryTagModel.append({"cid": 5,
+                        categoryTagModel.append({"tid": 5,
                                           "cate": "凉菜"});
-                        categoryTagModel.append({"cid": 6,
+                        categoryTagModel.append({"tid": 6,
                                           "cate": "酒水"});*/
                     }
-                    categoryTagModel.append({"cid": -1,
+                    categoryTagModel.append({"tid": -1,
                                       "cate": ""});
                 }
             )
@@ -116,11 +116,11 @@ GridView {
             db.transaction(
                 function(tx) {
                     tx.executeSql('DROP TABLE categoryTagModel');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS categoryTagModel(cid INTEGER primary key, cate TEXT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS categoryTagModel(tid INTEGER primary key, cate TEXT)');
                     var index = 0;
-                    while (index < categoryTagModel.count && categoryTagModel.get(index).cid != -1) {
+                    while (index < categoryTagModel.count && categoryTagModel.get(index).tid != -1) {
                         var item = categoryTagModel.get(index);
-                        tx.executeSql('INSERT INTO categoryTagModel VALUES(?,?)', [item.cid, item.cate]);
+                        tx.executeSql('INSERT INTO categoryTagModel VALUES(?,?)', [item.tid, item.cate]);
                         index++;
                     }
                 }

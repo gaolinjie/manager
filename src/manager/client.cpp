@@ -22,21 +22,21 @@ Client::~Client()
     block = 0;
 }
 
-void Client::sendPaiedOrder(quint32 orderNO)
+void Client::sendPaiedOrder(QString oid)
 {
     block = new QByteArray();
     QDataStream out(block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_7);
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
-    query.addBindValue(orderNO);
+    query.prepare("SELECT * FROM orderListDB WHERE oid = ?");
+    query.addBindValue(oid);
     query.exec();
 
     QString mac;
     if (query.next())
     {
-        mac = query.value(2).toString();
+        mac = query.value(3).toString();
     }
 
     query.prepare("SELECT * FROM deviceDB WHERE mac = ?");
@@ -49,7 +49,7 @@ void Client::sendPaiedOrder(quint32 orderNO)
         ip = query.value(1).toString();
     }
 
-    out << quint16(0) << quint8('S') << orderNO << 0xFFFF;
+    out << quint16(0) << quint8('S') << oid << 0xFFFF;
 
     out.device()->seek(0);
     out << quint16(block->size() - sizeof(quint16));
@@ -235,72 +235,72 @@ void Client::syncMenu(const QString &ip)
     out << scnum << snum << cnum << inum;
 
     query.exec("SELECT * FROM seatTypeDB");
-    QString scid = "";
+    QString stid = "";
     QString scname = "";
     while (query.next()) {
-        scid = query.value(0).toString();
+        stid = query.value(0).toString();
         scname = query.value(1).toString();
-        out << scid << scname;
+        out << stid << scname;
     }
 
     query.exec("SELECT * FROM seatItemDB");
     QString sid = "";
-    scid = "";
+    stid = "";
     QString seat = "";
     scname = "";
     quint16 capacity = 0;
     while (query.next()) {
         sid = query.value(0).toString();
-        scid = query.value(1).toString();
+        stid = query.value(1).toString();
         seat = query.value(2).toString();
         scname = query.value(3).toString();
         capacity = query.value(4).toUInt();
-        out << sid << scid << seat << scname << capacity;
+        out << sid << stid << seat << scname << capacity;
     }
 
     query.exec("SELECT * FROM menuTypeDB");
-    QString cid = "";
-    QString title = "";
+    QString tid = "";
+    QString type = "";
     QString image = "";
     QString style = "";
     QString slotQml = "";
     QString backColor = "";
     QString foreColor = "";
     while (query.next()) {
-        cid = query.value(0).toString();
-        title = query.value(1).toString();
+        tid = query.value(0).toString();
+        type = query.value(1).toString();
         image = query.value(2).toString();
         image.remove(imagePath);
         style = query.value(3).toString();
         slotQml = query.value(4).toString();
         backColor = query.value(5).toString();
         foreColor = query.value(6).toString();        
-        out << cid << title << image << style
+        out << tid << type << image << style
             << slotQml << backColor << foreColor;
     }
 
     query.exec("SELECT * FROM menuItemDB");
     QString iid = 0;
-    QString tag = "";
+    type = "";
     QString name = "";
     QString detail = "";
-    quint16 needPrint = 0;
+    quint16 print = 0;
     QString printer = "";
     float price = 0;
     while (query.next()) {
         iid = query.value(0).toString();
-        cid = query.value(1).toString();
-        tag = query.value(2).toString();
+        tid = query.value(1).toString();
+        type = query.value(2).toString();
         name = query.value(3).toString();
         image = query.value(4).toString();
         image.remove(imagePath);
         detail = query.value(5).toString();
         price = query.value(6).toFloat();
-        needPrint = query.value(7).toUInt();
+        print = query.value(7).toUInt();
         printer = query.value(8).toString();
-        out << iid << cid << tag << name
+        out << iid << tid << type << name
             << image << detail << price
-            << needPrint << printer;
+            << print << printer;
     }
 
     out.device()->seek(0);

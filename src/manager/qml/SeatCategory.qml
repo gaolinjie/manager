@@ -42,14 +42,14 @@ ListView {
                      anchors.fill: parent
                      onClicked: {
                          for (var i = 0; i < seatCategory.model.count; i++) {
-                             if (seatCategory.model.get(i).scid == scid) {
+                             if (seatCategory.model.get(i).stid == stid) {
                                  seatCategory.model.setProperty(i, "active", 1);
                              }
                              else {
                                  seatCategory.model.setProperty(i, "active", 0);
                              }
                          }
-                         //Global.seatType = scid;
+                         //Global.seatType = stid;
                          //console.log(Global.seatType)
                          seatCategory.changeSeatType();
                      }
@@ -69,7 +69,7 @@ ListView {
                     anchors.fill: parent
                     onClicked: {
                         for (var i = 0; i < seatCategory.model.count; i++) {
-                            if (seatCategory.model.get(i).scid == scid) {
+                            if (seatCategory.model.get(i).stid == stid) {
                                 seatCategory.model.setProperty(i, "active", 1);
                             }
                             else {
@@ -100,7 +100,7 @@ ListView {
                         if (active == 1) {
                             seatView.contentModel.clear();
                             for (var i = 0; i < seatCategory.model.count; i++) {
-                                if (seatCategory.model.get(i).scid == scid) {
+                                if (seatCategory.model.get(i).stid == stid) {
                                     seatCategory.model.remove(i);
                                 }
                             }
@@ -111,7 +111,7 @@ ListView {
                         }
                         else {
                             for (var i = 0; i < seatCategory.model.count; i++) {
-                                if (seatCategory.model.get(i).scid == scid) {
+                                if (seatCategory.model.get(i).stid == stid) {
                                     seatCategory.model.remove(i);
                                 }
                             }
@@ -122,8 +122,8 @@ ListView {
                         var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
                         db.transaction(
                             function(tx) {
-                               tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, scid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
-                               tx.executeSql('DELETE FROM seatItemDB WHERE scid = ? ', [scid]);
+                               tx.executeSql('CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, stid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)');
+                               tx.executeSql('DELETE FROM seatItemDB WHERE stid = ? ', [stid]);
                             }
                         )
                     }
@@ -140,16 +140,16 @@ ListView {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(scid TEXT key, name TEXT, active INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(stid TEXT key, name TEXT, active INTEGER)');
                     var rs = tx.executeSql('SELECT * FROM seatTypeDB');
                     var index = 0;
                     if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
                             var item = rs.rows.item(index);
                             if (item.active == 1) {
-                                Global.seatType = item.scid;
+                                Global.seatType = item.stid;
                             }
-                            seatCategoryModel.append({"scid": item.scid,
+                            seatCategoryModel.append({"stid": item.stid,
                                                       "name": item.name,
                                                       "active": item.active});
                             index++;
@@ -164,11 +164,11 @@ ListView {
             db.transaction(
                 function(tx) {
                     tx.executeSql('DROP TABLE seatTypeDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(scid TEXT key, name TEXT, active INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS seatTypeDB(stid TEXT key, name TEXT, active INTEGER)');
                     var index = 0;
                     while (index < seatCategoryModel.count) {
                         var item = seatCategoryModel.get(index);
-                        tx.executeSql('INSERT INTO seatTypeDB VALUES(?,?,?)', [item.scid, item.name, item.active]);
+                        tx.executeSql('INSERT INTO seatTypeDB VALUES(?,?,?)', [item.stid, item.name, item.active]);
                         index++;
                     }
                 }

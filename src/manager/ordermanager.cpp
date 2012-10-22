@@ -5,33 +5,26 @@
 OrderManager::OrderManager(QObject *parent) :
     QObject(parent)
 {
+
 }
 
-void OrderManager::payOrder(quint32 orderNO)
+void OrderManager::payOrder(QString oid)
 {
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    query.prepare("UPDATE orderListDB SET pay = ? WHERE orderNO = ?");
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(oid TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.prepare("UPDATE orderListDB SET pay = ? WHERE oid = ?");
     query.addBindValue(1);
-    query.addBindValue(orderNO);
+    query.addBindValue(oid);
     query.exec();
 
-    emit pay(orderNO);
+    emit pay(oid);
 }
 
-/*bool  OrderManager::haveDataManualOrder()
-{
+QString  OrderManager::genManualOrder()
+{/*
+    QString oid;
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS manuaOrder(orderNO INTEGER key)");
-    query.exec("select * from student");
-    while ( query.next() ){return true;}
-    return false;
-}*/
-qint32  OrderManager::genManualOrder()
-{
-    qint32 orderNo;
-    QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS manuaOrder(orderNO INTEGER key)");
+    query.exec("CREATE TABLE IF NOT EXISTS manuaOrder(oid INTEGER key)");
     query.exec("select * from manuaOrder");
     while ( query.next() )
     {
@@ -40,7 +33,8 @@ qint32  OrderManager::genManualOrder()
         return orderNo;
     }
     orderNo = 900000000;
-    return orderNo;
+    return orderNo;*/
+    return "";
 }
 
 void OrderManager::saveManualOrder(qint32 orderNo)
@@ -62,21 +56,19 @@ void OrderManager::saveManualOrder(qint32 orderNo)
      }
 }
 
-QString OrderManager::getSeatName(QString seatID)
+quint32 OrderManager::getNextOrderNO()
 {
+    quint32 orderNO = 100000000;
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS seatItemDB(sid TEXT key, scid TEXT, seat TEXT, type TEXT, capacity INTEGER, active INTEGER)");
-    query.prepare("SELECT * FROM seatItemDB WHERE sid = ?");
-    query.addBindValue(seatID);
-    query.exec();
+    query.exec("CREATE TABLE IF NOT EXISTS orderListDB(oid TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    query.exec("SELECT MAX(orderNO) FROM orderListDB");
+    if (query.next()) {
+        if (!query.isNull(0)) {
+            orderNO = query.value(1).toUInt();
+            qDebug() << "ordermanager" << orderNO ;
+        }
+    }
 
-    if ( query.next() )
-    {
-        QString seatName = query.value(2).toString();
-        return seatName;
-    }
-    else
-    {
-        return "";
-    }
+    orderNO++;
+    return orderNO;
 }

@@ -51,13 +51,12 @@ ListView {
                     onPressed: {
                         wraper.ListView.view.currentIndex = index
                         Global.gitemIndex = index
-                   //     console.log(Global.orderNO);
                     }
                 }
 
                 Rectangle {
                     id: itemRect
-                    width: 300; height: 30
+                    width: 360; height: 30
                     radius: 8
                     anchors.left: parent.left; anchors.leftMargin: 35
                     anchors.verticalCenter: parent.verticalCenter
@@ -67,7 +66,7 @@ ListView {
                     border.width: 1
                     Rectangle{
                         id: itemOverRect
-                        width: 300; height: 30
+                        width: 360; height: 30
                         radius: 8
                         anchors.centerIn: parent
                         color: "#f4a83d"
@@ -78,8 +77,8 @@ ListView {
                         id: nameText
                         text: name
                         font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                        smooth: true
+                        font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 10
                         color: "black"
@@ -89,8 +88,8 @@ ListView {
                         id: priceText
                         text: price
                         font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                        smooth: true
+                        font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left; anchors.leftMargin: 120
                         color: "black"
@@ -100,10 +99,10 @@ ListView {
                         id: numberText
                         text: num
                         font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                        smooth: true
+                        font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left; anchors.leftMargin: 200
+                        anchors.left: parent.left; anchors.leftMargin: 230
                         color: "black"
                     }
 
@@ -111,10 +110,10 @@ ListView {
                         id: subtotalText
                         text: price * num
                         font.family: "微软雅黑"
-            smooth: true
-            font.pixelSize: 15
+                        smooth: true
+                        font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left; anchors.leftMargin: 255
+                        anchors.left: parent.left; anchors.leftMargin: 340
                         color: "black"
                     }
                     states: State {
@@ -131,15 +130,12 @@ ListView {
                     MouseArea {
                         anchors.fill: parent
                         onPressed: {
-                        //    wraper.ListView.view.model.remove(index)
-                        //    wraper.ListView.view.saveItemsData()
-                        //    wraper.ListView.view.updateOrderListData()
-                        //    console.log(Global.orderNo)
                             wraper.ListView.view.minusItemData()
                             wraper.ListView.view.updateOrderListData()
                         }
                     }
                 }
+
                 Image {
                     source: "qrc:/images/add.png"
                     width: 31; height: 31
@@ -149,7 +145,6 @@ ListView {
                     MouseArea {
                         anchors.fill: parent
                         onPressed: {
-                            //wraper.ListView.view.addItemData()
                             wraper.ListView.view.addItemData2()
                             wraper.ListView.view.loadItemsData()
                             wraper.ListView.view.currentIndex = Global.gitemIndex
@@ -159,34 +154,31 @@ ListView {
                  }
             }
         }
-////type: 是菜品的第一类别属性：如特色菜，普通菜，海鲜等  printname: 是菜品的第二类别属性：如凉菜、热菜、酒水等厨房打印属性
-////printbool: 是菜品是否需要打印到厨房    cookbool： 是菜品是否已经打印至厨房烹饪
+
         function loadItemsData() {
-            if (Global.orderNO == "") {
-               // return
-            }
             itemsModel.clear();
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             db.transaction(
                 function(tx) {
-                    //tx.executeSql('DROP TABLE orderItemDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT,printname TEXT,printbool INTEGER,cookbool INTEGER)');
-                    var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ?', [Global.orderNO]);
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(oid TEXT key, iid TEXT, tid TEXT, type TEXT, name TEXT, image TEXT, price REAL, print INTEGER, printer TEXT, num INTEGER)');
+                    var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE oid = ?', [Global.oid]);
                     var index = 0;
-                   // if (rs.rows.length > 0) {
+                    if (rs.rows.length > 0) {
                         while (index < rs.rows.length) {
                             var item = rs.rows.item(index);
-                            itemsModel.append({"orderNO": item.orderNO,
-                                               "name": item.name,
-                                               "price": item.price,
-                                               "num": item.num,
+                            itemsModel.append({"oid": item.oid,
+                                               "iid": item.iid,
+                                               "tid": item.tid,
                                                "type": item.type,
-                                              "printname": item.printname,
-                                              "printbool": item.printbool,
-                                              "cookbool": item.cookbool});
+                                               "name": item.name,
+                                               "image": item.image,
+                                               "price": item.price,
+                                               "print": item.print,
+                                               "num": item.num,});
 
                             index++;
                         }
+                    }
                 }
             )
             itemsList.currentIndex = 0;
@@ -197,16 +189,17 @@ ListView {
             db.transaction(
                 function(tx) {
                     tx.executeSql('DROP TABLE orderItemDB');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(orderNO INTEGER key,name TEXT, price REAL, num INTEGER, type TEXT, printname TEXT, printbool INTEGER, cookbool INTEGER)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS orderItemDB(oid TEXT key, iid TEXT, tid TEXT, type TEXT, name TEXT, image TEXT, price REAL, print INTEGER, printer TEXT, num INTEGER)');
                     var index = 0;
                     while (index < itemsModel.count) {
                         var item = itemsModel.get(index);
-                        tx.executeSql('INSERT INTO orderItemDB VALUES(?,?,?,?,?,?,?,?)', [item.orderNO, item.name, item.price, item.num,item.type,item.printname,item.printbool,item.cookbool]);
+                        tx.executeSql('INSERT INTO orderItemDB VALUES(?,?,?,?,?,?,?,?,?,?)', [item.oid, item.iid, item.tid, item.type, item.name, item.image, item.price, item.print, item.printer, item.num]);
                         index++;
                     }
                 }
             )
         }
+
         function updateItemsModelData() {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
             var fname = Global.gorderItemsName;
@@ -297,6 +290,7 @@ ListView {
                     }
               )
        }
+
        function addItemData2(){
              var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
              var  item = itemsModel.get(Global.gitemIndex);
@@ -335,32 +329,33 @@ ListView {
                 }
                 orderListUpdateSignal();
         }
+
         function mergeItemData() {
             var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
-           db.transaction(
-               function(tx) {
-               var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,1]);
-               var index = 0;
-               while  (index< rs.rows.length){
-                    var item=rs.rows.item(index);
-                    var  itemnum1 = parseInt(item.num);
-                    var rs1 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
-                    if (rs1.rows.length >0){
-                        var item1 = rs1.rows.item(0);
-                        var  itemnum2 = parseInt(item1.num);
-                        var itemnum = itemnum1 + itemnum2;
-                        tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,1]);
-                        tx.executeSql('DELETE FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
-                    }
-                    index++;
-             }
-             var rs2 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,0]);
-             index = 0;
-              while (index< rs2.rows.length){
-                  var item = rs2.rows.item(index);
-                  tx.executeSql('UPDATE orderItemDB SET cookbool = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [1,Global.orderNO,item.name,0]);
-                  index++;
+            db.transaction(
+                function(tx) {
+                var rs = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,1]);
+                var index = 0;
+                while  (index< rs.rows.length){
+                     var item=rs.rows.item(index);
+                     var  itemnum1 = parseInt(item.num);
+                     var rs1 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
+                     if (rs1.rows.length >0){
+                         var item1 = rs1.rows.item(0);
+                         var  itemnum2 = parseInt(item1.num);
+                         var itemnum = itemnum1 + itemnum2;
+                         tx.executeSql('UPDATE orderItemDB SET num = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [itemnum,Global.orderNO,item.name,1]);
+                         tx.executeSql('DELETE FROM orderItemDB WHERE orderNO = ? AND name = ? AND cookbool = ?', [Global.orderNO,item.name,0]);
+                     }
+                     index++;
               }
-           } )
+              var rs2 = tx.executeSql('SELECT * FROM orderItemDB WHERE orderNO = ? AND cookbool = ?', [Global.orderNO,0]);
+              index = 0;
+               while (index< rs2.rows.length){
+                   var item = rs2.rows.item(index);
+                   tx.executeSql('UPDATE orderItemDB SET cookbool = ? WHERE orderNO = ? AND name = ? AND cookbool = ?', [1,Global.orderNO,item.name,0]);
+                   index++;
+               }
+            } )
          }
 }

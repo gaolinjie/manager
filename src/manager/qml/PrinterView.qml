@@ -50,7 +50,7 @@ Item {
             id: viewTitle
             anchors.left: parent.left; anchors.top: parent.top
             anchors.leftMargin: 125; anchors.topMargin: 70
-            text: Global.title
+            text: Global.type
             font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 50

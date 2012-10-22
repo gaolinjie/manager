@@ -3,11 +3,13 @@ import "../js/global.js" as Global
 import "../js/calculator.js" as CalcEngine
 
 Image {
-    sourceSize.width: 1024
-    sourceSize.height: 768
+    id: background
+    width: 1280//1280
+    height: 800
     source: "qrc:/images/background2.png"
     clip: true
     anchors.centerIn: parent
+    //color: "#d54d34"
 
     Component.onCompleted: {
         //itemsListLoader.source = ''
@@ -81,6 +83,7 @@ Image {
             orderList.updateText()
         }
     }
+
     Connections {
         id: sumCategoryListConnect
         target: sumCategoryList
@@ -91,11 +94,11 @@ Image {
 
     Rectangle {
         id: header
-        width: 1024; height: 60
+        width: background.width; height: 60
         anchors.left: parent.left
         anchors.top: parent.top
         color: "black"
-        //opacity: 0.8
+        opacity: 0.8
 
         Image {
             id: logo
@@ -128,9 +131,10 @@ Image {
 
     Rectangle {
         id: ordersRect
-        width: 600; height: 400
+        width: 800//600;
+        height: 400
         x: 15
-        anchors.top: header.bottom; anchors.topMargin: 20
+        anchors.top: header.bottom; anchors.topMargin: 30
         color: "#e3e3e3"
         radius: 10
         smooth: true
@@ -223,7 +227,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: orderNO.top
-            anchors.left: orderNO.right; anchors.leftMargin: 75
+            anchors.left: orderNO.right; anchors.leftMargin: 100
             color: "grey"
         }
 
@@ -234,7 +238,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: seatNO.top
-            anchors.left: seatNO.right; anchors.leftMargin: 50
+            anchors.left: seatNO.right; anchors.leftMargin: 100
             color: "grey"
         }
 
@@ -245,7 +249,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: date.top
-            anchors.left: date.right; anchors.leftMargin: 65
+            anchors.left: date.right; anchors.leftMargin: 100
             color: "grey"
         }
 
@@ -256,7 +260,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: time.top
-            anchors.left: time.right; anchors.leftMargin: 70
+            anchors.left: time.right; anchors.leftMargin: 100
             color: "grey"
         }
 
@@ -267,7 +271,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: discount.top
-            anchors.left: discount.right; anchors.leftMargin: 55
+            anchors.left: discount.right; anchors.leftMargin: 100
             color: "grey"
         }
 
@@ -279,12 +283,11 @@ Image {
                 orderList.loadOrderList()
                 initialOrderList()
             }
-            //Component.onDestruction: orderList.saveOrderList()
         }
 
         Item  {
                id: ordersButton
-               width: 600; height: 60
+               width: 800; height: 60
                anchors.bottom: parent.bottom; anchors.bottomMargin: 0
                anchors.left: parent.left; anchors.leftMargin: 0
                //color: "#cd96cd"
@@ -293,7 +296,7 @@ Image {
                opacity: 1
                Button {
                    id: newOrderButton
-                   width: 280; height: 40
+                   width: 380; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
                    anchors.left:parent.left; anchors.leftMargin: 10
                    //color: 'red'
@@ -301,19 +304,19 @@ Image {
                    textSize: 16
 
                    onOperate: {
-                       newOrderDialog.x=620
-                       modifyOrderDialog.x=1100
-                       detailRect.x = 1100
-                       rightbord.x = 1100
-                       addMenuItem.y = 768
-                       leftbord.x = 15
+                       newOrderDialog.x=620+256-46
+                       modifyOrderDialog.x=1280
+                       //detailRect.x = 1100
+                       //rightbord.x = 1100
+                       addMenuItem.y = 800
+                       //leftbord.x = 15
                        Global.dialogTextNo=2
                        mainDiaJumpsignal()
                    }
                }
                Button {
                    id: modifyButton
-                   width: 280; height: 40
+                   width: 380; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
                    anchors.right:ordersButton.right; anchors.rightMargin: 10
                    //color: 'red'
@@ -321,12 +324,12 @@ Image {
                    textSize: 16
 
                    onOperate: {
-                       modifyOrderDialog.x=620
-                       newOrderDialog.x=1100
-                       detailRect.x = 1100
-                       rightbord.x = 1100
-                       addMenuItem.y = 768
-                       leftbord.x = 15
+                       modifyOrderDialog.x=620+256
+                       //newOrderDialog.x=1100
+                       //detailRect.x = 1100
+                       //rightbord.x = 1100
+                       addMenuItem.y = 800
+                       //leftbord.x = 15
                        Global.dialogTextNo = 2
                         mainDiaJumpsignal()
                    }
@@ -336,8 +339,10 @@ Image {
 
     Rectangle {
         id: detailRect
-        width: 380; height: 400
-        x: 630
+        width: 380+56; height: 400
+        //x: 630+200
+        anchors.left: ordersRect.right
+        anchors.leftMargin: 15
         anchors.top: ordersRect.top
         color: "#e3e3e3"
         radius: 10
@@ -368,7 +373,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: parent.top; anchors.topMargin: 30
-            anchors.left: parent.left; anchors.leftMargin: 40
+            anchors.left: parent.left; anchors.leftMargin: 34
             color: "grey"
         }
 
@@ -390,7 +395,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: price.top
-            anchors.left: price.right; anchors.leftMargin: 40
+            anchors.left: price.right; anchors.leftMargin: 80
             color: "grey"
         }
 
@@ -401,7 +406,7 @@ Image {
             smooth: true
             font.pixelSize: 15
             anchors.top: number.top
-            anchors.left: number.right; anchors.leftMargin: 30
+            anchors.left: number.right; anchors.leftMargin: 80
             color: "grey"
         }
 
@@ -415,7 +420,7 @@ Image {
 
         Item  {
                id: detailButton
-               width: 380; height: 60
+               width: 380+56; height: 60
                anchors.bottom: parent.bottom; anchors.bottomMargin: 0
                anchors.left: parent.left; anchors.leftMargin: 0
                //color: "#cd96cd"
@@ -424,7 +429,7 @@ Image {
                opacity: 1
                Button {
                    id: addButton
-                   width: 160; height: 40
+                   width: 160+28; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
                    anchors.left:parent.left; anchors.leftMargin: 20
                    //color: 'red'
@@ -433,8 +438,8 @@ Image {
 
                    onOperate: {
                         addMenuItem.y = 490
-                        rightbord.x = 1024
-                        leftbord.x = 1024
+                        rightbord.x = 1280
+                        leftbord.x = 1280
                        sumCategoryList.getCategoryList();
                        sumCategoryList.getCategoryModel();
                        sumCategoryList.getfistCategory();
@@ -442,7 +447,7 @@ Image {
                }
                Button {
                    id: cookButton
-                   width: 160; height: 40
+                   width: 160+28; height: 40
                    anchors.top:parent.top; anchors.topMargin: 5
                    anchors.right:parent.right; anchors.rightMargin: 20
                    //color: 'red'
@@ -459,13 +464,14 @@ Image {
 
     Item{
             id: rightbord
-            width: 380; height: 280
+            width: detailRect.width; height: 280
             opacity: 1
-            x: 630
+            anchors.left: detailRect.left
+            //x: 630
             anchors.top:  detailRect.bottom; anchors.topMargin: 0
             Rectangle {
                 id: dashbord
-                width: 380; height: 150
+                width: parent.width; height: 150
                 anchors.left: parent.left
                 anchors.top: parent.top; anchors.topMargin: 20
                 color: "black"
@@ -572,7 +578,7 @@ Image {
         anchors.top:  ordersRect.bottom; anchors.topMargin: 0
         Button {
             id: openCashboxButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: parent.left
             anchors.top: parent.top; anchors.topMargin: 20
             operation: "打开钱箱"
@@ -580,7 +586,7 @@ Image {
         }
         Button {
             id: lockSystemButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: openCashboxButton.right; anchors.leftMargin: 10
             anchors.top: openCashboxButton.top
             operation: "锁定系统"
@@ -593,7 +599,7 @@ Image {
 
         Button {
             id: settingsButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: parent.left
             anchors.top: openCashboxButton.bottom; anchors.topMargin: 10
             operation: "系统设置"
@@ -606,7 +612,7 @@ Image {
 
         Button {
             id: logoutButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: settingsButton.right; anchors.leftMargin: 10
             anchors.top: settingsButton.top
             operation: "注销系统"
@@ -615,7 +621,7 @@ Image {
 
         Button {
             id: changeDiscountButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: parent.left
             anchors.top: settingsButton.bottom; anchors.topMargin: 10
             operation: "修改折扣"
@@ -624,7 +630,7 @@ Image {
 
         Button {
             id: accountingButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: changeDiscountButton.right; anchors.leftMargin: 10
             anchors.top: changeDiscountButton.top
             operation: "核算收入"
@@ -633,7 +639,7 @@ Image {
 
         Button {
             id: testButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: parent.left
             anchors.top: changeDiscountButton.bottom; anchors.topMargin: 20
             operation: "设备测试"
@@ -642,7 +648,7 @@ Image {
 
         Button {
             id: printButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: testButton.right; anchors.leftMargin: 10
             anchors.top: testButton.top
             operation: "打印收据"
@@ -651,7 +657,7 @@ Image {
 
         Button {
             id: analyseButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: parent.left
             anchors.top: testButton.bottom; anchors.topMargin: 10
             operation: "销售分析"
@@ -660,7 +666,7 @@ Image {
 
         Button {
             id: othersButton
-            width: 295; height: 40
+            width: 395; height: 40
             anchors.left: analyseButton.right; anchors.leftMargin: 10
             anchors.top: analyseButton.top
             operation: "其他功能"
@@ -684,22 +690,22 @@ Image {
         id: cashDialog
         width: 600; height: 400
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 768
+        y: 800
         Connections {
             target: keyBoard
             onTextUpdatesignal: {
                  display.text = Global.gtextIn
             }
             onCancelsignal: {
-                cashDialog.y = 768
-                keyboardRect.y = 768
+                cashDialog.y = 800
+                keyboardRect.y = 800
                 foreground.visible = false
                 display.text = "0.0"
                 Global.gtextIn =""
             }
             onFinishsignal: {
-                cashDialog.y = 768
-                keyboardRect.y = 768
+                cashDialog.y = 800
+                keyboardRect.y = 800
                 //foreground.visible = false
                 Global.gtextIn =""
                 keyboardRect2.y = 400
@@ -810,7 +816,7 @@ Image {
         id: changeDialog
         width: 600; height: 400
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 768
+        y: 800
 
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
@@ -819,8 +825,8 @@ Image {
         Connections {
             target: keyBoard2
             onCancelsignal: {
-                changeDialog.y = 768
-                keyboardRect2.y = 768
+                changeDialog.y = 800
+                keyboardRect2.y = 800
                 foreground.visible = false
                 display.text = "0.0"
             }
@@ -942,8 +948,8 @@ Image {
                 Global.giveMoney = tendered2.text
                 Global.changeMoney = change.text
                 printOrder.printMenutoForeground(Global.orderNO,Global.renderMoney,Global.giveMoney,Global.changeMoney)
-                changeDialog.y = 768
-                keyboardRect2.y = 768
+                changeDialog.y = 800
+                keyboardRect2.y = 800
                 foreground.visible = false
                 display.text = "0.0"
                //CalcEngine.lastOp = ""
@@ -963,7 +969,7 @@ Image {
         id: cardDialog
         width: 600; height: 400
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 768
+        y: 800
 
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
@@ -1035,7 +1041,7 @@ Image {
             color: "green"
 
             onOperate: {
-                cardDialog.y = 768
+                cardDialog.y = 800
                 foreground.visible = false
             }
         }
@@ -1045,7 +1051,7 @@ Image {
         id: keyboardRect
         width: parent.width; height: 368
         color: "#343434";
-        y: 768
+        y: 800
 
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
@@ -1063,7 +1069,7 @@ Image {
         id: keyboardRect2
         width: parent.width; height: 368
         color: "#343434";
-        y: 768
+        y: 800
 
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
@@ -1075,33 +1081,33 @@ Image {
             anchors.centerIn: parent
         }
     }
+
     Item {
         id: addMenuItem
-        width: 1024; height: 278
-        y:768
+        width: 1280; height: 278
+        y:800
         opacity: 1
         Behavior on y {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint }
         }
         Rectangle{
-            width: 1024; height: 278
+            width: 1280; height: 278
             opacity: 1
             color:"black"
         }
 
         AddMenuGrid{
             id: addMenuGrid
-           // signal addsignal(string lname, double lprice, int ltype)
             anchors.left: parent.left; anchors.leftMargin: 10
             anchors.top: parent.top; anchors.topMargin: 15
-           //Component.onCompleted: addMenuGrid.loadSumMenuData()
-           // Component.onDestruction: addMenuGrid.saveSumMenuData()  //此时保存的可能只是一种类型的数据，因此不能保存
         }
+
         Rectangle{
         id: addTitle
-        width: 1024; height: 50
+        width: 1280; height: 50
         anchors.right: parent.right; anchors.rightMargin: 0
         anchors.bottom: parent.bottom; anchors.bottomMargin: 0
+
         Rectangle {
             id: titleBackground
             anchors.fill: addTitle; radius: 0; color: "black"; opacity: 1
@@ -1114,7 +1120,7 @@ Image {
                }
         SumCategoryList{
              id: sumCategoryList
-             width: 1024-addBackButton.width; height: 48
+             width: 1280-addBackButton.width; height: 48
              anchors.left: parent.left
              anchors.bottom: parent.bottom
              Component.onCompleted: {
@@ -1136,7 +1142,7 @@ Image {
                 }
                 onReleased: {
                     addBackButton.source = "qrc:/images/left-Yellow.png"
-                    addMenuItem.y = 768
+                    addMenuItem.y = 800
                     rightbord.x = 630
                     leftbord.x = 15
                  //  addMenuGrid.saveSumMenuData()
@@ -1149,7 +1155,7 @@ Image {
 
     OrderDialogRect{
         id: newOrderDialog
-        x: 1024;y:70
+        x: 1280;y:70
         property string title: "新建订单"
         property int orderNo: 1
         property string seat: ""
@@ -1159,19 +1165,20 @@ Image {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint}
         }
         onToMaincancel:{
-            newOrderDialog.x = 1024
+            newOrderDialog.x = 1280
             detailRect.x = 630
             rightbord.x = 630
         }
         onTonewMainfinish:{
-            newOrderDialog.x = 1024
+            newOrderDialog.x = 1280
             detailRect.x = 630
             rightbord.x = 630
         }
     }
+
     OrderDialogRect{
         id: modifyOrderDialog
-        x: 1024;y:70
+        x: 1280;y:70
         property string title: "修改订单"
         property int orderNo: 1
         property string seat: ""
@@ -1181,12 +1188,12 @@ Image {
             NumberAnimation { duration: 400; easing.type: Easing.OutQuint }
         }
         onToMaincancel:{
-            modifyOrderDialog.x = 1024
+            modifyOrderDialog.x = 1280
             detailRect.x = 630
             rightbord.x = 630
         }
         onTomodifyMainfinish:{
-            modifyOrderDialog.x = 1024
+            modifyOrderDialog.x = 1280
             detailRect.x = 630
             rightbord.x = 630
         }

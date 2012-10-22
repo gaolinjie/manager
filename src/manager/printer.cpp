@@ -102,7 +102,7 @@ void Printer::printMenutoPdf(QStringList menu) {
 }
 
 void Printer::printMenutoKitchen(quint32 orderNum){
-    quint32 mOrderNum = orderNum;
+    /*QString mOrderNum = orderNum; //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     QString m_htmlhead;
     QString m_htmlbody="";
     QString m_htmlfinal="";
@@ -113,20 +113,19 @@ void Printer::printMenutoKitchen(quint32 orderNum){
     QString m_time = QDateTime::currentDateTime().toString("yy-MM-dd hh:mm:ss");
     QString m_opeartor = QObject::tr("詹姆斯"); //get from POS
     int m_seatNo = 0;
-  //  float discount = 0;
 
     //通过orderNum来查询orderListDB表中的座位号
-    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderNO INTEGER key, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
-    queryOrderList.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
-    queryOrderList.addBindValue(mOrderNum);
+    queryOrderList.exec("CREATE TABLE IF NOT EXISTS orderListDB(orderID TEXT key, orderNO INTEGER, seat TEXT, mac TEXT, date DATE, time TIME, discount REAL, total REAL, pay INTEGER)");
+    queryOrderList.prepare("SELECT * FROM orderListDB WHERE orderID = ?");
+    queryOrderList.addBindValue(mOrderID);
     queryOrderList.exec();
+
     // 为厨房创建菜单，只包括订单号、座位号、菜名和对应的数量
     m_htmlhead += "<h2 align=\"center\"><font size=\"+1\">" + QObject::tr("订单号: ")  + QString::number(mOrderNum)  + "</font></h2>";
     m_htmlhead += "<div align=\"center\"><font size=\"+0\">" + QObject::tr("交易时间: ") + m_time + "</font></div>";
 
     if(queryOrderList.next()){
-        m_seatNo = queryOrderList.value(1).toInt();
-     //   discount =   queryOrderList.value(5).toFloat();
+        m_seatNo = queryOrderList.value(2).toString();
     }
     m_htmlhead += "<div align=\"center\"><font size=\"+0\">" + QObject::tr("座位号: ") + QString::number(m_seatNo)
               + "</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -138,11 +137,6 @@ void Printer::printMenutoKitchen(quint32 orderNum){
     m_htmlfinal += "</table>";
     m_htmlfinal += "<hr  width=\"90%\" size=\"15\">";
 
-    //debug: to get available printer in local area
-//        QString m_printers = printerList();
-//        qDebug(m_printers.toUtf8());
-
-    //find the wanted network printer to print
     QPrinterInfo printerInfo = QPrinterInfo();
     QPrinterInfo targetPrinterInfo = QPrinterInfo();
     foreach(QPrinterInfo item, printerInfo.availablePrinters()){
@@ -177,8 +171,7 @@ void Printer::printMenutoKitchen(quint32 orderNum){
            m_textDocument.print(&m_printer);
 
         }
-        //else qDebug("789");
-    }
+    }*/
 }
 
 void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QString giveMoney, QString changeMoney){
@@ -200,6 +193,7 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
     queryOrderList.prepare("SELECT * FROM orderListDB WHERE orderNO = ?");
     queryOrderList.addBindValue(mOrderNum);
     queryOrderList.exec();
+
     // 为厨房创建菜单，只包括订单号、座位号、菜名和对应的数量
     m_html += "<h2 align=\"center\"><font size=\"+1\">" + QObject::tr("订单号: ")  + QString::number(mOrderNum)  + "</font></h2>";
     m_html += "<div align=\"center\"><font size=\"+0\">" + QObject::tr("交易时间: ") + m_time + "</font></div>";
@@ -262,13 +256,9 @@ void Printer::printMenutoForeground(quint32 orderNum, QString renderMoney, QStri
     }
 
     QPrinter m_printer(targetPrinterInfo, QPrinter::HighResolution);
-    //QPrinter  m_printer(QPrinter::HighResolution);
-
-    //m_printer.setOutputFormat(QPrinter::NativeFormat);
-    //m_printer.setOutputFileName("/home/ljl/Kitchen1.pdf");
 
     QTextDocument m_textDocument;
-    m_textDocument.setHtml(m_html); //QTextDocument::setPlainText(const QString &text)
+    m_textDocument.setHtml(m_html);
     m_textDocument.setPageSize(QSizeF(m_printer.logicalDpiX()*(30/25.4),
                                   m_printer.logicalDpiY()*(115/25.4)));
     m_textDocument.print(&m_printer);
@@ -280,19 +270,18 @@ QString Printer::printerList() {
     query.exec("DROP TABLE printerActualListData");
     query.exec("CREATE TABLE IF NOT EXISTS printerActualListData(printerActualName TEXT)");
     QPrinterInfo printerInfo = QPrinterInfo();
-       foreach (QPrinterInfo item, printerInfo.availablePrinters()){
-           if( item.printerName() == "Microsoft XPS Document Writer" || item.printerName() == "Fax")
-           {}
-           else
-           {
-               query.prepare("INSERT INTO printerActualListData(printerActualName) VALUES(?)");
-               query.addBindValue( item.printerName() );
-               query.exec();
-           }
-           printersName.append(item.printerName() + "\n");
-       }
-    /*   query.prepare("INSERT INTO printerActualListData(printerActualName) VALUES(?)");
-       query.addBindValue( "None" );
-       query.exec();*/
-     return printersName;
+
+    foreach (QPrinterInfo item, printerInfo.availablePrinters()){
+        if( item.printerName() == "Microsoft XPS Document Writer" || item.printerName() == "Fax")
+        {}
+        else
+        {
+            query.prepare("INSERT INTO printerActualListData(printerActualName) VALUES(?)");
+            query.addBindValue( item.printerName() );
+            query.exec();
+        }
+        printersName.append(item.printerName() + "\n");
+    }
+
+    return printersName;
 }

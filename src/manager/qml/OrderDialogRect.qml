@@ -140,7 +140,7 @@ Item {
         id: textIn2
         titleText: "座号："
         inText: ""
-        textNo: seat
+        //textNo: seat //?????????????????????????
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: textIn1.bottom; anchors.topMargin: 20
     }

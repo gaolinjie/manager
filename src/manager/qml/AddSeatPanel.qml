@@ -275,9 +275,9 @@ Item {
                                 for (var i = 0; i < seatCategory.model.count; i++) {
                                     seatCategory.model.setProperty(i, "active", 0);
                                 }
-                                var newscid = idManager.createID();;
-                                seatCategory.model.insert(index, {"scid": newscid, "name": typeNameTextEdit.text, "active": 1});
-                                //Global.seatType = newscid;
+                                var newstid = idManager.createID();;
+                                seatCategory.model.insert(index, {"stid": newstid, "name": typeNameTextEdit.text, "active": 1});
+                                //Global.seatType = newstid;
                                 seatCategory.changeSeatType();
                             }
                             else if (addPanel.state == "edittype") {
@@ -299,7 +299,7 @@ Item {
                                 }
                                 var index = seatView.contentModel.count;
                                 var newsid = idManager.createID();;
-                                seatView.contentModel.insert(index, {"sid": newsid, "scid": Global.seatType, "seat": seatNameTextEdit.text, "type": st, "capacity": seatCapacityTextEdit.text, "active": 1});
+                                seatView.contentModel.insert(index, {"sid": newsid, "stid": Global.seatType, "seat": seatNameTextEdit.text, "type": st, "capacity": seatCapacityTextEdit.text, "active": 1});
                             }
                             else if (addPanel.state == "editseat") {
                                 var index = 0;

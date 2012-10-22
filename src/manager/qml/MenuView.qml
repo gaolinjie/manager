@@ -114,7 +114,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    addPanel.rectCid = Global.checkedCid;
+                    addPanel.rectTid = Global.checkedTid;
                     refreshEdit();
                     addPanel.state = "edit";
                     addPanel.x = 880;
@@ -144,7 +144,7 @@ Item {
                 onClicked: {
                     var index = 0;
                     while (index < menuGrid.model.count) {
-                        if (menuGrid.checkedIndex == menuGrid.model.get(index).cid) {
+                        if (menuGrid.checkedIndex == menuGrid.model.get(index).tid) {
                             menuGrid.model.remove(index);
                             deleteItemsData(menuGrid.checkedIndex);
                             break;
@@ -158,12 +158,12 @@ Item {
                     syncManager.setSyncOn();
                 }
 
-                function deleteItemsData(cidDeleted) {
+                function deleteItemsData(tidDeleted) {
                     var db = openDatabaseSync("DemoDB", "1.0", "Demo Model SQL", 50000);
                     db.transaction(
                         function(tx) {
-                            tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, cid TEXT, tag TEXT, name TEXT, image TEXT, detail TEXT, price REAL, needPrint INTEGER, printer TEXT)');
-                            tx.executeSql('DELETE FROM menuItemDB WHERE cid = ? ', [cidDeleted]);
+                            tx.executeSql('CREATE TABLE IF NOT EXISTS menuItemDB(iid TEXT primary key, tid TEXT, type TEXT, name TEXT, image TEXT, detail TEXT, price REAL, print INTEGER, printer TEXT)');
+                            tx.executeSql('DELETE FROM menuItemDB WHERE tid = ? ', [tidDeleted]);
                         }
                     )
                 }

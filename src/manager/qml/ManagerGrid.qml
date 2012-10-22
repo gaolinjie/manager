@@ -44,11 +44,11 @@ ListView {
                             var component;
                             if (style == "IMAGE_RECT") {
                                 component = Qt.createComponent("ImageRect.qml");
-                                component.createObject(wraper, {"iconSource": image, "iconTitle": title});
+                                component.createObject(wraper, {"iconSource": image, "iconTitle": type});
                             }
                             else {
                                 component = Qt.createComponent("IconRect.qml");
-                                component.createObject(wraper, {"iconSource": image, "iconTitle": title});
+                                component.createObject(wraper, {"iconSource": image, "iconTitle": type});
                             }
                         }
                     }
@@ -64,7 +64,7 @@ ListView {
             segment: 0
             column: [
                 ListElement {
-                    title: "收 银"
+                    type: "收 银"
                     style: "ICON_RECT"
                     image: "qrc:/images/dollar_currency_sign.png"
                     backColor: "#4eb3b9"
@@ -72,7 +72,7 @@ ListView {
                     slotQml: "CashierView.qml"
                 },
                 ListElement {
-                    title: "菜 单"
+                    type: "菜 单"
                     style: "ICON_RECT"
                     image: "qrc:/images/address_book.png"
                     backColor: "#de9317"
@@ -80,7 +80,7 @@ ListView {
                     slotQml: "MenuView.qml"
                 },
                 ListElement {
-                    title: "座 位"
+                    type: "座 位"
                     style: "ICON_RECT"
                     image: "qrc:/images/map_pin.png"
                     backColor: "#d54d34"
@@ -93,7 +93,7 @@ ListView {
             segment: 0
             column: [
                 ListElement {
-                    title: "打 印"
+                    type: "打 印"
                     style: "ICON_RECT"
                     image: "qrc:/images/print.png"
                     backColor: "#5859b9"
@@ -101,7 +101,7 @@ ListView {
                     slotQml: "PrinterView.qml"
                 },
                 ListElement {
-                    title: "会 员"
+                    type: "会 员"
                     style: "ICON_RECT"
                     image: "qrc:/images/users.png"
                     backColor: "#96b232"
@@ -109,7 +109,7 @@ ListView {
                     slotQml: "comingsoon.qml"
                 },
                 ListElement {
-                    title: "统 计"
+                    type: "统 计"
                     style: "ICON_RECT"
                     image: "qrc:/images/chart.png"
                     backColor: "#6e155f"
@@ -122,7 +122,7 @@ ListView {
             segment: 0
             column: [
                 ListElement {
-                    title: "设 置"
+                    type: "设 置"
                     style: "ICON_RECT"
                     image: "qrc:/images/process.png"
                     backColor: "#034888"
@@ -130,7 +130,7 @@ ListView {
                     slotQml: "comingsoon.qml"
                 },
                 ListElement {
-                    title: "同 步"
+                    type: "同 步"
                     style: "ICON_RECT"
                     image: "qrc:/images/refresh.png"
                     backColor: "#9061C2"

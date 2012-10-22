@@ -16,7 +16,6 @@ public:
     Q_INVOKABLE QString getTime();
     Q_INVOKABLE QString getWeek();
 
-
 public:
     QTimer *timer;
     QDateTime datatime;
@@ -28,12 +27,8 @@ public:
 
 signals:
 
-
 public slots:
     void timerUpDate();
-
-
-
 };
 
 #endif

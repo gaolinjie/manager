@@ -6,7 +6,7 @@ Item {
     id: addPanel
     width: 400
     height: 800
-    property string rectCid: ""
+    property string rectTid: ""
 
     Connections{
         target: menuView
@@ -238,14 +238,14 @@ Item {
                         else {
                             if (addPanel.state == "new") {
                                 var index = menuGrid.model.count - 1;
-                                var newcid = idManager.createID();
-                                menuGrid.model.insert(index, {"cid": newcid, "title": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
+                                var newtid = idManager.createID();
+                                menuGrid.model.insert(index, {"tid": newtid, "type": nameTextEdit.text, "image": "", "style": "IMAGE_RECT", "slotQml": "qrc:/qml/ItemsView.qml", "backColor": backEdit.color, "foreColor": foreEdit.color});
                             }
                             else if (addPanel.state == "edit") {
                                 var index = 0;
                                 while (index < menuGrid.model.count) {
-                                    if (menuGrid.model.get(index).cid == addPanel.rectCid) {
-                                        menuGrid.model.get(index).title = nameTextEdit.text;
+                                    if (menuGrid.model.get(index).tid == addPanel.rectTid) {
+                                        menuGrid.model.get(index).type = nameTextEdit.text;
                                         menuGrid.model.get(index).backColor = backEdit.color;
                                         menuGrid.model.get(index).foreColor = foreEdit.color;
                                         break;

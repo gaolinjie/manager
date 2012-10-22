@@ -13,7 +13,7 @@ Item {
     Connections{
         target: grid
         onClickedRect: {
-            if (rectId == cid) {
+            if (rectId == tid) {
                 //Global.backColor = backColor
                 //Global.foreColor = foreColor
                 //Global.title = title
@@ -29,7 +29,7 @@ Item {
                 Global.checkedDetail = detail;
                 Global.checkedImage = image;
                 Global.checkedIid = iid;
-                Global.checkedNeedPrint = needPrint==1 ? true : false;
+                Global.checkedNeedPrint = print==1 ? true : false;
                 Global.checkedPrinter = printer;
             }
             else {

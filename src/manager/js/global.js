@@ -1,15 +1,15 @@
 .pragma library
 
-var cid = ""
+var tid = ""
+var type = ""
 var backColor = "#4eb3b9"
 var foreColor = "#96b232"
-var title = ""
 var seatType = 3
 
 var checkedBackColor = ""
 var checkedForeColor = ""
 var checkedTitle = ""
-var checkedCid = -1
+var checkedTid = -1
 var checkedIid = -1
 
 var mouseHolding = 0
@@ -25,8 +25,8 @@ var selectedPrinter = 0;
 
 
 //--------Colorful------------
-var orderNO="0"
-var oldorderNO=""
+var oid=""
+var oldoid=""
 var displayText = ""
 var pay = "0"
 var addMenuType = 1

@@ -13,23 +13,24 @@ Rectangle {
     Connections{
         target: grid
         onClickedRect: {
-            console.log("onClickedRect" + cid)
-            if (rectId == cid) {
+            console.log("onClickedRect" + tid)
+            if (rectId == tid) {
                 Global.backColor = backColor;
                 Global.foreColor = foreColor;
-                Global.title = title;
-                Global.cid = cid;
+                Global.type = type;
+                Global.tid = tid;
+                Global.type = type;
                 loadRect(slotQml);
             }
         }
         onPressAndHoldRect: {          
-            if (rectId == cid) {
+            if (rectId == tid) {
                 addPanel.x = 1280;
                 checkRect.visible = true;
                 Global.checkedBackColor = backColor;
                 Global.checkedForeColor = foreColor;
-                Global.checkedTitle = title;
-                Global.checkedCid = cid;
+                Global.checkedTitle = type;
+                Global.checkedTid = tid;
             }
             else {
                 bx.enabled = true;
@@ -65,7 +66,7 @@ Rectangle {
         id: text
         x: 40
         anchors.verticalCenter: titleRect.verticalCenter
-        text: title
+        text: type
         font.family: "微软雅黑"
         font.pixelSize: 20
         color: "white"
@@ -95,7 +96,7 @@ Rectangle {
     Behavior on y { id: by; enabled: false; NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
 
     states: State {
-        name: "active"; when: loc.currentId == cid
+        name: "active"; when: loc.currentId == tid
         PropertyChanges { target: rect; x: loc.mouseX - width/2; y: loc.mouseY - height/2; scale: 0.7; z: 10 }
     }
     transitions: Transition { NumberAnimation { property: "scale"; duration: 200} }

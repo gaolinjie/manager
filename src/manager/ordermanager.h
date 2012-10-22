@@ -9,16 +9,15 @@ class OrderManager : public QObject
 public:
     explicit OrderManager(QObject *parent = 0);
 
-//    Q_INVOKABLE bool haveDataManualOrder();
-    Q_INVOKABLE qint32  genManualOrder();
+    Q_INVOKABLE QString  genManualOrder();
     Q_INVOKABLE void  saveManualOrder(qint32 orderNo);
 
 signals:
-    void pay(quint32 orderNO);
+    void pay(QString oid);
 
 public slots:
-    void payOrder(quint32 orderNO);
-    QString getSeatName(QString seatID);
+    void payOrder(QString oid);
+    static quint32 getNextOrderNO();
 };
 
 #endif // ORDERMANAGER_H

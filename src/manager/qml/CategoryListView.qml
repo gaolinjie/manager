@@ -14,7 +14,7 @@ ListView {
         id: categoryDelegate
         Text {
             id: categoryName
-            text: title
+            text: type
             font.family: "微软雅黑"
             smooth: true
             font.pixelSize: 15
@@ -28,8 +28,8 @@ ListView {
                 onClicked: {
                     categoryListView.parent.visible = false;
                     categoryTagGrid.model.remove(categoryTagGrid.model.count-1);
-                    categoryTagGrid.model.append({"cid": cid, "cate": title});
-                    categoryTagGrid.model.append({"cid": -1, "cate": ""});
+                    categoryTagGrid.model.append({"tid": tid, "cate": type});
+                    categoryTagGrid.model.append({"tid": -1, "cate": ""});
                 }
                 onReleased: {
                     categoryName.color = "white"

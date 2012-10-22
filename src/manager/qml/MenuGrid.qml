@@ -37,15 +37,15 @@ GridView {
         id: loc
         anchors.fill: parent
         onClicked: {
-            clickedRect(grid.model.get(index).cid)
-            //console.log("clickedRect" + grid.model.get(index).cid)
+            clickedRect(grid.model.get(index).tid)
+            //console.log("clickedRect" + grid.model.get(index).tid)
         }
         onPressAndHold: {
             Global.mouseHolding = 1;
             if (flick.interactive == true) {
                 flick.interactive = false;
             }
-            currentId = grid.model.get(newIndex = index).cid;
+            currentId = grid.model.get(newIndex = index).tid;
             console.log("clickedRect" + currentId)
             grid.checkedIndex = currentId;
             pressAndHoldRect(currentId);

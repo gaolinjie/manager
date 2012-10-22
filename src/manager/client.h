@@ -19,7 +19,7 @@ signals:
     
 public slots:
     void syncMenu(const QString &ip);
-    void sendPaiedOrder(quint32 orderNO);
+    void sendPaiedOrder(QString oid);
     void sendDeviceNO(quint32 deviceNO);
 
 private slots:
